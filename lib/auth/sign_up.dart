@@ -23,9 +23,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
   String _emailAddress = '';
   String _password = '';
   String _fullName = '';
-  int _phoneNumber;
-  File _pickedImage;
-  String url;
+  int? _phoneNumber;
+  File? _pickedImage;
+  String? url;
   final _formKey = GlobalKey<FormState>();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   GlobalMethods _globalMethods = GlobalMethods();
