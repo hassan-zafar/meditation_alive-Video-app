@@ -1,4 +1,4 @@
-import 'package:ECommerceApp/models/favs_attr.dart';
+import 'package:meditation_alive/models/favs_attr.dart';
 import 'package:flutter/cupertino.dart';
 
 class FavsProvider with ChangeNotifier {

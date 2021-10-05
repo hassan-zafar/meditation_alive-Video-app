@@ -42,4 +42,6 @@ class Product with ChangeNotifier {
         productCategoryName: doc.data()["productCategory"],
         isPopular: true);
   }
+
+  get id => null;
 }
