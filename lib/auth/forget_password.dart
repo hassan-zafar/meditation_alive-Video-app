@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:meditation_alive/services/global_method.dart';
+import 'package:meditation_alive/widgets/commonWidgets.dart';
 
 class ForgetPassword extends StatefulWidget {
   static const routeName = '/ForgetPassword';
@@ -18,28 +19,21 @@ class _ForgetPasswordState extends State<ForgetPassword> {
   GlobalMethods _globalMethods = GlobalMethods();
   bool _isLoading = false;
   void _submitForm() async {
-    final isValid = _formKey.currentState.validate();
+    final isValid = _formKey.currentState!.validate();
     FocusScope.of(context).unfocus();
     if (isValid) {
       setState(() {
         _isLoading = true;
       });
-      _formKey.currentState.save();
+      _formKey.currentState!.save();
       try {
         await _auth
             .sendPasswordResetEmail(email: _emailAddress.trim().toLowerCase())
-            .then((value) => Fluttertoast.showToast(
-                msg: "An email has been sent",
-                toastLength: Toast.LENGTH_SHORT,
-                gravity: ToastGravity.CENTER,
-                timeInSecForIosWeb: 1,
-                backgroundColor: Colors.red,
-                textColor: Colors.white,
-                fontSize: 16.0));
+            .then((value) => messageToast("An email has been sent"));
 
         Navigator.canPop(context) ? Navigator.pop(context) : null;
       } catch (error) {
-        _globalMethods.authErrorHandle(error.message, context);
+        _globalMethods.authErrorHandle(error.toString(), context);
         // print('error occured ${error.message}');
       } finally {
         setState(() {
@@ -74,7 +68,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
               child: TextFormField(
                 key: ValueKey('email'),
                 validator: (value) {
-                  if (value.isEmpty || !value.contains('@')) {
+                  if (value!.isEmpty || !value.contains('@')) {
                     return 'Please enter a valid email address';
                   }
                   return null;
@@ -88,7 +82,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                     labelText: 'Email Address',
                     fillColor: Theme.of(context).backgroundColor),
                 onSaved: (value) {
-                  _emailAddress = value;
+                  _emailAddress = value!;
                 },
               ),
             ),

@@ -1,8 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
+import 'package:meditation_alive/consts/colors.dart';
+import 'package:meditation_alive/services/global_method.dart';
 import 'package:wave/config.dart';
 import 'package:wave/wave.dart';
+
+import 'forget_password.dart';
 
 class LoginScreen extends StatefulWidget {
   static const routeName = '/LoginScreen';
@@ -26,13 +29,13 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _submitForm() async {
-    final isValid = _formKey.currentState.validate();
+    final isValid = _formKey.currentState!.validate();
     FocusScope.of(context).unfocus();
     if (isValid) {
       setState(() {
         _isLoading = true;
       });
-      _formKey.currentState.save();
+      _formKey.currentState!.save();
       try {
         await _auth
             .signInWithEmailAndPassword(
@@ -41,8 +44,8 @@ class _LoginScreenState extends State<LoginScreen> {
             .then((value) =>
                 Navigator.canPop(context) ? Navigator.pop(context) : null);
       } catch (error) {
-        _globalMethods.authErrorHandle(error.message, context);
-        print('error occured ${error.message}');
+        _globalMethods.authErrorHandle(error.toString(), context);
+        print('error occured ${error.toString()}');
       } finally {
         setState(() {
           _isLoading = false;
@@ -111,7 +114,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: TextFormField(
                             key: ValueKey('email'),
                             validator: (value) {
-                              if (value.isEmpty || !value.contains('@')) {
+                              if (value!.isEmpty || !value.contains('@')) {
                                 return 'Please enter a valid email address';
                               }
                               return null;
@@ -127,7 +130,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 labelText: 'Email Address',
                                 fillColor: Theme.of(context).backgroundColor),
                             onSaved: (value) {
-                              _emailAddress = value;
+                              _emailAddress = value!;
                             },
                           ),
                         ),
@@ -136,7 +139,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: TextFormField(
                             key: ValueKey('Password'),
                             validator: (value) {
-                              if (value.isEmpty || value.length < 7) {
+                              if (value!.isEmpty || value.length < 7) {
                                 return 'Please enter a valid Password';
                               }
                               return null;
@@ -160,7 +163,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 labelText: 'Password',
                                 fillColor: Theme.of(context).backgroundColor),
                             onSaved: (value) {
-                              _password = value;
+                              _password = value!;
                             },
                             obscureText: _obscureText,
                             onEditingComplete: _submitForm,
@@ -217,7 +220,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           width: 5,
                                         ),
                                         Icon(
-                                          Feather.user,
+                                          Icons.verified_user_outlined,
                                           size: 18,
                                         )
                                       ],

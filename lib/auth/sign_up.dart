@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:meditation_alive/consts/colors.dart';
+import 'package:meditation_alive/services/global_method.dart';
 import 'package:wave/config.dart';
 import 'package:wave/wave.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -39,13 +41,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   void _submitForm() async {
-    final isValid = _formKey.currentState.validate();
+    final isValid = _formKey.currentState!.validate();
     FocusScope.of(context).unfocus();
     var date = DateTime.now().toString();
     var dateparse = DateTime.parse(date);
     var formattedDate = "${dateparse.day}-${dateparse.month}-${dateparse.year}";
     if (isValid) {
-      _formKey.currentState.save();
+      _formKey.currentState!.save();
       try {
         if (_pickedImage == null) {
           _globalMethods.authErrorHandle('Please pick an image', context);
@@ -57,13 +59,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
               .ref()
               .child('usersImages')
               .child(_fullName + '.jpg');
-          await ref.putFile(_pickedImage);
+          await ref.putFile(_pickedImage!);
           url = await ref.getDownloadURL();
           await _auth.createUserWithEmailAndPassword(
               email: _emailAddress.toLowerCase().trim(),
               password: _password.trim());
-          final User user = _auth.currentUser;
-          final _uid = user.uid;
+          final User? user = _auth.currentUser;
+          final _uid = user!.uid;
           user.updateProfile(photoURL: url, displayName: _fullName);
           user.reload();
           await FirebaseFirestore.instance.collection('users').doc(_uid).set({
@@ -78,8 +80,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
           Navigator.canPop(context) ? Navigator.pop(context) : null;
         }
       } catch (error) {
-        _globalMethods.authErrorHandle(error.message, context);
-        print('error occured ${error.message}');
+        _globalMethods.authErrorHandle(error.toString(), context);
+        print('error occured ${error.toString()}');
       } finally {
         setState(() {
           _isLoading = false;
@@ -92,7 +94,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     final picker = ImagePicker();
     final pickedImage =
         await picker.getImage(source: ImageSource.camera, imageQuality: 10);
-    final pickedImageFile = File(pickedImage.path);
+    final pickedImageFile = File(pickedImage!.path);
     setState(() {
       _pickedImage = pickedImageFile;
     });
@@ -102,7 +104,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   void _pickImageGallery() async {
     final picker = ImagePicker();
     final pickedImage = await picker.getImage(source: ImageSource.gallery);
-    final pickedImageFile = File(pickedImage.path);
+    final pickedImageFile = File(pickedImage!.path);
     setState(() {
       _pickedImage = pickedImageFile;
     });
@@ -164,7 +166,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           backgroundColor: ColorsConsts.gradiendFEnd,
                           backgroundImage: _pickedImage == null
                               ? null
-                              : FileImage(_pickedImage),
+                              : FileImage(_pickedImage!),
                         ),
                       ),
                     ),
@@ -283,7 +285,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           child: TextFormField(
                             key: ValueKey('name'),
                             validator: (value) {
-                              if (value.isEmpty) {
+                              if (value!.isEmpty) {
                                 return 'name cannot be null';
                               }
                               return null;
@@ -299,7 +301,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 labelText: 'Full name',
                                 fillColor: Theme.of(context).backgroundColor),
                             onSaved: (value) {
-                              _fullName = value;
+                              _fullName = value!;
                             },
                           ),
                         ),
@@ -309,7 +311,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             key: ValueKey('email'),
                             focusNode: _emailFocusNode,
                             validator: (value) {
-                              if (value.isEmpty || !value.contains('@')) {
+                              if (value!.isEmpty || !value.contains('@')) {
                                 return 'Please enter a valid email address';
                               }
                               return null;
@@ -325,7 +327,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 labelText: 'Email Address',
                                 fillColor: Theme.of(context).backgroundColor),
                             onSaved: (value) {
-                              _emailAddress = value;
+                              _emailAddress = value!;
                             },
                           ),
                         ),
@@ -334,7 +336,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           child: TextFormField(
                             key: ValueKey('Password'),
                             validator: (value) {
-                              if (value.isEmpty || value.length < 7) {
+                              if (value!.isEmpty || value.length < 7) {
                                 return 'Please enter a valid Password';
                               }
                               return null;
@@ -358,7 +360,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 labelText: 'Password',
                                 fillColor: Theme.of(context).backgroundColor),
                             onSaved: (value) {
-                              _password = value;
+                              _password = value!;
                             },
                             obscureText: _obscureText,
                             onEditingComplete: () => FocusScope.of(context)
@@ -371,7 +373,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             key: ValueKey('phone number'),
                             focusNode: _phoneNumberFocusNode,
                             validator: (value) {
-                              if (value.isEmpty) {
+                              if (value!.isEmpty) {
                                 return 'Please enter a valid phone number';
                               }
                               return null;
@@ -389,7 +391,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 labelText: 'Phone number',
                                 fillColor: Theme.of(context).backgroundColor),
                             onSaved: (value) {
-                              _phoneNumber = int.parse(value);
+                              _phoneNumber = int.parse(value!);
                             },
                           ),
                         ),
