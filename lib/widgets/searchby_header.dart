@@ -2,6 +2,7 @@ import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:meditation_alive/consts/colors.dart';
 import 'package:meditation_alive/provider/favs_provider.dart';
+import 'package:meditation_alive/screens/user_info.dart';
 import 'package:meditation_alive/wishlist/wishlist.dart';
 import 'package:provider/provider.dart';
 
@@ -75,26 +76,7 @@ class SearchByHeader extends SliverPersistentHeaderDelegate {
                     ),
                   ),
                 ),
-                Consumer<CartProvider>(
-                  builder: (_, cart, ch) => Badge(
-                    badgeColor: ColorsConsts.cartBadgeColor,
-                    position: BadgePosition.topEnd(top: 5, end: 7),
-                    badgeContent: Text(
-                      cart.getCartItems.length.toString(),
-                      style: TextStyle(color: ColorsConsts.white),
-                    ),
-                    child: IconButton(
-                      icon: Icon(
-                        Icons.shopping_cart,
-                        color: ColorsConsts.cartColor,
-                      ),
-                      onPressed: () {
-                        Navigator.of(context).pushNamed(MyBookingsScreen.routeName);
-                      },
-                    ),
-                  ),
-                ),
-              ],
+          ],
             ),
           ),
           Positioned(
@@ -109,7 +91,7 @@ class SearchByHeader extends SliverPersistentHeaderDelegate {
                 onTap: () => Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => UserInfo(),
+                    builder: (context) => UserInfoScreen(),
                   ),
                 ),
                 child: Container(

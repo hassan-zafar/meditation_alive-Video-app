@@ -1,19 +1,27 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:chips_choice/chips_choice.dart';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class EventshomeWidget extends StatefulWidget {
+class HomePage extends StatefulWidget {
   // EventshomeWidget({Key key}) : super(key: key);
 
   @override
-  _EventshomeWidgetState createState() => _EventshomeWidgetState();
+  _HomePageState createState() => _HomePageState();
 }
 
-class _EventshomeWidgetState extends State<EventshomeWidget> {
+class _HomePageState extends State<HomePage> {
   String? choiceChipsValue;
   TextEditingController? textController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
+// list of string options
+  List<String> tags = [];
 
+  List<String> options = [
+    'Popular',
+    'BEGINNERS',
+    "ALL",
+  ];
   @override
   void initState() {
     super.initState();
@@ -91,7 +99,7 @@ class _EventshomeWidgetState extends State<EventshomeWidget> {
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(4, 0, 0, 0),
                               child: Text(
-                                '[Username]',
+                                'Alex',
                                 style: TextStyle(
                                   fontFamily: 'Lexend Deca',
                                   color: Color(0xFFEE8B60),
@@ -105,7 +113,7 @@ class _EventshomeWidgetState extends State<EventshomeWidget> {
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
                           child: Text(
-                            'Discover Events',
+                            'Discover',
                             style: TextStyle(
                               fontFamily: 'Lexend Deca',
                               color: Colors.white,
@@ -134,7 +142,7 @@ class _EventshomeWidgetState extends State<EventshomeWidget> {
                                       controller: textController,
                                       obscureText: false,
                                       decoration: InputDecoration(
-                                        hintText: 'Search for events...',
+                                        hintText: 'Search here',
                                         hintStyle: TextStyle(
                                           fontFamily: 'Lexend Deca',
                                           color: Color(0xFF1A1F24),
@@ -179,8 +187,6 @@ class _EventshomeWidgetState extends State<EventshomeWidget> {
                                   ),
                                   child: IconButton(
                                     padding: EdgeInsets.all(12),
-                                    iconSize: 24,
-                                    color: Colors.transparent,
                                     icon: Icon(
                                       Icons.search_outlined,
                                       color: Colors.white,
@@ -200,50 +206,60 @@ class _EventshomeWidgetState extends State<EventshomeWidget> {
                   ),
                 ),
               ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(8, 4, 0, 0),
-                child: FlutterFlowChoiceChips(
-                  options: [
-                    ChipData('Popular'),
-                    ChipData('Nearby'),
-                    ChipData('Happening Now')
-                  ],
-                  onChanged: (val) => setState(() => choiceChipsValue = val),
-                  selectedChipStyle: ChipStyle(
-                    backgroundColor: Color(0xFF4B39EF),
-                    textStyle: TextStyle(
-                      fontFamily: 'Lexend Deca',
-                      color: Colors.white,
-                      fontSize: 14,
-                      fontWeight: FontWeight.normal,
-                    ),
-                    iconColor: Colors.white,
-                    iconSize: 18,
-                    elevation: 4,
+              Content(
+                title: 'Scrollable List Multiple Choice',
+                child: ChipsChoice<String>.multiple(
+                  value: tags,
+                  onChanged: (val) => setState(() => tags = val),
+                  choiceItems: C2Choice.listFrom<String, String>(
+                    source: options,
+                    value: (i, v) => v,
+                    label: (i, v) => v,
+                    tooltip: (i, v) => v,
                   ),
-                  unselectedChipStyle: ChipStyle(
-                    backgroundColor: Color(0xFF262D34),
-                    textStyle: TextStyle(
-                      fontFamily: 'Lexend Deca',
-                      color: Colors.white,
-                      fontSize: 14,
-                      fontWeight: FontWeight.normal,
-                    ),
-                    iconColor: Color(0xFF262D34),
-                    iconSize: 18,
-                    elevation: 0,
-                  ),
-                  chipSpacing: 12,
                 ),
               ),
+              // Padding(
+              //   padding: EdgeInsetsDirectional.fromSTEB(8, 4, 0, 0),
+              //   child: FlutterFlowChoiceChips(
+              //     options:,
+              //     onChanged: (val) => setState(() => choiceChipsValue = val),
+              //     selectedChipStyle: ChipStyle(
+              //       backgroundColor: Color(0xFF4B39EF),
+              //       textStyle: TextStyle(
+              //         fontFamily: 'Lexend Deca',
+              //         color: Colors.white,
+              //         fontSize: 14,
+              //         fontWeight: FontWeight.normal,
+              //       ),
+              //       iconColor: Colors.white,
+              //       iconSize: 18,
+              //       elevation: 4,
+              //     ),
+              //     unselectedChipStyle: ChipStyle(
+              //       backgroundColor: Color(0xFF262D34),
+              //       textStyle: TextStyle(
+              //         fontFamily: 'Lexend Deca',
+              //         color: Colors.white,
+              //         fontSize: 14,
+              //         fontWeight: FontWeight.normal,
+              //       ),
+              //       iconColor: Color(0xFF262D34),
+              //       iconSize: 18,
+              //       elevation: 0,
+              //     ),
+              //     chipSpacing: 12,
+              //   ),
+              // ),
+
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 0),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Text(
-                      'Popular Events',
-                      style: FlutterFlowTheme.subtitle2.override(
+                      'Popular',
+                      style: TextStyle(
                         fontFamily: 'Lexend Deca',
                         color: Colors.white,
                         fontSize: 16,
@@ -260,6 +276,150 @@ class _EventshomeWidgetState extends State<EventshomeWidget> {
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(16, 8, 0, 8),
+                        child: Container(
+                          width: 250,
+                          height: 170,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              fit: BoxFit.fill,
+                              image: Image.asset(
+                                'assets/images/actionvance-eXVd7gDPO9A-unsplash.jpg',
+                              ).image,
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                blurRadius: 3,
+                                color: Color(0x64000000),
+                                offset: Offset(0, 2),
+                              )
+                            ],
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(8, 4, 8, 0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Card(
+                                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                                      color: Color(0x9839D2C0),
+                                      elevation: 0,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            6, 2, 6, 2),
+                                        child: Text(
+                                          'UnLock',
+                                          style: TextStyle(
+                                            fontFamily: 'Lexend Deca',
+                                            color: Colors.white,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.normal,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Card(
+                                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                                      color: Color(0xFF1E2429),
+                                      elevation: 2,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(30),
+                                      ),
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            8, 8, 8, 8),
+                                        child: Icon(
+                                          Icons.favorite_border,
+                                          color: Colors.white,
+                                          size: 24,
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(8, 0, 8, 8),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          8, 0, 0, 0),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            'Super Human Boost',
+                                            style: TextStyle(
+                                              fontFamily: 'Lexend Deca',
+                                              color: Colors.white,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.normal,
+                                            ),
+                                          ),
+                                          Text(
+                                            'Seated Medication',
+                                            style: TextStyle(
+                                              fontFamily: 'Lexend Deca',
+                                              color: Colors.white,
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.normal,
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          '7 min',
+                                          style: TextStyle(
+                                            fontFamily: 'Poppins',
+                                            color: Color(0xFFD6D6D6),
+                                            fontSize: 12,
+                                          ),
+                                        ),
+                                        Text(
+                                          'Ambient',
+                                          style: TextStyle(
+                                            fontFamily: 'Poppins',
+                                            color: Color(0xFFD6D6D6),
+                                            fontSize: 12,
+                                          ),
+                                        )
+                                      ],
+                                    )
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(16, 8, 0, 8),
                         child: Container(
@@ -304,9 +464,8 @@ class _EventshomeWidgetState extends State<EventshomeWidget> {
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             6, 2, 6, 2),
                                         child: Text(
-                                          '1,365 ATTENDING',
-                                          style: FlutterFlowTheme.bodyText2
-                                              .override(
+                                          'UnLock',
+                                          style: TextStyle(
                                             fontFamily: 'Lexend Deca',
                                             color: Colors.white,
                                             fontSize: 14,
@@ -335,223 +494,15 @@ class _EventshomeWidgetState extends State<EventshomeWidget> {
                                   ],
                                 ),
                               ),
-                              Container(
-                                width: 250,
-                                height: 60,
-                                decoration: BoxDecoration(
-                                  color: Color(0xFF090F13),
-                                  borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(8),
-                                    bottomRight: Radius.circular(8),
-                                    topLeft: Radius.circular(0),
-                                    topRight: Radius.circular(0),
-                                  ),
-                                ),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Container(
-                                      width: 60,
-                                      height: 100,
-                                      decoration: BoxDecoration(
-                                        color: Color(0xFFEE8B60),
-                                        borderRadius: BorderRadius.only(
-                                          bottomLeft: Radius.circular(8),
-                                          bottomRight: Radius.circular(0),
-                                          topLeft: Radius.circular(0),
-                                          topRight: Radius.circular(0),
-                                        ),
-                                      ),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    4, 4, 4, 4),
-                                            child: Text(
-                                              '14',
-                                              textAlign: TextAlign.center,
-                                              style: FlutterFlowTheme.title3
-                                                  .override(
-                                                fontFamily: 'Lexend Deca',
-                                                color: Colors.white,
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          8, 0, 0, 0),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            'San Antonio Music Festi…',
-                                            style: FlutterFlowTheme.bodyText1
-                                                .override(
-                                              fontFamily: 'Lexend Deca',
-                                              color: Colors.white,
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.normal,
-                                            ),
-                                          ),
-                                          Text(
-                                            'Sam’s Burger Joint',
-                                            style: FlutterFlowTheme.bodyText1
-                                                .override(
-                                              fontFamily: 'Lexend Deca',
-                                              color: Colors.white,
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.normal,
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(16, 8, 0, 8),
-                        child: Container(
-                          width: 250,
-                          height: 170,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              fit: BoxFit.fitWidth,
-                              image: Image.asset(
-                                'assets/images/imageSanAn@3x.jpg',
-                              ).image,
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                blurRadius: 3,
-                                color: Color(0x64000000),
-                                offset: Offset(0, 2),
-                              )
-                            ],
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
                               Padding(
                                 padding:
-                                    EdgeInsetsDirectional.fromSTEB(8, 4, 8, 0),
+                                    EdgeInsetsDirectional.fromSTEB(8, 0, 0, 8),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Card(
-                                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                                      color: Color(0x9839D2C0),
-                                      elevation: 0,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                      child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            6, 2, 6, 2),
-                                        child: Text(
-                                          '1,365 ATTENDING',
-                                          style: FlutterFlowTheme.bodyText2
-                                              .override(
-                                            fontFamily: 'Lexend Deca',
-                                            color: Colors.white,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.normal,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Card(
-                                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                                      color: Color(0xFF1E2429),
-                                      elevation: 2,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(30),
-                                      ),
-                                      child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            8, 8, 8, 8),
-                                        child: Icon(
-                                          Icons.favorite_border,
-                                          color: Colors.white,
-                                          size: 24,
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                width: 250,
-                                height: 60,
-                                decoration: BoxDecoration(
-                                  color: Color(0xFF090F13),
-                                  borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(8),
-                                    bottomRight: Radius.circular(8),
-                                    topLeft: Radius.circular(0),
-                                    topRight: Radius.circular(0),
-                                  ),
-                                ),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Container(
-                                      width: 60,
-                                      height: 100,
-                                      decoration: BoxDecoration(
-                                        color: Color(0xFFEE8B60),
-                                        borderRadius: BorderRadius.only(
-                                          bottomLeft: Radius.circular(8),
-                                          bottomRight: Radius.circular(0),
-                                          topLeft: Radius.circular(0),
-                                          topRight: Radius.circular(0),
-                                        ),
-                                      ),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    4, 4, 4, 4),
-                                            child: Text(
-                                              '14',
-                                              textAlign: TextAlign.center,
-                                              style: FlutterFlowTheme.title3
-                                                  .override(
-                                                fontFamily: 'Lexend Deca',
-                                                color: Colors.white,
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           8, 0, 0, 0),
@@ -563,9 +514,8 @@ class _EventshomeWidgetState extends State<EventshomeWidget> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            'San Antonio Music Festi…',
-                                            style: FlutterFlowTheme.bodyText1
-                                                .override(
+                                            'Super Human Boost',
+                                            style: TextStyle(
                                               fontFamily: 'Lexend Deca',
                                               color: Colors.white,
                                               fontSize: 14,
@@ -573,9 +523,8 @@ class _EventshomeWidgetState extends State<EventshomeWidget> {
                                             ),
                                           ),
                                           Text(
-                                            'Sam’s Burger Joint',
-                                            style: FlutterFlowTheme.bodyText1
-                                                .override(
+                                            'Seated Medication',
+                                            style: TextStyle(
                                               fontFamily: 'Lexend Deca',
                                               color: Colors.white,
                                               fontSize: 12,
@@ -584,172 +533,29 @@ class _EventshomeWidgetState extends State<EventshomeWidget> {
                                           )
                                         ],
                                       ),
-                                    )
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(16, 8, 0, 8),
-                        child: Container(
-                          width: 250,
-                          height: 170,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              fit: BoxFit.fitWidth,
-                              image: Image.asset(
-                                'assets/images/austin-neill-hgO1wFPXl3I-unsplash.jpg',
-                              ).image,
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                blurRadius: 3,
-                                color: Color(0x64000000),
-                                offset: Offset(0, 2),
-                              )
-                            ],
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(8, 4, 8, 0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Card(
-                                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                                      color: Color(0x9839D2C0),
-                                      elevation: 0,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                      child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            6, 2, 6, 2),
-                                        child: Text(
-                                          '1,365 ATTENDING',
-                                          style: FlutterFlowTheme.bodyText2
-                                              .override(
-                                            fontFamily: 'Lexend Deca',
-                                            color: Colors.white,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.normal,
+                                    ),
+                                    Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          '7 min',
+                                          style: TextStyle(
+                                            fontFamily: 'Poppins',
+                                            color: Color(0xFFD6D6D6),
+                                            fontSize: 12,
                                           ),
                                         ),
-                                      ),
-                                    ),
-                                    Card(
-                                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                                      color: Color(0xFF1E2429),
-                                      elevation: 2,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(30),
-                                      ),
-                                      child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            8, 8, 8, 8),
-                                        child: Icon(
-                                          Icons.favorite_border,
-                                          color: Colors.white,
-                                          size: 24,
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                width: 250,
-                                height: 60,
-                                decoration: BoxDecoration(
-                                  color: Color(0xFF090F13),
-                                  borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(8),
-                                    bottomRight: Radius.circular(8),
-                                    topLeft: Radius.circular(0),
-                                    topRight: Radius.circular(0),
-                                  ),
-                                ),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Container(
-                                      width: 60,
-                                      height: 100,
-                                      decoration: BoxDecoration(
-                                        color: Color(0xFFEE8B60),
-                                        borderRadius: BorderRadius.only(
-                                          bottomLeft: Radius.circular(8),
-                                          bottomRight: Radius.circular(0),
-                                          topLeft: Radius.circular(0),
-                                          topRight: Radius.circular(0),
-                                        ),
-                                      ),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    4, 4, 4, 4),
-                                            child: Text(
-                                              '14',
-                                              textAlign: TextAlign.center,
-                                              style: FlutterFlowTheme.title3
-                                                  .override(
-                                                fontFamily: 'Lexend Deca',
-                                                color: Colors.white,
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          8, 0, 0, 0),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            'San Antonio Music Festi…',
-                                            style: FlutterFlowTheme.bodyText1
-                                                .override(
-                                              fontFamily: 'Lexend Deca',
-                                              color: Colors.white,
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.normal,
-                                            ),
+                                        Text(
+                                          'Ambient',
+                                          style: TextStyle(
+                                            fontFamily: 'Poppins',
+                                            color: Color(0xFFD6D6D6),
+                                            fontSize: 12,
                                           ),
-                                          Text(
-                                            'Sam’s Burger Joint',
-                                            style: FlutterFlowTheme.bodyText1
-                                                .override(
-                                              fontFamily: 'Lexend Deca',
-                                              color: Colors.white,
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.normal,
-                                            ),
-                                          )
-                                        ],
-                                      ),
+                                        )
+                                      ],
                                     )
                                   ],
                                 ),
@@ -768,8 +574,8 @@ class _EventshomeWidgetState extends State<EventshomeWidget> {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Text(
-                      'Nearby Events',
-                      style: FlutterFlowTheme.subtitle2.override(
+                      'Inspiring',
+                      style: TextStyle(
                         fontFamily: 'Lexend Deca',
                         color: Colors.white,
                         fontSize: 16,
@@ -838,18 +644,9 @@ class _EventshomeWidgetState extends State<EventshomeWidget> {
                                   ],
                                 ),
                               ),
-                              Container(
-                                width: 250,
-                                height: 60,
-                                decoration: BoxDecoration(
-                                  color: Color(0xFF090F13),
-                                  borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(8),
-                                    bottomRight: Radius.circular(8),
-                                    topLeft: Radius.circular(0),
-                                    topRight: Radius.circular(0),
-                                  ),
-                                ),
+                              Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
@@ -865,8 +662,7 @@ class _EventshomeWidgetState extends State<EventshomeWidget> {
                                         children: [
                                           Text(
                                             'San Antonio Mu…',
-                                            style: FlutterFlowTheme.bodyText1
-                                                .override(
+                                            style: TextStyle(
                                               fontFamily: 'Lexend Deca',
                                               color: Colors.white,
                                               fontSize: 14,
@@ -875,13 +671,43 @@ class _EventshomeWidgetState extends State<EventshomeWidget> {
                                           ),
                                           Text(
                                             'Sept 14th, 7:00pm',
-                                            style: FlutterFlowTheme.bodyText1
-                                                .override(
+                                            style: TextStyle(
                                               fontFamily: 'Lexend Deca',
-                                              color: Color(0xFFEE8B60),
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.normal,
+                                              color: Color(0xFFFFCDD2),
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.w300,
                                             ),
+                                          ),
+                                          Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(0, 0, 8, 0),
+                                                child: Text(
+                                                  '7 min',
+                                                  style: TextStyle(
+                                                    fontFamily: 'Poppins',
+                                                    color: Color(0xFFF5F5F5),
+                                                    fontSize: 10,
+                                                    fontWeight: FontWeight.w100,
+                                                  ),
+                                                ),
+                                              ),
+                                              Text(
+                                                'Guitar',
+                                                style: TextStyle(
+                                                  fontFamily: 'Poppins',
+                                                  color: Color(0xFFF5F5F5),
+                                                  fontSize: 10,
+                                                  fontWeight: FontWeight.w100,
+                                                ),
+                                              )
+                                            ],
                                           )
                                         ],
                                       ),
@@ -945,18 +771,9 @@ class _EventshomeWidgetState extends State<EventshomeWidget> {
                                   ],
                                 ),
                               ),
-                              Container(
-                                width: 250,
-                                height: 60,
-                                decoration: BoxDecoration(
-                                  color: Color(0xFF090F13),
-                                  borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(8),
-                                    bottomRight: Radius.circular(8),
-                                    topLeft: Radius.circular(0),
-                                    topRight: Radius.circular(0),
-                                  ),
-                                ),
+                              Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
@@ -972,8 +789,7 @@ class _EventshomeWidgetState extends State<EventshomeWidget> {
                                         children: [
                                           Text(
                                             'San Antonio Mu…',
-                                            style: FlutterFlowTheme.bodyText1
-                                                .override(
+                                            style: TextStyle(
                                               fontFamily: 'Lexend Deca',
                                               color: Colors.white,
                                               fontSize: 14,
@@ -982,13 +798,43 @@ class _EventshomeWidgetState extends State<EventshomeWidget> {
                                           ),
                                           Text(
                                             'Sept 14th, 7:00pm',
-                                            style: FlutterFlowTheme.bodyText1
-                                                .override(
+                                            style: TextStyle(
                                               fontFamily: 'Lexend Deca',
-                                              color: Color(0xFFEE8B60),
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.normal,
+                                              color: Color(0xFFFFCDD2),
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.w300,
                                             ),
+                                          ),
+                                          Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(0, 0, 8, 0),
+                                                child: Text(
+                                                  '7 min',
+                                                  style: TextStyle(
+                                                    fontFamily: 'Poppins',
+                                                    color: Color(0xFFF5F5F5),
+                                                    fontSize: 10,
+                                                    fontWeight: FontWeight.w100,
+                                                  ),
+                                                ),
+                                              ),
+                                              Text(
+                                                'Guitar',
+                                                style: TextStyle(
+                                                  fontFamily: 'Poppins',
+                                                  color: Color(0xFFF5F5F5),
+                                                  fontSize: 10,
+                                                  fontWeight: FontWeight.w100,
+                                                ),
+                                              )
+                                            ],
                                           )
                                         ],
                                       ),
@@ -1009,7 +855,7 @@ class _EventshomeWidgetState extends State<EventshomeWidget> {
                             image: DecorationImage(
                               fit: BoxFit.cover,
                               image: Image.asset(
-                                'assets/images/actionvance-eXVd7gDPO9A-unsplash.jpg',
+                                'assets/images/imageSanAn@3x.jpg',
                               ).image,
                             ),
                             boxShadow: [
@@ -1052,18 +898,9 @@ class _EventshomeWidgetState extends State<EventshomeWidget> {
                                   ],
                                 ),
                               ),
-                              Container(
-                                width: 250,
-                                height: 60,
-                                decoration: BoxDecoration(
-                                  color: Color(0xFF090F13),
-                                  borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(8),
-                                    bottomRight: Radius.circular(8),
-                                    topLeft: Radius.circular(0),
-                                    topRight: Radius.circular(0),
-                                  ),
-                                ),
+                              Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
@@ -1079,8 +916,7 @@ class _EventshomeWidgetState extends State<EventshomeWidget> {
                                         children: [
                                           Text(
                                             'San Antonio Mu…',
-                                            style: FlutterFlowTheme.bodyText1
-                                                .override(
+                                            style: TextStyle(
                                               fontFamily: 'Lexend Deca',
                                               color: Colors.white,
                                               fontSize: 14,
@@ -1089,13 +925,170 @@ class _EventshomeWidgetState extends State<EventshomeWidget> {
                                           ),
                                           Text(
                                             'Sept 14th, 7:00pm',
-                                            style: FlutterFlowTheme.bodyText1
-                                                .override(
+                                            style: TextStyle(
                                               fontFamily: 'Lexend Deca',
-                                              color: Color(0xFFEE8B60),
-                                              fontSize: 12,
+                                              color: Color(0xFFFFCDD2),
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.w300,
+                                            ),
+                                          ),
+                                          Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(0, 0, 8, 0),
+                                                child: Text(
+                                                  '7 min',
+                                                  style: TextStyle(
+                                                    fontFamily: 'Poppins',
+                                                    color: Color(0xFFF5F5F5),
+                                                    fontSize: 10,
+                                                    fontWeight: FontWeight.w100,
+                                                  ),
+                                                ),
+                                              ),
+                                              Text(
+                                                'Guitar',
+                                                style: TextStyle(
+                                                  fontFamily: 'Poppins',
+                                                  color: Color(0xFFF5F5F5),
+                                                  fontSize: 10,
+                                                  fontWeight: FontWeight.w100,
+                                                ),
+                                              )
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(16, 8, 0, 8),
+                        child: Container(
+                          width: 130,
+                          height: 170,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              fit: BoxFit.cover,
+                              image: Image.asset(
+                                'assets/images/imageSanAn@3x.jpg',
+                              ).image,
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                blurRadius: 3,
+                                color: Color(0x64000000),
+                                offset: Offset(0, 2),
+                              )
+                            ],
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(8, 4, 8, 0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Card(
+                                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                                      color: Color(0xFF1E2429),
+                                      elevation: 2,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(30),
+                                      ),
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            8, 8, 8, 8),
+                                        child: Icon(
+                                          Icons.favorite_border,
+                                          color: Colors.white,
+                                          size: 24,
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          8, 0, 0, 0),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            'San Antonio Mu…',
+                                            style: TextStyle(
+                                              fontFamily: 'Lexend Deca',
+                                              color: Colors.white,
+                                              fontSize: 14,
                                               fontWeight: FontWeight.normal,
                                             ),
+                                          ),
+                                          Text(
+                                            'Sept 14th, 7:00pm',
+                                            style: TextStyle(
+                                              fontFamily: 'Lexend Deca',
+                                              color: Color(0xFFFFCDD2),
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.w300,
+                                            ),
+                                          ),
+                                          Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(0, 0, 8, 0),
+                                                child: Text(
+                                                  '7 min',
+                                                  style: TextStyle(
+                                                    fontFamily: 'Poppins',
+                                                    color: Color(0xFFF5F5F5),
+                                                    fontSize: 10,
+                                                    fontWeight: FontWeight.w100,
+                                                  ),
+                                                ),
+                                              ),
+                                              Text(
+                                                'Guitar',
+                                                style: TextStyle(
+                                                  fontFamily: 'Poppins',
+                                                  color: Color(0xFFF5F5F5),
+                                                  fontSize: 10,
+                                                  fontWeight: FontWeight.w100,
+                                                ),
+                                              )
+                                            ],
                                           )
                                         ],
                                       ),
@@ -1117,4 +1110,91 @@ class _EventshomeWidgetState extends State<EventshomeWidget> {
       ),
     );
   }
+}
+
+class Content extends StatefulWidget {
+  final String title;
+  final Widget child;
+
+  Content({
+    // Key key,
+    required this.title,
+    required this.child,
+  });
+
+  @override
+  _ContentState createState() => _ContentState();
+}
+
+class _ContentState extends State<Content>
+    with AutomaticKeepAliveClientMixin<Content> {
+  @override
+  bool get wantKeepAlive => true;
+
+  @override
+  Widget build(BuildContext context) {
+    super.build(context);
+    return Card(
+      elevation: 2,
+      margin: const EdgeInsets.all(5),
+      clipBehavior: Clip.antiAliasWithSaveLayer,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(15),
+            color: Colors.blueGrey[50],
+            child: Text(
+              widget.title,
+              style: const TextStyle(
+                  color: Colors.blueGrey, fontWeight: FontWeight.w500),
+            ),
+          ),
+          Flexible(fit: FlexFit.loose, child: widget.child),
+        ],
+      ),
+    );
+  }
+}
+
+void _about(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (_) => Dialog(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          ListTile(
+            title: Text(
+              'chips_choice',
+              style: TextStyle(color: Colors.black87),
+            ),
+            subtitle: const Text('by davigmacode'),
+            trailing: IconButton(
+              icon: const Icon(Icons.close),
+              onPressed: () => Navigator.pop(context),
+            ),
+          ),
+          Flexible(
+            fit: FlexFit.loose,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Text(
+                    'Easy way to provide a single or multiple choice chips.',
+                    style: TextStyle(color: Colors.black87),
+                  ),
+                  Container(height: 15),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
 }

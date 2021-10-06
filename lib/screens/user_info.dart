@@ -10,13 +10,12 @@ import 'package:meditation_alive/wishlist/wishlist.dart';
 import 'package:provider/provider.dart';
 import 'package:share/share.dart';
 
-
-class UserInfo extends StatefulWidget {
+class UserInfoScreen extends StatefulWidget {
   @override
-  _UserInfoState createState() => _UserInfoState();
+  _UserInfoScreenState createState() => _UserInfoScreenState();
 }
 
-class _UserInfoState extends State<UserInfo> {
+class _UserInfoScreenState extends State<UserInfoScreen> {
   ScrollController? _scrollController;
   var top = 0.0;
   final FirebaseAuth _auth = FirebaseAuth.instance;

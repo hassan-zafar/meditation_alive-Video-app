@@ -14,14 +14,13 @@ class FeedProducts extends StatefulWidget {
 class _FeedProductsState extends State<FeedProducts> {
   @override
   Widget build(BuildContext context) {
-
     final productsAttributes = Provider.of<Product>(context);
     print(productsAttributes);
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: InkWell(
-        onTap: () => Navigator.pushNamed(context, ProductDetails.routeName,
-            arguments: productsAttributes.productId),
+        // onTap: () => Navigator.pushNamed(context, ProductDetails.routeName,
+        //     arguments: productsAttributes.productId),
         child: Container(
           width: 150,
           height: 150,

@@ -1,10 +1,14 @@
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:meditation_alive/consts/my_icons.dart';
+import 'package:meditation_alive/main.dart';
+import 'package:meditation_alive/provider/dark_theme_provider.dart';
+import 'package:meditation_alive/screens/homePage.dart';
 import 'package:meditation_alive/screens/search.dart';
 import 'package:meditation_alive/screens/user_info.dart';
-
-import 'feeds.dart';
+import 'package:meditation_alive/wishlist/wishlist.dart';
+import 'package:provider/provider.dart';
 
 class BottomBarScreen extends StatefulWidget {
   static const routeName = '/BottomBarScreen';
@@ -14,35 +18,64 @@ class BottomBarScreen extends StatefulWidget {
 
 class _BottomBarScreenState extends State<BottomBarScreen> {
   // List<Map<String, Object>> _pages;
-  int _selectedPageIndex = 1;
-  List<Object>? pages;
+  ScrollController? _scrollController;
+  var top = 0.0;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  String? _uid;
+  String? _name = "User Name";
+  String? _email;
+  String? _joinedAt;
+  String? _userImageUrl;
+  int? _phoneNumber;
   @override
   void initState() {
     pages = [
-      Home(),
-      Feeds(),
+      HomePage(),
       Search(),
-      UserInfo(),
+      WishlistScreen(),
+      UserInfoScreen(),
     ];
-    // _pages = [
-    //   {
-    //     'page': Home(),
-    //   },
-    //   {
-    //     'page': Feeds(),
-    //   },
-    //   {
-    //     'page': Search(),
-    //   },
-    //   {
-    //     'page': CartScreen(),
-    //   },
-    //   {
-    //     'page': UserInfo(),
-    //   },
-    // ];
+    //
     super.initState();
+    _scrollController = ScrollController();
+    _scrollController!.addListener(() {
+      setState(() {});
+    });
+    getData();
   }
+
+  void getData() async {
+    User user = _auth.currentUser!;
+    _uid = user.uid;
+
+    print('user.displayName ${user.displayName}');
+    print('user.photoURL ${user.photoURL}');
+    DocumentSnapshot<Map<String, dynamic>>? userDoc = user.isAnonymous
+        ? null
+        : await FirebaseFirestore.instance.collection('users').doc(_uid).get();
+    // .then((value) {
+    // if (user.isAnonymous) {
+    //   userDoc = null;
+    // } else {
+    //   userDoc = value;
+    // }
+    // });
+    if (userDoc == null) {
+      return;
+    } else {
+      setState(() {
+        _name = userDoc.get('name');
+        _email = user.email!;
+        _joinedAt = userDoc.get('joinedAt');
+        _phoneNumber = userDoc.get('phoneNumber');
+        _userImageUrl = userDoc.get('imageUrl');
+      });
+    }
+    // print("name $_name");
+  }
+
+  int _selectedPageIndex = 0;
+  late List pages;
 
   void _selectPage(int index) {
     setState(() {
@@ -52,6 +85,8 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final themeChange = Provider.of<DarkThemeProvider>(context);
+
     return Scaffold(
       body: pages[_selectedPageIndex], //_pages[_selectedPageIndex]['page'],
       bottomNavigationBar: BottomAppBar(
@@ -75,46 +110,104 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
               onTap: _selectPage,
               backgroundColor: Theme.of(context).primaryColor,
               unselectedItemColor: Theme.of(context).textSelectionColor,
-              selectedItemColor: Colors.purple,
+              selectedItemColor: Colors.deepOrange,
               currentIndex: _selectedPageIndex,
               // selectedLabelStyle: TextStyle(fontSize: 16),
               items: [
                 BottomNavigationBarItem(
-                  icon: Icon(MyAppIcons.home),
-                  // title: Text('Home'),
-                  label: 'Home',
-                ),
-                BottomNavigationBarItem(
-                    icon: Icon(MyAppIcons.rss), label: 'Feeds'),
-                BottomNavigationBarItem(
-                    activeIcon: null, icon: Icon(null), label: 'Search'),
+                    icon: Icon(Icons.room_service), label: 'For You'),
                 BottomNavigationBarItem(
                     icon: Icon(
-                      MyAppIcons.bag,
+                      MyAppIcons.search,
                     ),
-                    label: 'Cart'),
+                    label: 'Search'),
                 BottomNavigationBarItem(
-                    icon: Icon(MyAppIcons.user), label: 'User'),
+                    icon: Icon(
+                      MyAppIcons.wishlist,
+                    ),
+                    label: 'My Favourites'),
+                BottomNavigationBarItem(
+                    icon: Icon(
+                      MyAppIcons.user,
+                    ),
+                    label: 'My Profile'),
+                // BottomNavigationBarItem(
+                //     icon: Icon(MyAppIcons.user), label: 'User'),
               ],
             ),
           ),
         ),
       ),
-      floatingActionButtonLocation:
-          FloatingActionButtonLocation.miniCenterDocked,
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.all(8.0),
+    );
+  }
+
+  Widget _buildFab() {
+    //starting fab position
+    final double defaultTopMargin = 200.0 - 4.0;
+    //pixels from top where scaling should start
+    final double scaleStart = 160.0;
+    //pixels from top where scaling should end
+    final double scaleEnd = scaleStart / 2;
+
+    double top = defaultTopMargin;
+    double scale = 1.0;
+    if (_scrollController!.hasClients) {
+      double offset = _scrollController!.offset;
+      top -= offset;
+      if (offset < defaultTopMargin - scaleStart) {
+        //offset small => don't scale down
+
+        scale = 1.0;
+      } else if (offset < defaultTopMargin - scaleEnd) {
+        //offset between scaleStart and scaleEnd => scale down
+
+        scale = (defaultTopMargin - scaleEnd - offset) / scaleEnd;
+      } else {
+        //offset passed scaleEnd => hide fab
+        scale = 0.0;
+      }
+    }
+
+    return Positioned(
+      top: top,
+      right: 16.0,
+      child: Transform(
+        transform: Matrix4.identity()..scale(scale),
+        alignment: Alignment.center,
         child: FloatingActionButton(
           backgroundColor: Colors.purple,
-          hoverElevation: 10,
-          splashColor: Colors.grey,
-          tooltip: 'Search',
-          elevation: 4,
-          child: Icon(MyAppIcons.search),
-          onPressed: () => setState(() {
-            _selectedPageIndex = 2;
-          }),
+          heroTag: "btn1",
+          onPressed: () {},
+          child: Icon(Icons.camera_alt_outlined),
         ),
+      ),
+    );
+  }
+
+  List<IconData> _userTileIcons = [
+    Icons.email,
+    Icons.phone,
+    Icons.local_shipping,
+    Icons.watch_later,
+    Icons.exit_to_app_rounded
+  ];
+
+  Widget userListTile(
+      String title, String subTitle, int index, BuildContext context) {
+    return ListTile(
+      title: Text(title),
+      subtitle: Text(subTitle),
+      leading: Icon(_userTileIcons[index]),
+    );
+  }
+
+  Widget userTitle({required String title, Color color: Colors.yellow}) {
+    return Padding(
+      padding: const EdgeInsets.all(14.0),
+      child: Text(
+        title,
+        style:
+            TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: color),
       ),
     );
   }

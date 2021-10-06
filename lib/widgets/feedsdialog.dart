@@ -66,13 +66,14 @@ class FeedDialog extends StatelessWidget {
                         context,
                         1,
                         () => {
-                              Navigator.pushNamed(
-                                      context, ProductDetails.routeName,
-                                      arguments: prodAttr.productId)
-                                  .then((value) => Navigator.canPop(context)
-                                      ? Navigator.pop(context)
-                                      : null),
-                            }),
+                              // Navigator.pushNamed(
+                              //         context, ProductDetails.routeName,
+                              //         arguments: prodAttr.productId)
+                              //     .then((value) => Navigator.canPop(context)
+                              //         ? Navigator.pop(context)
+                              //         : null),
+                            }
+                            ),
                   ),
 
                 ]),
