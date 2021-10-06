@@ -1,6 +1,5 @@
-import 'package:volt_arena/inner_screens/product_details.dart';
-import 'package:volt_arena/models/product.dart';
-import 'package:volt_arena/provider/cart_provider.dart';
+import 'package:meditation_alive/models/product.dart';
+import 'package:meditation_alive/widgets/product_details.dart';
 import 'package:flutter/material.dart';
 import 'package:badges/badges.dart';
 import 'package:provider/provider.dart';
@@ -15,7 +14,6 @@ class FeedProducts extends StatefulWidget {
 class _FeedProductsState extends State<FeedProducts> {
   @override
   Widget build(BuildContext context) {
-    final cartProvider = Provider.of<CartProvider>(context);
 
     final productsAttributes = Provider.of<Product>(context);
     print(productsAttributes);

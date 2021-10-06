@@ -3,14 +3,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:list_tile_switch/list_tile_switch.dart';
+import 'package:meditation_alive/consts/colors.dart';
+import 'package:meditation_alive/consts/my_icons.dart';
+import 'package:meditation_alive/wishlist/wishlist.dart';
 import 'package:provider/provider.dart';
-import 'package:volt_arena/cart/cart.dart';
-import 'package:volt_arena/consts/colors.dart';
-import 'package:volt_arena/consts/my_icons.dart';
-import 'package:volt_arena/orders/order.dart';
-import 'package:volt_arena/provider/dark_theme_provider.dart';
-import 'package:volt_arena/wishlist/wishlist.dart';
 import 'package:share/share.dart';
+
+import 'dark_theme_provider.dart';
 
 class UserInfo extends StatefulWidget {
   @override
@@ -173,22 +172,7 @@ class _UserInfoState extends State<UserInfo> {
                         ),
                       ),
                     ),
-                    ListTile(
-                      onTap: () {
-                        Navigator.of(context)
-                            .pushNamed(MyBookingsScreen.routeName);
-                      },
-                      title: Text('My Bookings'),
-                      trailing: Icon(Icons.chevron_right_rounded),
-                      leading: Icon(MyAppIcons.cart),
-                    ),
-                    ListTile(
-                      onTap: () => Navigator.of(context)
-                          .pushNamed(OrderScreen.routeName),
-                      title: Text('Completed Sessions'),
-                      trailing: Icon(Icons.chevron_right_rounded),
-                      leading: Icon(MyAppIcons.bag),
-                    ),
+
                     Padding(
                       padding: const EdgeInsets.only(left: 8.0),
                       child: userTitle(title: 'User Information'),

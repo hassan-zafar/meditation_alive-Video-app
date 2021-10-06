@@ -1,8 +1,12 @@
-
 import 'package:flutter/material.dart';
 import 'package:meditation_alive/models/product.dart';
 import 'package:meditation_alive/provider/products.dart';
+import 'package:meditation_alive/widgets/feeds_products.dart';
+import 'package:meditation_alive/widgets/searchby_header.dart';
 import 'package:provider/provider.dart';
+
+
+import '../consts/colors.dart';
 
 class Search extends StatefulWidget {
   @override
@@ -89,20 +93,20 @@ class _SearchState extends State<Search> {
                     filled: true,
                     fillColor: Theme.of(context).cardColor,
                     suffixIcon: IconButton(
-                      onPressed: _searchTextController.text.isEmpty
+                      onPressed: _searchTextController!.text.isEmpty
                           ? null
                           : () {
-                              _searchTextController.clear();
+                              _searchTextController!.clear();
                               _node.unfocus();
                             },
-                      icon: Icon(Feather.x,
-                          color: _searchTextController.text.isNotEmpty
+                      icon: Icon(Icons.remove_from_queue,
+                          color: _searchTextController!.text.isNotEmpty
                               ? Colors.red
                               : Colors.grey),
                     ),
                   ),
                   onChanged: (value) {
-                    _searchTextController.text.toLowerCase();
+                    _searchTextController!.text.toLowerCase();
                     setState(() {
                       _searchList = productsData.searchQuery(value);
                     });
@@ -112,14 +116,14 @@ class _SearchState extends State<Search> {
             ),
           ),
           SliverToBoxAdapter(
-            child: _searchTextController.text.isNotEmpty && _searchList.isEmpty
+            child: _searchTextController!.text.isNotEmpty && _searchList.isEmpty
                 ? Column(
                     children: [
                       SizedBox(
                         height: 50,
                       ),
                       Icon(
-                        Feather.search,
+                        Icons.search,
                         size: 60,
                       ),
                       SizedBox(
@@ -136,15 +140,15 @@ class _SearchState extends State<Search> {
                     physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     crossAxisCount: 2,
-                    childAspectRatio: 240 / 420,
+                    childAspectRatio: 9 / 12,
                     crossAxisSpacing: 8,
                     mainAxisSpacing: 8,
                     children: List.generate(
-                        _searchTextController.text.isEmpty
+                        _searchTextController!.text.isEmpty
                             ? productsList.length
                             : _searchList.length, (index) {
                       return ChangeNotifierProvider.value(
-                        value: _searchTextController.text.isEmpty
+                        value: _searchTextController!.text.isEmpty
                             ? productsList[index]
                             : _searchList[index],
                         child: FeedProducts(),

@@ -1,5 +1,8 @@
 
 import 'package:flutter/material.dart';
+import 'package:meditation_alive/consts/my_icons.dart';
+import 'package:meditation_alive/screens/search.dart';
+import 'package:meditation_alive/screens/user_info.dart';
 
 import 'feeds.dart';
 
@@ -12,14 +15,13 @@ class BottomBarScreen extends StatefulWidget {
 class _BottomBarScreenState extends State<BottomBarScreen> {
   // List<Map<String, Object>> _pages;
   int _selectedPageIndex = 1;
-  List<Object> pages;
+  List<Object>? pages;
   @override
   void initState() {
     pages = [
       Home(),
       Feeds(),
       Search(),
-      MyBookingScreen(),
       UserInfo(),
     ];
     // _pages = [

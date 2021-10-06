@@ -2,6 +2,7 @@ import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:meditation_alive/consts/colors.dart';
 import 'package:meditation_alive/provider/favs_provider.dart';
+import 'package:meditation_alive/wishlist/wishlist.dart';
 import 'package:provider/provider.dart';
 
 class SearchByHeader extends SliverPersistentHeaderDelegate {

@@ -1,12 +1,12 @@
-import 'package:volt_arena/consts/colors.dart';
-import 'package:volt_arena/consts/my_icons.dart';
-import 'package:volt_arena/inner_screens/product_details.dart';
-import 'package:volt_arena/provider/cart_provider.dart';
-import 'package:volt_arena/provider/dark_theme_provider.dart';
-import 'package:volt_arena/provider/favs_provider.dart';
-import 'package:volt_arena/provider/products.dart';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:meditation_alive/consts/colors.dart';
+import 'package:meditation_alive/consts/my_icons.dart';
+import 'package:meditation_alive/provider/dark_theme_provider.dart';
+import 'package:meditation_alive/provider/favs_provider.dart';
+import 'package:meditation_alive/provider/products.dart';
+import 'package:meditation_alive/widgets/product_details.dart';
 import 'package:provider/provider.dart';
 
 class FeedDialog extends StatelessWidget {
@@ -17,7 +17,6 @@ class FeedDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     final productsData = Provider.of<Products>(context, listen: false);
 
-    final cartProvider = Provider.of<CartProvider>(context);
 
     final favsProvider = Provider.of<FavsProvider>(context);
 
@@ -75,24 +74,7 @@ class FeedDialog extends StatelessWidget {
                                       : null),
                             }),
                   ),
-                  Flexible(
-                    child: dialogContent(
-                      context,
-                      2,
-                      cartProvider.getCartItems.containsKey(productId)
-                          ? () {}
-                          : () {
-                              cartProvider.addProductToCart(
-                                  productId,
-                                  prodAttr.price!,
-                                  prodAttr.title!,
-                                  prodAttr.imageUrl!);
-                              Navigator.canPop(context)
-                                  ? Navigator.pop(context)
-                                  : null;
-                            },
-                    ),
-                  ),
+
                 ]),
           ),
 
@@ -122,7 +104,6 @@ class FeedDialog extends StatelessWidget {
   }
 
   Widget dialogContent(BuildContext context, int index, VoidCallback fct) {
-    final cart = Provider.of<CartProvider>(context);
     final favs = Provider.of<FavsProvider>(context);
     List<IconData> _dialogIcons = [
       favs.getFavsItems.containsKey(productId)
@@ -137,7 +118,7 @@ class FeedDialog extends StatelessWidget {
           ? 'In wishlist'
           : 'Add to wishlist',
       'View product',
-      cart.getCartItems.containsKey(productId) ? 'In Cart ' : 'Add to cart',
+      // cart.getCartItems.containsKey(productId) ? 'In Cart ' : 'Add to cart',
     ];
     List<Color> _colors = [
       favs.getFavsItems.containsKey(productId)
