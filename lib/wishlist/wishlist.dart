@@ -1,9 +1,8 @@
-import 'package:volt_arena/consts/my_icons.dart';
-import 'package:volt_arena/provider/favs_provider.dart';
-import 'package:volt_arena/services/global_method.dart';
 import 'package:flutter/material.dart';
+import 'package:meditation_alive/consts/my_icons.dart';
+import 'package:meditation_alive/provider/favs_provider.dart';
+import 'package:meditation_alive/services/global_method.dart';
 import 'package:provider/provider.dart';
-
 import 'wishlist_empty.dart';
 import 'wishlist_full.dart';
 

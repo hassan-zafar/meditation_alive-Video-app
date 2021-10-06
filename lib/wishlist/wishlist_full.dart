@@ -1,8 +1,9 @@
-import 'package:volt_arena/consts/colors.dart';
-import 'package:volt_arena/models/favs_attr.dart';
-import 'package:volt_arena/provider/favs_provider.dart';
-import 'package:volt_arena/services/global_method.dart';
+
 import 'package:flutter/material.dart';
+import 'package:meditation_alive/consts/colors.dart';
+import 'package:meditation_alive/models/favs_attr.dart';
+import 'package:meditation_alive/provider/favs_provider.dart';
+import 'package:meditation_alive/services/global_method.dart';
 import 'package:provider/provider.dart';
 
 class WishlistFull extends StatefulWidget {
