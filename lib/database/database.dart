@@ -1,11 +1,8 @@
-import 'dart:convert';
-
-\
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:meditation_alive/consts/collections.dart';
 import 'package:meditation_alive/models/users.dart';
+import 'package:meditation_alive/widgets/custom_toast.dart';
 
 import 'local_database.dart';
 

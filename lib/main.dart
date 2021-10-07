@@ -7,6 +7,8 @@ import 'package:meditation_alive/auth/forget_password.dart';
 import 'package:meditation_alive/auth/login.dart';
 import 'package:meditation_alive/auth/sign_up.dart';
 import 'package:meditation_alive/main_screen.dart';
+import 'package:meditation_alive/provider/dark_theme_provider.dart';
+import 'package:meditation_alive/provider/favs_provider.dart';
 import 'package:meditation_alive/provider/products.dart';
 import 'package:meditation_alive/services/user_state.dart';
 import 'package:meditation_alive/widgets/bottom_bar.dart';
@@ -121,19 +123,13 @@ class _MyAppState extends State<MyApp> {
                 create: (_) => Products(),
               ),
               ChangeNotifierProvider(
-                create: (_) => CartProvider(),
-              ),
-              ChangeNotifierProvider(
                 create: (_) => FavsProvider(),
-              ),
-              ChangeNotifierProvider(
-                create: (_) => OrdersProvider(),
               ),
             ],
             child: Consumer<DarkThemeProvider>(
               builder: (context, themeChangeProvider, ch) {
                 return MaterialApp(
-                  title: 'Volt Arena',
+                  title: 'Medication Alive',
                   theme:
                       Styles.themeData(themeChangeProvider.darkTheme, context),
                   home: UserState(),
