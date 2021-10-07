@@ -14,25 +14,8 @@ import 'package:meditation_alive/services/user_state.dart';
 import 'package:meditation_alive/widgets/bottom_bar.dart';
 import 'package:meditation_alive/wishlist/wishlist.dart';
 import 'package:provider/provider.dart';
-import 'package:volt_arena/bottom_bar.dart';
-import 'package:volt_arena/cart/cart.dart';
-import 'package:volt_arena/feeds.dart';
-import 'package:volt_arena/inner_screens/product_details.dart';
-import 'package:volt_arena/main_screen.dart';
-import 'package:volt_arena/orders/order.dart';
-import 'package:volt_arena/provider/cart_provider.dart';
-import 'package:volt_arena/provider/dark_theme_provider.dart';
-import 'package:volt_arena/provider/favs_provider.dart';
-import 'package:volt_arena/provider/orders_provider.dart';
-import 'package:volt_arena/provider/products.dart';
-import 'package:volt_arena/screens/auth/login.dart';
-import 'package:volt_arena/screens/auth/sign_up.dart';
-import 'package:volt_arena/screens/calender.dart';
-import 'package:volt_arena/screens/upload_product_form.dart';
-import 'package:volt_arena/user_state.dart';
-import 'package:volt_arena/wishlist/wishlist.dart';
+
 import 'consts/theme_data.dart';
-import 'screens/auth/forget_password.dart';
 
 const AndroidNotificationChannel channel = AndroidNotificationChannel(
   "high_importance_channel",
