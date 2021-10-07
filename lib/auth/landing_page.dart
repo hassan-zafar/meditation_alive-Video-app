@@ -19,10 +19,10 @@ class _LandingPageState extends State<LandingPage>
   AnimationController? _animationController;
   Animation<double>? _animation;
   List<String> images = [
-    'https://media.istockphoto.com/photos/man-at-the-shopping-picture-id868718238?k=6&m=868718238&s=612x612&w=0&h=ZUPCx8Us3fGhnSOlecWIZ68y3H4rCiTnANtnjHk0bvo=',
-    'https://thumbor.forbes.com/thumbor/fit-in/1200x0/filters%3Aformat%28jpg%29/https%3A%2F%2Fspecials-images.forbesimg.com%2Fdam%2Fimageserve%2F1138257321%2F0x0.jpg%3Ffit%3Dscale',
-    'https://e-shopy.org/wp-content/uploads/2020/08/shop.jpeg',
-    'https://e-shopy.org/wp-content/uploads/2020/08/shop.jpeg',
+    'https://resize.prod.femina.ladmedia.fr/rblr/652,438/img/var/2020-03/exercice-de-meditation-pleine-conscience.jpg',
+    'https://www.lifestylia.com/wp-content/uploads/2019/11/meditation-696x392.jpg',
+    'https://cdn.radiofrance.fr/s3/cruiser-production/2019/06/6224b0db-fcf2-45ec-8746-3d64ef796ea7/1136_gettyimages-578188157.webp',
+    'https://resize2.prod.docfr.doc-media.fr/rcrop/650,380,center-middle/img/var/doctissimo/storage/images/fr/www/medecines-douces/meditation/meditation-pleine-conscience/653552-1-fre-FR/meditation-pleine-conscience.jpg',
   ];
   final FirebaseAuth _auth = FirebaseAuth.instance;
   GlobalMethods _globalMethods = GlobalMethods();
@@ -141,7 +141,7 @@ class _LandingPageState extends State<LandingPage>
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30),
               child: Text(
-                'Welcome to the biggest online store',
+                'Welcome to Medication Alive',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 26,
