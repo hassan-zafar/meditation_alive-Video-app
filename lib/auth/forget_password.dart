@@ -1,7 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:meditation_alive/services/global_method.dart';
 import 'package:meditation_alive/widgets/commonWidgets.dart';
 
@@ -121,7 +119,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                           width: 5,
                         ),
                         Icon(
-                          Entypo.key,
+                          Icons.lock,
                           size: 18,
                         )
                       ],

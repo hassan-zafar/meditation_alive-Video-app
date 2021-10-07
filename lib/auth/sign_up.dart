@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:meditation_alive/consts/colors.dart';
 import 'package:meditation_alive/services/global_method.dart';
@@ -428,7 +427,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                           width: 5,
                                         ),
                                         Icon(
-                                          Feather.user,
+                                          Icons.person,
                                           size: 18,
                                         )
                                       ],

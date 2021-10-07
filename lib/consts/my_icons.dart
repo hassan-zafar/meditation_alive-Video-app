@@ -1,16 +1,14 @@
-
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class MyAppIcons {
-
-static IconData home = Feather.home;
-static IconData rss = Feather.rss;
-static IconData search = Feather.search;
-static IconData user = Feather.user;
-static IconData cart = MaterialCommunityIcons.cart;
-static IconData bag = Feather.shopping_bag;
-static IconData trash = Feather.trash;
-static IconData wishlist = Ionicons.ios_heart_empty;
-static IconData upload = Feather.upload;
+  static IconData home = FontAwesomeIcons.home;
+  static IconData rss = FontAwesomeIcons.rss;
+  static IconData search = FontAwesomeIcons.search;
+  static IconData user = FontAwesomeIcons.user;
+  static IconData cart = FontAwesomeIcons.shoppingCart;
+  static IconData bag = FontAwesomeIcons.shoppingBag;
+  static IconData trash = FontAwesomeIcons.trash;
+  static IconData wishlist = Icons.favorite_border_outlined;
+  static IconData upload = FontAwesomeIcons.upload;
 }
