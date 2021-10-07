@@ -1,5 +1,3 @@
-import 'package:chips_choice/chips_choice.dart';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -206,68 +204,25 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-              Content(
-                title: 'Scrollable List Multiple Choice',
-                child: ChipsChoice<String>.multiple(
-                  value: tags,
-                  onChanged: (val) => setState(() => tags = val),
-                  choiceItems: C2Choice.listFrom<String, String>(
-                    source: options,
-                    value: (i, v) => v,
-                    label: (i, v) => v,
-                    tooltip: (i, v) => v,
+              Row(
+                children: [
+                  Chip(
+                    label: Text("Popular"),
+                    labelPadding: EdgeInsets.all(8),
                   ),
-                ),
-              ),
-              // Padding(
-              //   padding: EdgeInsetsDirectional.fromSTEB(8, 4, 0, 0),
-              //   child: FlutterFlowChoiceChips(
-              //     options:,
-              //     onChanged: (val) => setState(() => choiceChipsValue = val),
-              //     selectedChipStyle: ChipStyle(
-              //       backgroundColor: Color(0xFF4B39EF),
-              //       textStyle: TextStyle(
-              //         fontFamily: 'Lexend Deca',
-              //         color: Colors.white,
-              //         fontSize: 14,
-              //         fontWeight: FontWeight.normal,
-              //       ),
-              //       iconColor: Colors.white,
-              //       iconSize: 18,
-              //       elevation: 4,
-              //     ),
-              //     unselectedChipStyle: ChipStyle(
-              //       backgroundColor: Color(0xFF262D34),
-              //       textStyle: TextStyle(
-              //         fontFamily: 'Lexend Deca',
-              //         color: Colors.white,
-              //         fontSize: 14,
-              //         fontWeight: FontWeight.normal,
-              //       ),
-              //       iconColor: Color(0xFF262D34),
-              //       iconSize: 18,
-              //       elevation: 0,
-              //     ),
-              //     chipSpacing: 12,
-              //   ),
-              // ),
-
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 0),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Text(
-                      'Popular',
-                      style: TextStyle(
-                        fontFamily: 'Lexend Deca',
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    )
-                  ],
-                ),
+                  Chip(
+                    label: Text("All"),
+                    labelPadding: EdgeInsets.all(8),
+                  ),
+                  Chip(
+                    label: Text("BEGINNERS"),
+                    labelPadding: EdgeInsets.all(8),
+                  ),
+                  Chip(
+                    label: Text("RECOMMENDED"),
+                    labelPadding: EdgeInsets.all(8),
+                  ),
+                ],
               ),
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "163549486060",
+    "project_id": "medication-alive",
+    "storage_bucket": "medication-alive.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:163549486060:android:da4802c245664914023ec9",
+        "android_client_info": {
+          "package_name": "com.hassan.meditation_alive"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "163549486060-h176ah8e67bu4l9sanbb15hrocfbv5n2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC51RTYb3lr2CFTTT9Fq_9ptqYVtUgMbXY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "163549486060-h176ah8e67bu4l9sanbb15hrocfbv5n2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
