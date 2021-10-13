@@ -1,5 +1,4 @@
 import 'package:meditation_alive/models/product.dart';
-import 'package:meditation_alive/widgets/product_details.dart';
 import 'package:flutter/material.dart';
 import 'package:badges/badges.dart';
 import 'package:provider/provider.dart';
