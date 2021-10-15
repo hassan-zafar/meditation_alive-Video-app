@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:meditation_alive/widgets/commentsNChat.dart';
 import 'package:meditation_alive/widgets/video_widget.dart';
