@@ -1,11 +1,13 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:meditation_alive/widgets/commentsNChat.dart';
 import 'package:meditation_alive/widgets/video_widget.dart';
 
 class VideoPage extends StatefulWidget {
-  const VideoPage({Key? key}) : super(key: key);
-
+  final String? path;
+  final String? postId;
+  VideoPage({this.path, this.postId});
   @override
   _VideoPageState createState() => _VideoPageState();
 }
@@ -19,12 +21,11 @@ class _VideoPageState extends State<VideoPage> {
           Container(
             height: 200,
             child: VideoWidget(
-              path: File("asdsd"),
+              path: widget.path!,
             ),
           ),
           ListView(
-            children: [
-            ],
+            children: [CommentsNMessages(postId: widget.postId)],
           ),
         ],
       ),

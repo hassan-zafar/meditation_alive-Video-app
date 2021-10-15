@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoWidget extends StatefulWidget {
-  final File _path;
+  final String? _path;
 
   const VideoWidget({
-    required File path,
+    required String path,
     Key? key,
   })  : _path = path,
         super(key: key);
@@ -20,7 +20,7 @@ class _VideoAppState extends State<VideoWidget> {
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.file(widget._path)
+    _controller = VideoPlayerController.asset(widget._path!)
       ..addListener(() => setState(() {}))
       ..setLooping(true)
       ..initialize().then((_) => _controller.play());
