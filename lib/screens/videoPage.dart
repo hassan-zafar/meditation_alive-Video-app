@@ -24,7 +24,6 @@ class _VideoPageState extends State<VideoPage> {
           ),
           ListView(
             children: [
-              
             ],
           ),
         ],

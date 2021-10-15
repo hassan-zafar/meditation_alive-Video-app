@@ -42,6 +42,8 @@ dependencies:
   bot_toast:
   video_player:
   flutter_local_notifications:
+  timeago:
+  glassmorphism_ui:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
