@@ -536,6 +536,26 @@ class _HomePageState extends State<HomePage> {
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 0),
                 child: CategoryHeading(
+                  categoryName: 'Daily',
+                ),
+              ),
+              Container(
+                height: 200,
+                child: ListView(
+                  children: [
+                    CategoryItemsViewer(
+                      path:
+                          "https://firebasestorage.googleapis.com/v0/b/medication-alive.appspot.com/o/videos%2FDaily%2FEvening_mediation.mp4?alt=media&token=ebd8c676-b1c7-4820-9d36-640aeacfe208",
+                      postId: "daily1stVid",
+                      videoLength: "10 min",
+                      videoText: "Movement Running Meditation",
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 0),
+                child: CategoryHeading(
                   categoryName: 'Movement',
                 ),
               ),
@@ -544,14 +564,16 @@ class _HomePageState extends State<HomePage> {
                 child: ListView(
                   children: [
                     CategoryItemsViewer(
-                      path: movement1stVid,
+                      path:
+                          "https://firebasestorage.googleapis.com/v0/b/medication-alive.appspot.com/o/videos%2FMovement%2FMovement_Running_Meditation.mp4?alt=media&token=d1c432bf-e932-42d0-9802-7d86b04c96ed",
                       postId: "movement1stVid",
                       videoLength: "10 min",
                       videoText: "Movement Running Meditation",
                     ),
                   ],
                 ),
-              ),              Padding(
+              ),
+              Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 0),
                 child: CategoryHeading(
                   categoryName: 'Seated',
@@ -562,14 +584,16 @@ class _HomePageState extends State<HomePage> {
                 child: ListView(
                   children: [
                     CategoryItemsViewer(
-                      path: seated1stVid,
+                      path:
+                          "https://firebasestorage.googleapis.com/v0/b/medication-alive.appspot.com/o/videos%2FSeated%2FCharkra_Clearing_Meditation.mp4?alt=media&token=7261212b-bff2-4d1a-a5c9-844b198e703c",
                       postId: "seated1stVid",
                       videoLength: "12 min",
                       videoText: "Charkra Clearing Meditation",
                     ),
                   ],
                 ),
-              ),              Padding(
+              ),
+              Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 0),
                 child: CategoryHeading(
                   categoryName: 'Thinking',
@@ -580,14 +604,16 @@ class _HomePageState extends State<HomePage> {
                 child: ListView(
                   children: [
                     CategoryItemsViewer(
-                      path: thinking1stVid,
+                      path:
+                          "https://firebasestorage.googleapis.com/v0/b/medication-alive.appspot.com/o/videos%2FThinking%2FSelf_Value.mp4?alt=media&token=e4822ed2-cda2-48c7-83b6-04f3eb6d4a80",
                       postId: "thinking1stVid",
                       videoLength: "32 min",
                       videoText: "Self Value",
                     ),
                   ],
                 ),
-              ),              Padding(
+              ),
+              Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 0),
                 child: CategoryHeading(
                   categoryName: 'Education',
@@ -598,15 +624,15 @@ class _HomePageState extends State<HomePage> {
                 child: ListView(
                   children: [
                     CategoryItemsViewer(
-                      path: education1stVid,
+                      path:
+                          "https://firebasestorage.googleapis.com/v0/b/medication-alive.appspot.com/o/videos%2FEducation%2FLetting_go_of_Negativity.mp4?alt=media&token=cb9db466-94dd-4d76-946e-0a07b80851f3",
                       postId: "education1stVid",
                       videoLength: "17 min",
                       videoText: "Letting go of Negativity",
                     ),
                   ],
                 ),
-              ),  
-           
+              ),
             ],
           ),
         ),

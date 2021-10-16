@@ -27,7 +27,7 @@ class _VideoPageState extends State<VideoPage> {
             child: CommentsNChat(
               isPostComment: true,
               isProductComment: false,
-              postId: "video1",
+              postId: widget.postId!,
               isAdmin: false,
             ),
           ),

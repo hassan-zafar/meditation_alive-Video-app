@@ -20,11 +20,10 @@ class _VideoWidgetState extends State<VideoWidget> {
         // VideoPlayerController.asset(asset)
         VideoPlayerController.network(
             // 'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4',
-            "https://firebasestorage.googleapis.com/v0/b/medication-alive.appspot.com/o/videos%2FDaily%2FEvening_mediation.mp4?alt=media&token=ebd8c676-b1c7-4820-9d36-640aeacfe208")
+            widget.path!)
           ..addListener(() => setState(() {}))
           ..setLooping(true)
           ..initialize().then((_) => controller.play());
-          
   }
 
   @override
