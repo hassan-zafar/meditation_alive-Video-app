@@ -14,7 +14,7 @@ class _VideoPageState extends State<VideoPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
+      body: ListView(
         children: [
           Container(
             height: 200,
@@ -22,9 +22,14 @@ class _VideoPageState extends State<VideoPage> {
               path: widget.path!,
             ),
           ),
-          // ListView(
-          //   children: [CommentsNMessages(postId: widget.postId)],
-          // ),
+          Container(
+            height: 800,
+            child: CommentsNChat(
+              isPostComment: true,
+              isProductComment: false,
+              isAdmin: false,
+            ),
+          ),
         ],
       ),
     );

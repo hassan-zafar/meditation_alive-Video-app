@@ -274,46 +274,47 @@ class CommentsNChatState extends State<CommentsNChat> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(widget.isPostComment! || widget.isProductComment!
-            ? 'COMMENTS'
-            : "Contact Admin"),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.only(bottom: 20.0),
-        child: Column(
-          children: <Widget>[
-            Expanded(
-              child: widget.isPostComment! || widget.isProductComment!
-                  ? buildComments()
-                  : buildChat(),
-            ),
-            Divider(),
-            ListTile(
-              title: TextFormField(
-                controller: _commentNMessagesController,
-                decoration: InputDecoration(
-                  hintText: widget.isPostComment! || widget.isProductComment!
-                      ? "Write a Comment..."
-                      : "Write admin a message...",
-                ),
-              ),
-              trailing: IconButton(
-                onPressed: widget.isPostComment! || widget.isProductComment!
-                    ? addComment
-                    : addChatMessage,
-                icon: Icon(
-                  Icons.send,
-                  size: 40.0,
-                ),
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 20.0),
+      child: Column(
+        children: <Widget>[
+          Expanded(
+            child: widget.isPostComment! || widget.isProductComment!
+                ? buildComments()
+                : buildChat(),
+          ),
+          Divider(),
+          ListTile(
+            title: TextFormField(
+              controller: _commentNMessagesController,
+              decoration: InputDecoration(
+                hintText: widget.isPostComment! || widget.isProductComment!
+                    ? "Write a Comment..."
+                    : "Write admin a message...",
               ),
             ),
-          ],
-        ),
+            trailing: IconButton(
+              onPressed: widget.isPostComment! || widget.isProductComment!
+                  ? addComment
+                  : addChatMessage,
+              icon: Icon(
+                Icons.send,
+                size: 40.0,
+              ),
+            ),
+          ),
+        ],
       ),
     );
+
+    // Scaffold(
+    //   appBar: AppBar(
+    //     centerTitle: true,
+    //     title: Text(widget.isPostComment! || widget.isProductComment!
+    //         ? 'COMMENTS'
+    //         : "Contact Admin"),
+    //   ),
+    //   body:);
   }
 }
 
