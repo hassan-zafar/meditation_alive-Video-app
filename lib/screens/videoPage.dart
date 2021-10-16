@@ -16,14 +16,14 @@ class _VideoPageState extends State<VideoPage> {
     return Scaffold(
       body: ListView(
         children: [
+          // Container(
+          //   height: MediaQuery.of(context).size.height * 0.3,
+          //   child: VideoWidget(
+          //     path: widget.path!,
+          //   ),
+          // ),
           Container(
-            height: 200,
-            child: VideoWidget(
-              path: widget.path!,
-            ),
-          ),
-          Container(
-            height: 800,
+            height: MediaQuery.of(context).size.height * 0.65,
             child: CommentsNChat(
               isPostComment: true,
               isProductComment: false,

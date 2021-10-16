@@ -16,10 +16,14 @@ class _VideoWidgetState extends State<VideoWidget> {
   @override
   void initState() {
     super.initState();
-    controller = VideoPlayerController.asset(asset)
-      ..addListener(() => setState(() {}))
-      ..setLooping(true)
-      ..initialize().then((_) => controller.play());
+    controller =
+        // VideoPlayerController.asset(asset)
+        VideoPlayerController.network(
+      'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4',
+    )
+          ..addListener(() => setState(() {}))
+          ..setLooping(true)
+          ..initialize().then((_) => controller.play());
   }
 
   @override
@@ -36,18 +40,18 @@ class _VideoWidgetState extends State<VideoWidget> {
       children: [
         Expanded(child: VideoPlayerWidget(controller: controller)),
         const SizedBox(height: 32),
-        if (controller != null && controller.value.isInitialized)
-          CircleAvatar(
-            radius: 30,
-            backgroundColor: Colors.red,
-            child: IconButton(
-              icon: Icon(
-                isMuted ? Icons.volume_mute : Icons.volume_up,
-                color: Colors.white,
-              ),
-              onPressed: () => controller.setVolume(isMuted ? 1 : 0),
-            ),
-          )
+        // if (controller != null && controller.value.isInitialized)
+        //   CircleAvatar(
+        //     radius: 30,
+        //     backgroundColor: Colors.red,
+        //     child: IconButton(
+        //       icon: Icon(
+        //         isMuted ? Icons.volume_mute : Icons.volume_up,
+        //         color: Colors.white,
+        //       ),
+        //       onPressed: () => controller.setVolume(isMuted ? 1 : 0),
+        //     ),
+        //   )
       ],
     );
   }
