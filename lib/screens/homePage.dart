@@ -39,6 +39,7 @@ class _HomePageState extends State<HomePage> {
         child: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
                 width: MediaQuery.of(context).size.width,
@@ -217,7 +218,7 @@ class _HomePageState extends State<HomePage> {
                       // labelPadding: EdgeInsets.all(8),
                     ),
                     Chip(
-                      label: Text("Daily "),
+                      label: Text("Daily"),
                       // labelPadding: EdgeInsets.all(8),
                     ),
                     Chip(
@@ -534,179 +535,179 @@ class _HomePageState extends State<HomePage> {
               ),
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 0),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Text(
-                      'Daily',
-                      style: TextStyle(
-                        fontFamily: 'Lexend Deca',
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    )
-                  ],
+                child: CategoryHeading(
+                  categoryName: 'Daily',
                 ),
               ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => CommentsNChat(
-                                    isPostComment: true,
-                                    isProductComment: false,
-                                    isAdmin: true,
-                                    postId: "video1",
-                                  )
-                              // VideoPage(
-                              //   path: daily1stVid,
-                              //   postId: "123",
-                              // ),
-                              ));
-                        },
-                        child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(16, 8, 0, 8),
-                          child: Container(
-                            width: 130,
-                            height: 170,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                fit: BoxFit.fill,
-                                image: CachedNetworkImageProvider(
-                                    "https://images.ctfassets.net/qpn1gztbusu2/6CRBRq6rVbvNSNoHB0pCT1/3fce2bfcdd96ff2842b68d41cdd4e008/Livre-Audio-Meditation.jpg"),
-                              ),
-                              boxShadow: [
-                                BoxShadow(
-                                  blurRadius: 3,
-                                  color: Color(0x64000000),
-                                  offset: Offset(0, 2),
-                                )
-                              ],
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      8, 4, 8, 0),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      Card(
-                                        clipBehavior:
-                                            Clip.antiAliasWithSaveLayer,
-                                        color: Color(0xFF1E2429),
-                                        elevation: 2,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(30),
-                                        ),
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  8, 8, 8, 8),
-                                          child: Icon(
-                                            Icons.favorite_border,
-                                            color: Colors.white,
-                                            size: 24,
-                                          ),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      8, 0, 8, 0),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            4, 0, 0, 0),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              'San Antonio',
-                                              style: TextStyle(
-                                                fontFamily: 'Lexend Deca',
-                                                color: Colors.white,
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.normal,
-                                              ),
-                                            ),
-                                            Text(
-                                              'Sept 14th, 7:00pm',
-                                              style: TextStyle(
-                                                fontFamily: 'Lexend Deca',
-                                                color: Color(0xFFFFCDD2),
-                                                fontSize: 10,
-                                                fontWeight: FontWeight.w300,
-                                              ),
-                                            ),
-                                            Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceEvenly,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: [
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(0, 0, 8, 0),
-                                                  child: Text(
-                                                    '7 min',
-                                                    style: TextStyle(
-                                                      fontFamily: 'Poppins',
-                                                      color: Color(0xFFF5F5F5),
-                                                      fontSize: 10,
-                                                      fontWeight:
-                                                          FontWeight.w100,
-                                                    ),
-                                                  ),
-                                                ),
-                                                Text(
-                                                  'Guitar',
-                                                  style: TextStyle(
-                                                    fontFamily: 'Poppins',
-                                                    color: Color(0xFFF5F5F5),
-                                                    fontSize: 10,
-                                                    fontWeight: FontWeight.w100,
-                                                  ),
-                                                )
-                                              ],
-                                            )
-                                          ],
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+              Container(
+                height: 200,
+                child: ListView(
+                  children: [
+                    CategoryItemsViewer(
+                      path: daily1stVid,
+                      postId: "daily1stVid",
+                      videoLength: "40 min",
+                      videoText: "Evening mediation",
+                    ),
+                  ],
                 ),
               )
             ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class CategoryHeading extends StatelessWidget {
+  final String? categoryName;
+  const CategoryHeading({
+    this.categoryName,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      categoryName!,
+      style: TextStyle(
+        fontFamily: 'Lexend Deca',
+        color: Colors.white,
+        fontSize: 16,
+        fontWeight: FontWeight.w500,
+      ),
+    );
+  }
+}
+
+class CategoryItemsViewer extends StatelessWidget {
+  final String? path;
+  final String? postId;
+  final String? videoLength;
+  final String? videoText;
+  const CategoryItemsViewer(
+      {this.path, this.postId, this.videoLength, this.videoText});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
+      child: InkWell(
+        onTap: () {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => VideoPage(
+              path: path,
+              postId: postId,
+            ),
+          ));
+        },
+        child: Padding(
+          padding: EdgeInsetsDirectional.fromSTEB(16, 8, 0, 8),
+          child: Container(
+            width: 130,
+            height: 170,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                fit: BoxFit.fill,
+                image: CachedNetworkImageProvider(
+                    "https://images.ctfassets.net/qpn1gztbusu2/6CRBRq6rVbvNSNoHB0pCT1/3fce2bfcdd96ff2842b68d41cdd4e008/Livre-Audio-Meditation.jpg"),
+              ),
+              boxShadow: [
+                BoxShadow(
+                  blurRadius: 3,
+                  color: Color(0x64000000),
+                  offset: Offset(0, 2),
+                )
+              ],
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(8, 4, 8, 0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Card(
+                        clipBehavior: Clip.antiAliasWithSaveLayer,
+                        color: Color(0xFF1E2429),
+                        elevation: 2,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
+                          child: Icon(
+                            Icons.favorite_border,
+                            color: Colors.white,
+                            size: 24,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(4, 0, 0, 0),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              videoText!,
+                              style: TextStyle(
+                                fontFamily: 'Lexend Deca',
+                                color: Colors.white,
+                                fontSize: 12,
+                                fontWeight: FontWeight.normal,
+                              ),
+                            ),
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0, 0, 8, 0),
+                                  child: Text(
+                                    videoLength!,
+                                    style: TextStyle(
+                                      fontFamily: 'Poppins',
+                                      color: Color(0xFFF5F5F5),
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.w100,
+                                    ),
+                                  ),
+                                ),
+                                Text(
+                                  'Guitar',
+                                  style: TextStyle(
+                                    fontFamily: 'Poppins',
+                                    color: Color(0xFFF5F5F5),
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.w100,
+                                  ),
+                                )
+                              ],
+                            )
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),

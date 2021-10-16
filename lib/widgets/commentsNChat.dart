@@ -274,12 +274,12 @@ class CommentsNChatState extends State<CommentsNChat> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(widget.isPostComment! || widget.isProductComment!
-            ? 'COMMENTS'
-            : "Contact Admin"),
-      ),
+      // appBar: AppBar(
+      //   centerTitle: true,
+      //   title: Text(widget.isPostComment! || widget.isProductComment!
+      //       ? 'COMMENTS'
+      //       : "Contact Admin"),
+      // ),
       body: Padding(
         padding: const EdgeInsets.only(bottom: 20.0),
         child: Column(
