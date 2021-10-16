@@ -24,12 +24,16 @@ class _VideoPageState extends State<VideoPage> {
               path: widget.path!,
             ),
           ),
-          Text(
-            widget.videoTitle!,
-            style: titleTextStyle(fontSize: 16),
+          Padding(
+            padding: const EdgeInsets.only(left: 8, right: 8, bottom: 16),
+            child: Text(
+              widget.videoTitle!,
+              style: titleTextStyle(
+                  fontSize: 20, color: Theme.of(context).dividerColor),
+            ),
           ),
           Container(
-            height: MediaQuery.of(context).size.height * 0.65,
+            height: MediaQuery.of(context).size.height * 0.6,
             child: CommentsNChat(
               isPostComment: true,
               isProductComment: false,
