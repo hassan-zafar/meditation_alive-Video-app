@@ -536,7 +536,7 @@ class _HomePageState extends State<HomePage> {
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 0),
                 child: CategoryHeading(
-                  categoryName: 'Daily',
+                  categoryName: 'Movement',
                 ),
               ),
               Container(
@@ -544,14 +544,69 @@ class _HomePageState extends State<HomePage> {
                 child: ListView(
                   children: [
                     CategoryItemsViewer(
-                      path: daily1stVid,
-                      postId: "daily1stVid",
-                      videoLength: "40 min",
-                      videoText: "Evening mediation",
+                      path: movement1stVid,
+                      postId: "movement1stVid",
+                      videoLength: "10 min",
+                      videoText: "Movement Running Meditation",
                     ),
                   ],
                 ),
-              )
+              ),              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 0),
+                child: CategoryHeading(
+                  categoryName: 'Seated',
+                ),
+              ),
+              Container(
+                height: 200,
+                child: ListView(
+                  children: [
+                    CategoryItemsViewer(
+                      path: seated1stVid,
+                      postId: "seated1stVid",
+                      videoLength: "12 min",
+                      videoText: "Charkra Clearing Meditation",
+                    ),
+                  ],
+                ),
+              ),              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 0),
+                child: CategoryHeading(
+                  categoryName: 'Thinking',
+                ),
+              ),
+              Container(
+                height: 200,
+                child: ListView(
+                  children: [
+                    CategoryItemsViewer(
+                      path: thinking1stVid,
+                      postId: "thinking1stVid",
+                      videoLength: "32 min",
+                      videoText: "Self Value",
+                    ),
+                  ],
+                ),
+              ),              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 0),
+                child: CategoryHeading(
+                  categoryName: 'Education',
+                ),
+              ),
+              Container(
+                height: 200,
+                child: ListView(
+                  children: [
+                    CategoryItemsViewer(
+                      path: education1stVid,
+                      postId: "education1stVid",
+                      videoLength: "17 min",
+                      videoText: "Letting go of Negativity",
+                    ),
+                  ],
+                ),
+              ),  
+           
             ],
           ),
         ),
