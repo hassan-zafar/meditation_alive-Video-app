@@ -535,7 +535,7 @@ class _HomePageState extends State<HomePage> {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Text(
-                      'Inspiring',
+                      'Daily',
                       style: TextStyle(
                         fontFamily: 'Lexend Deca',
                         color: Colors.white,
