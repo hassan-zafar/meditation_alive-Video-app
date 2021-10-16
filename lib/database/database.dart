@@ -41,7 +41,7 @@ class DatabaseMethods {
 
   addUserInfoToFirebase({
     required final String password,
-    required final String? userName,
+    required final String? name,
     required final String? joinedAt,
     required final int? phoneNo,
     required final String? imageUrl,
@@ -53,7 +53,7 @@ class DatabaseMethods {
     print("addUserInfoToFirebase");
     return userRef.doc(userId).set({
       'id': userId,
-      'name': userName,
+      'name': name,
       'phoneNo': phoneNo,
       'password': password,
       'createdAt': createdAt,

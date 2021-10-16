@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:meditation_alive/consts/my_icons.dart';
 import 'package:meditation_alive/main.dart';
 import 'package:meditation_alive/provider/dark_theme_provider.dart';
+import 'package:meditation_alive/screens/adminScreens/allUsers.dart';
+import 'package:meditation_alive/screens/adminScreens/chatLists.dart';
 import 'package:meditation_alive/screens/homePage.dart';
 import 'package:meditation_alive/screens/search.dart';
 import 'package:meditation_alive/screens/user_info.dart';
@@ -34,6 +36,8 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
       Search(),
       WishlistScreen(),
       UserInfoScreen(),
+      UserNSearch(),
+      ChatLists(),
     ];
     //
     super.initState();
@@ -41,38 +45,38 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
     _scrollController!.addListener(() {
       setState(() {});
     });
-    getData();
+    // getData();
   }
 
-  void getData() async {
-    User user = _auth.currentUser!;
-    _uid = user.uid;
+  // void getData() async {
+  //   User user = _auth.currentUser!;
+  //   _uid = user.uid;
 
-    print('user.displayName ${user.displayName}');
-    print('user.photoURL ${user.photoURL}');
-    DocumentSnapshot<Map<String, dynamic>>? userDoc = user.isAnonymous
-        ? null
-        : await FirebaseFirestore.instance.collection('users').doc(_uid).get();
-    // .then((value) {
-    // if (user.isAnonymous) {
-    //   userDoc = null;
-    // } else {
-    //   userDoc = value;
-    // }
-    // });
-    if (userDoc == null) {
-      return;
-    } else {
-      setState(() {
-        _name = userDoc.get('name');
-        _email = user.email!;
-        _joinedAt = userDoc.get('joinedAt');
-        _phoneNumber = userDoc.get('phoneNumber');
-        _userImageUrl = userDoc.get('imageUrl');
-      });
-    }
-    // print("name $_name");
-  }
+  //   print('user.displayName ${user.displayName}');
+  //   print('user.photoURL ${user.photoURL}');
+  //   DocumentSnapshot<Map<String, dynamic>>? userDoc = user.isAnonymous
+  //       ? null
+  //       : await FirebaseFirestore.instance.collection('users').doc(_uid).get();
+  //   // .then((value) {
+  //   // if (user.isAnonymous) {
+  //   //   userDoc = null;
+  //   // } else {
+  //   //   userDoc = value;
+  //   // }
+  //   // });
+  //   if (userDoc == null) {
+  //     return;
+  //   } else {
+  //     setState(() {
+  //       _name = userDoc.get('name');
+  //       _email = user.email!;
+  //       _joinedAt = userDoc.get('joinedAt');
+  //       _phoneNumber = userDoc.get('phoneNumber');
+  //       _userImageUrl = userDoc.get('imageUrl');
+  //     });
+  //   }
+  //   // print("name $_name");
+  // }
 
   int _selectedPageIndex = 0;
   late List pages;
@@ -131,6 +135,16 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
                       MyAppIcons.user,
                     ),
                     label: 'My Profile'),
+                BottomNavigationBarItem(
+                    icon: Icon(
+                      Icons.people,
+                    ),
+                    label: 'All Users'),
+                BottomNavigationBarItem(
+                    icon: Icon(
+                      Icons.chat_bubble,
+                    ),
+                    label: 'Admin Chats'),
                 // BottomNavigationBarItem(
                 //     icon: Icon(MyAppIcons.user), label: 'User'),
               ],

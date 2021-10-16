@@ -542,6 +542,7 @@ class _HomePageState extends State<HomePage> {
               Container(
                 height: 200,
                 child: ListView(
+                  scrollDirection: Axis.horizontal,
                   children: [
                     CategoryItemsViewer(
                       path:
@@ -562,6 +563,7 @@ class _HomePageState extends State<HomePage> {
               Container(
                 height: 200,
                 child: ListView(
+                  scrollDirection: Axis.horizontal,
                   children: [
                     CategoryItemsViewer(
                       path:
@@ -582,6 +584,7 @@ class _HomePageState extends State<HomePage> {
               Container(
                 height: 200,
                 child: ListView(
+                  scrollDirection: Axis.horizontal,
                   children: [
                     CategoryItemsViewer(
                       path:
@@ -602,6 +605,7 @@ class _HomePageState extends State<HomePage> {
               Container(
                 height: 200,
                 child: ListView(
+                  scrollDirection: Axis.horizontal,
                   children: [
                     CategoryItemsViewer(
                       path:
@@ -622,6 +626,7 @@ class _HomePageState extends State<HomePage> {
               Container(
                 height: 200,
                 child: ListView(
+                  scrollDirection: Axis.horizontal,
                   children: [
                     CategoryItemsViewer(
                       path:
@@ -685,7 +690,7 @@ class CategoryItemsViewer extends StatelessWidget {
         child: Padding(
           padding: EdgeInsetsDirectional.fromSTEB(16, 8, 0, 8),
           child: Container(
-            width: 130,
+            width: 145,
             height: 170,
             decoration: BoxDecoration(
               image: DecorationImage(
@@ -733,56 +738,51 @@ class CategoryItemsViewer extends StatelessWidget {
                 ),
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
+                  child: Column(
+                    // mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(4, 0, 0, 0),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              videoText!,
+                      Container(
+                        child: Text(
+                          videoText!,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                          style: TextStyle(
+                            fontFamily: 'Lexend Deca',
+                            color: Colors.white,
+                            fontSize: 12,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                      ),
+                      Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(0, 0, 8, 0),
+                            child: Text(
+                              videoLength!,
                               style: TextStyle(
-                                fontFamily: 'Lexend Deca',
-                                color: Colors.white,
-                                fontSize: 12,
-                                fontWeight: FontWeight.normal,
+                                fontFamily: 'Poppins',
+                                color: Color(0xFFF5F5F5),
+                                fontSize: 10,
+                                fontWeight: FontWeight.w100,
                               ),
                             ),
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 0, 8, 0),
-                                  child: Text(
-                                    videoLength!,
-                                    style: TextStyle(
-                                      fontFamily: 'Poppins',
-                                      color: Color(0xFFF5F5F5),
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.w100,
-                                    ),
-                                  ),
-                                ),
-                                Text(
-                                  'Guitar',
-                                  style: TextStyle(
-                                    fontFamily: 'Poppins',
-                                    color: Color(0xFFF5F5F5),
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.w100,
-                                  ),
-                                )
-                              ],
-                            )
-                          ],
-                        ),
+                          ),
+                          Text(
+                            'Guitar',
+                            style: TextStyle(
+                              fontFamily: 'Poppins',
+                              color: Color(0xFFF5F5F5),
+                              fontSize: 10,
+                              fontWeight: FontWeight.w100,
+                            ),
+                          )
+                        ],
                       )
                     ],
                   ),

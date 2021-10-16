@@ -13,7 +13,7 @@ class UserLocalData {
   final _uidKey = 'UIDKEY';
   final _isLoggedIn = "ISLOGGEDIN";
   final _emailKey = 'EMAILKEY';
-  final _userNameKey = 'USERNAMEKEY';
+  final _nameKey = 'nameKEY';
   // final _phoneNumberKey = 'PhoneNumber';
   // final _imageUrlKey = 'IMAGEURLKEY';
   // final _password = 'PASSWORD';
@@ -30,8 +30,8 @@ class UserLocalData {
       getStorageProference.write(_userModelString, userModel);
   Future setUserEmail(String? email) async =>
       getStorageProference.write(_emailKey, email);
-  Future setUserName(String? userName) async =>
-      getStorageProference.write(_userNameKey, userName);
+  Future setname(String? name) async =>
+      getStorageProference.write(_nameKey, name);
   Future setToken(String token) async =>
       getStorageProference.write(_token, token);
 
@@ -61,5 +61,5 @@ class UserLocalData {
   String getUserUIDGet() => getStorageProference.read(_uidKey) ?? '';
   bool? isLoggedIn() => getStorageProference.read(_uidKey);
   String getUserEmail() => getStorageProference.read(_emailKey) ?? '';
-  String getUserName() => getStorageProference.read(_userNameKey) ?? '';
+  String getname() => getStorageProference.read(_nameKey) ?? '';
 }

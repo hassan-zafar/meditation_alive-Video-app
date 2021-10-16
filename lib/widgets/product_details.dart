@@ -463,7 +463,7 @@
 //           .doc(productItems!.productId)
 //           .collection("comments")
 //           .add({
-//         "userName": currentUser!.userName,
+//         "name": currentUser!.name,
 //         "userId": currentUser!.id,
 //         "androidNotificationToken": currentUser!.androidNotificationToken,
 //         "comment": _reviewController.text,
@@ -481,7 +481,7 @@
 //         //   activityFeedRef.doc(element.id).collection('feedItems').add({
 //         //     "type": "comment",
 //         //     "commentData": _reviewController.text,
-//         //     "userName": currentUser.userName,
+//         //     "name": currentUser.name,
 //         //     "userId": currentUser.id,
 //         //     "userProfileImg": currentUser.photoUrl,
 //         //     "postId": widget.productItems.productId,

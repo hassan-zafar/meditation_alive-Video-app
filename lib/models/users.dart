@@ -2,7 +2,7 @@ import 'dart:convert';
 
 class AppUserModel {
   final String? id;
-  final String? userName;
+  final String? name;
   final String? phoneNo;
   final String? password;
   final String? timestamp;
@@ -13,8 +13,7 @@ class AppUserModel {
   // final Map? sectionsAppointed;
   AppUserModel(
       {this.id,
-      this.userName,
-
+      this.name,
       this.phoneNo,
       this.password,
       this.timestamp,
@@ -25,7 +24,7 @@ class AppUserModel {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'userName': userName,
+      'name': name,
       'phoneNo': phoneNo,
       'password': password,
       'timestamp': timestamp,
@@ -38,7 +37,7 @@ class AppUserModel {
   factory AppUserModel.fromMap(Map<String, dynamic> map) {
     return AppUserModel(
         id: map['id'],
-        userName: map['userName'],
+        name: map['name'],
         phoneNo: map['phoneNo'],
         password: map['password'],
         timestamp: map['timestamp'],
@@ -49,15 +48,15 @@ class AppUserModel {
 
   factory AppUserModel.fromDocument(doc) {
     return AppUserModel(
-        id: doc.data()["id"],
-        password: doc.data()["password"],
-        userName: doc.data()["userName"],
-        timestamp: doc.data()["timestamp"],
-        email: doc.data()["email"],
-        isAdmin: doc.data()["isAdmin"],
-        phoneNo: doc.data()["phoneNo"],
-        androidNotificationToken: doc.data()["androidNotificationToken"],
-        );
+      id: doc.data()["id"],
+      password: doc.data()["password"],
+      name: doc.data()["name"],
+      timestamp: doc.data()["timestamp"],
+      email: doc.data()["email"],
+      isAdmin: doc.data()["isAdmin"],
+      phoneNo: doc.data()["phoneNo"],
+      androidNotificationToken: doc.data()["androidNotificationToken"],
+    );
   }
 
   String toJson() => json.encode(toMap());

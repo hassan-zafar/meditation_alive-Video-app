@@ -19,7 +19,7 @@ class CommentsNChat extends StatefulWidget {
   final bool? isPostComment;
   final bool? isProductComment;
   final String? chatNotificationToken;
-//  final String userName;
+//  final String name;
   CommentsNChat(
       {this.postId,
       this.postMediaUrl,
@@ -47,7 +47,7 @@ class CommentsNChatState extends State<CommentsNChat> {
   final String? postMediaUrl;
   final bool? isComment;
   final bool? isProductComment;
-//  final String userName;
+//  final String name;
   CommentsNChatState({
     required this.postId,
     this.postMediaUrl,
@@ -131,14 +131,14 @@ class CommentsNChatState extends State<CommentsNChat> {
       if (commentsListGlobal.isNotEmpty) {
         for (int i = 0; i < commentsListGlobal.length; i++) {
           if (_commentNMessagesController.text
-              .contains("@${commentsListGlobal[i].userName}")) {
+              .contains("@${commentsListGlobal[i].name}")) {
             await activityFeedRef
                 .doc(commentsListGlobal[i].userId)
                 .collection('feedItems')
                 .add({
               "type": "commentMention",
               "commentData": _commentNMessagesController.text,
-              "userName": currentUser!.userName,
+              "name": currentUser!.name,
               "userId": currentUser!.id,
               "postId": postId,
               "mediaUrl": postMediaUrl,
@@ -157,7 +157,7 @@ class CommentsNChatState extends State<CommentsNChat> {
       //   activityFeedRef.doc(postOwnerId).collection('feedItems').add({
       //     "type": "commentMention",
       //     "commentData": _commentNMessagesController.text,
-      //     "userName": currentUser.userName,
+      //     "name": currentUser.name,
       //     "userId": currentUser.id,
       //     "userProfileImg": currentUser.photoUrl,
       //     "postId": postId,
@@ -167,7 +167,7 @@ class CommentsNChatState extends State<CommentsNChat> {
       //
       // }
       commentsRef.doc(postId).collection("comments").doc(commentId).set({
-        "userName": currentUser!.userName,
+        "name": currentUser!.name,
         "userId": currentUser!.id,
         "androidNotificationToken": currentUser!.androidNotificationToken,
         "comment": _commentNMessagesController.text,
@@ -201,7 +201,7 @@ class CommentsNChatState extends State<CommentsNChat> {
         // activityFeedRef.doc(element.id).collection('feedItems').add({
         //   "type": "comment",
         //   "commentData": _commentNMessagesController.text,
-        //   "userName": currentUser!.userName,
+        //   "name": currentUser!.name,
         //   "userId": currentUser!.id,
         //   "userProfileImg": currentUser!.photoUrl,
         //   "postId": postId,
@@ -225,7 +225,7 @@ class CommentsNChatState extends State<CommentsNChat> {
           .collection("chats")
           .doc(commentId)
           .set({
-        "userName": currentUser!.userName,
+        "name": currentUser!.name,
         "userId": currentUser!.id,
         "androidNotificationToken": currentUser!.androidNotificationToken,
         "comment": _commentNMessagesController.text,
@@ -235,7 +235,7 @@ class CommentsNChatState extends State<CommentsNChat> {
         "commentId": commentId,
       });
       // chatListRef.doc(isAdmin ? widget.chatId : currentUser.id).set({
-      //   "userName": currentUser.userName,
+      //   "name": currentUser.name,
       //   "userId": currentUser.id,
       //   "comment": _commentNMessagesController.text,
       //   "timestamp": timestamp,
@@ -250,7 +250,7 @@ class CommentsNChatState extends State<CommentsNChat> {
         // activityFeedRef.doc(widget.chatId).collection('feedItems').add({
         //   "type": "adminChats",
         //   "commentData": _commentNMessagesController.text,
-        //   "userName": currentUser.userName,
+        //   "name": currentUser.name,
         //   "userId": currentUser.id,
         //   "postId": widget.chatId,
         //   "mediaUrl": postMediaUrl,
@@ -317,7 +317,7 @@ class CommentsNChatState extends State<CommentsNChat> {
 }
 
 class CommentsNMessages extends StatefulWidget {
-  final String? userName;
+  final String? name;
   final String? userId;
   final String? avatarUrl;
   final String? comment;
@@ -331,7 +331,7 @@ class CommentsNMessages extends StatefulWidget {
   final String? postId;
   final String? androidNotificationToken;
   CommentsNMessages({
-    this.userName,
+    this.name,
     this.userId,
     this.avatarUrl,
     this.comment,
@@ -351,7 +351,7 @@ class CommentsNMessages extends StatefulWidget {
       comment: doc.data()['comment'],
       timestamp: doc.data()['timestamp'],
       userId: doc.data()['userId'],
-      userName: doc.data()['userName'],
+      name: doc.data()['name'],
       isComment: doc.data()['isComment'],
       commentId: doc.data()["commentId"],
       likes: doc.data()["likes"],
@@ -407,7 +407,7 @@ class _CommentsNMessagesState extends State<CommentsNMessages> {
                     children: [
                       Row(
                         children: [
-                          Text("${widget.userName} : ",
+                          Text("${widget.name} : ",
                               style: TextStyle(
                                   fontSize: 14.0,
                                   color: Theme.of(context).dividerColor)),
@@ -469,7 +469,7 @@ class _CommentsNMessagesState extends State<CommentsNMessages> {
                                   //   "type": "comment",
                                   //   "commentData":
                                   //       _commentNMessagesController.text,
-                                  //   "userName": currentUser.userName,
+                                  //   "name": currentUser.name,
                                   //   "userId": currentUser.id,
                                   //   "userProfileImg": currentUser.photoUrl,
                                   //   "postId": widget.postId,
@@ -493,7 +493,7 @@ class _CommentsNMessagesState extends State<CommentsNMessages> {
                           GestureDetector(
                               onTap: () {
                                 _commentNMessagesController.text =
-                                    "@${widget.userName} ";
+                                    "@${widget.name} ";
                               },
                               child: Padding(
                                 padding:
@@ -555,7 +555,7 @@ class _CommentsNMessagesState extends State<CommentsNMessages> {
                     children: [
                       Row(
                         children: [
-                          Text("${widget.userName} : ",
+                          Text("${widget.name} : ",
                               style: TextStyle(
                                   fontSize: 14.0,
                                   color: Theme.of(context).dividerColor)),
