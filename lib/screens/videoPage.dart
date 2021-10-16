@@ -32,6 +32,14 @@ class _VideoPageState extends State<VideoPage> {
                   fontSize: 20, color: Theme.of(context).dividerColor),
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.only(left: 8, right: 8, bottom: 16),
+            child: Row(
+              children: [
+                Icon(Icons.hearing_outlined),
+              ],
+            ),
+          ),
           Container(
             height: MediaQuery.of(context).size.height * 0.6,
             child: CommentsNChat(
