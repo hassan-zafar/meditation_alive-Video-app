@@ -22,9 +22,9 @@ class _VideoPageState extends State<VideoPage> {
               path: widget.path!,
             ),
           ),
-          ListView(
-            children: [CommentsNMessages(postId: widget.postId)],
-          ),
+          // ListView(
+          //   children: [CommentsNMessages(postId: widget.postId)],
+          // ),
         ],
       ),
     );

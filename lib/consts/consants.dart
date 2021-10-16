@@ -12,7 +12,7 @@ String thinking1stVid = "$thinking/Self Value.mp4";
 // "Overcoming struggles.mp4"
 // "Confident can do.mp4"
 
-String movement1stVid = "$movement/Movement Running Meditation.mp4";
-String seated1stVid = "$seated/Charkra Clearing Meditation.mp4";
-String education1stVid = "$education/Letting go of Negativity.mp4";
-String daily1stVid = "$daily/Evening mediation.mp4";
+String movement1stVid = "$movement/Movement_Running_Meditation.mp4";
+String seated1stVid = "$seated/Charkra_Clearing_Meditation.mp4";
+String education1stVid = "$education/Letting_go_of_Negativity.mp4";
+String daily1stVid = "$daily/Evening_mediation.mp4";
