@@ -204,26 +204,33 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Chip(
-                    label: Text("Popular"),
-                    // labelPadding: EdgeInsets.all(8),
-                  ),
-                  Chip(
-                    label: Text("All"),
-                    // labelPadding: EdgeInsets.all(8),
-                  ),
-                  Chip(
-                    label: Text("BEGINNERS"),
-                    // labelPadding: EdgeInsets.all(8),
-                  ),
-                  Chip(
-                    label: Text("RECOMMENDED"),
-                    // labelPadding: EdgeInsets.all(8),
-                  ),
-                ],
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Chip(
+                      label: Text("Movement"),
+                      // labelPadding: EdgeInsets.all(8),
+                    ),
+                    Chip(
+                      label: Text("Daily "),
+                      // labelPadding: EdgeInsets.all(8),
+                    ),
+                    Chip(
+                      label: Text("Seated"),
+                      // labelPadding: EdgeInsets.all(8),
+                    ),
+                    Chip(
+                      label: Text("Educational"),
+                      // labelPadding: EdgeInsets.all(8),
+                    ),
+                    Chip(
+                      label: Text("Thinking"),
+                      // labelPadding: EdgeInsets.all(8),
+                    ),
+                  ],
+                ),
               ),
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
