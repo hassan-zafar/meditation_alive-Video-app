@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:meditation_alive/consts/consants.dart';
 import 'package:meditation_alive/screens/videoPage.dart';
+import 'package:meditation_alive/widgets/commentsNChat.dart';
 
 class HomePage extends StatefulWidget {
   // EventshomeWidget({Key key}) : super(key: key);
@@ -558,11 +559,17 @@ class _HomePageState extends State<HomePage> {
                       InkWell(
                         onTap: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => VideoPage(
-                              path: daily1stVid,
-                              postId: "123",
-                            ),
-                          ));
+                              builder: (context) => CommentsNChat(
+                                    isPostComment: true,
+                                    isProductComment: false,
+                                    isAdmin: true,
+                                    postId: "video1",
+                                  )
+                              // VideoPage(
+                              //   path: daily1stVid,
+                              //   postId: "123",
+                              // ),
+                              ));
                         },
                         child: Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(16, 8, 0, 8),
