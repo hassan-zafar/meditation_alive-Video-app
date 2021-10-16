@@ -684,6 +684,7 @@ class CategoryItemsViewer extends StatelessWidget {
             builder: (context) => VideoPage(
               path: path,
               postId: postId,
+              videoTitle: videoText,
             ),
           ));
         },

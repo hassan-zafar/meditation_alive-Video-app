@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meditation_alive/consts/consants.dart';
 import 'package:meditation_alive/widgets/commentsNChat.dart';
 import 'package:meditation_alive/widgets/video_widget.dart';
 
@@ -23,7 +24,10 @@ class _VideoPageState extends State<VideoPage> {
               path: widget.path!,
             ),
           ),
-          Text(widget.videoTitle!,style: ,),
+          Text(
+            widget.videoTitle!,
+            style: titleTextStyle(fontSize: 16),
+          ),
           Container(
             height: MediaQuery.of(context).size.height * 0.65,
             child: CommentsNChat(
