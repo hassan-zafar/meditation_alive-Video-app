@@ -36,7 +36,7 @@ class _VideoPageState extends State<VideoPage> {
             padding: const EdgeInsets.only(left: 8, right: 8, bottom: 16),
             child: Row(
               children: [
-                Icon(Icons.hearing_outlined),
+                Icon(Icons.thumb_up_alt_outlined),
               ],
             ),
           ),
