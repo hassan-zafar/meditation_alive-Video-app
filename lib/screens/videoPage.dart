@@ -19,25 +19,10 @@ class _VideoPageState extends State<VideoPage> {
       body: ListView(
         children: [
           Container(
-            height: MediaQuery.of(context).size.height * 0.3,
+            height: MediaQuery.of(context).size.height * 0.35,
             child: VideoWidget(
               path: widget.path!,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 8, right: 8, bottom: 16),
-            child: Text(
-              widget.videoTitle!,
-              style: titleTextStyle(
-                  fontSize: 20, color: Theme.of(context).dividerColor),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 8, right: 8, bottom: 16),
-            child: Row(
-              children: [
-                Icon(Icons.thumb_up_alt_outlined),
-              ],
+              videoTitle: widget.videoTitle,
             ),
           ),
           Container(
