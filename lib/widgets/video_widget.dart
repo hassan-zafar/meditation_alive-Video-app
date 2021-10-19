@@ -1,6 +1,6 @@
+import 'package:better_player/better_player.dart';
 import 'package:flutter/material.dart';
 import 'package:meditation_alive/widgets/videoPlayerWidget.dart';
-import 'package:video_player/video_player.dart';
 
 class VideoWidget extends StatefulWidget {
   final String? path;
@@ -11,35 +11,34 @@ class VideoWidget extends StatefulWidget {
 
 class _VideoWidgetState extends State<VideoWidget> {
   final asset = 'assets/video.mp4';
-  late VideoPlayerController controller;
+  BetterPlayerController? _betterPlayerController;
 
   @override
   void initState() {
     super.initState();
-    controller =
-        // VideoPlayerController.asset(asset)
-        VideoPlayerController.network(
-            // 'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4',
-            widget.path!)
-          ..addListener(() => setState(() {}))
-          ..setLooping(true)
-          ..initialize().then((_) => controller.play());
+    BetterPlayerDataSource betterPlayerDataSource = BetterPlayerDataSource(
+        BetterPlayerDataSourceType.network,
+        "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4");
+    _betterPlayerController = BetterPlayerController(
+        BetterPlayerConfiguration(),
+        betterPlayerDataSource: betterPlayerDataSource);
   }
 
   @override
   void dispose() {
-    controller.dispose();
+    _betterPlayerController!.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final isMuted = controller.value.volume == 0;
+    // final isMuted = _betterPlayerController.value.volume == 0;
 
     return Column(
       children: [
-        Expanded(child: VideoPlayerWidget(controller: controller)),
-        const SizedBox(height: 32),
+        Expanded(
+            child: VideoPlayerWidget(controller: _betterPlayerController!)),
+        // const SizedBox(height: 32),
         // if (controller != null && controller.value.isInitialized)
         //   CircleAvatar(
         //     radius: 30,

@@ -41,7 +41,7 @@ class _VideoPageState extends State<VideoPage> {
             ),
           ),
           Container(
-            height: MediaQuery.of(context).size.height * 0.55,
+            height: MediaQuery.of(context).size.height * 0.6,
             child: CommentsNChat(
               isPostComment: true,
               isProductComment: false,

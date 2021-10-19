@@ -40,7 +40,7 @@ dependencies:
   google_fonts:
   firebase_messaging:
   bot_toast:
-  video_player:
+  better_player: ^0.0.77
   flutter_local_notifications:
   timeago:
   glassmorphism_ui:
