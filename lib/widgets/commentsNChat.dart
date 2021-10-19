@@ -3,6 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:meditation_alive/consts/collections.dart';
+import 'package:meditation_alive/consts/consants.dart';
 import 'package:meditation_alive/models/users.dart';
 import 'package:meditation_alive/services/notificationHandler.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -283,33 +284,41 @@ class CommentsNChatState extends State<CommentsNChat> {
       body: Padding(
         padding: const EdgeInsets.only(bottom: 20.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                "Comments",
+                style: titleTextStyle(color: Theme.of(context).dividerColor),
+              ),
+            ),
             Expanded(
               child: widget.isPostComment! || widget.isProductComment!
                   ? buildComments()
                   : buildChat(),
             ),
             Divider(),
-            ListTile(
-              title: TextFormField(
-                controller: _commentNMessagesController,
-                decoration: InputDecoration(
-                  hintText: widget.isPostComment! || widget.isProductComment!
-                      ? "Write a Comment..."
-                      : "Write admin a message...",
-                ),
-              ),
-              trailing: IconButton(
-                onPressed: widget.isPostComment! || widget.isProductComment!
-                    ? addComment
-                    : addChatMessage,
-                icon: Icon(
-                  Icons.send,
-                  size: 40.0,
-                ),
-              ),
-            ),
           ],
+        ),
+      ),
+      bottomSheet: ListTile(
+        title: TextFormField(
+          controller: _commentNMessagesController,
+          decoration: InputDecoration(
+            hintText: widget.isPostComment! || widget.isProductComment!
+                ? "Write a Comment..."
+                : "Write admin a message...",
+          ),
+        ),
+        trailing: IconButton(
+          onPressed: widget.isPostComment! || widget.isProductComment!
+              ? addComment
+              : addChatMessage,
+          icon: Icon(
+            Icons.send,
+            size: 40.0,
+          ),
         ),
       ),
     );
