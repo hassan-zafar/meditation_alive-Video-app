@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:bot_toast/bot_toast.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -293,6 +295,32 @@ class CommentsNChatState extends State<CommentsNChat> {
                 style: titleTextStyle(color: Theme.of(context).dividerColor),
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ListTile(
+                title: TextFormField(
+                  controller: _commentNMessagesController,
+                  style: TextStyle(fontSize: 14),
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    hintText: widget.isPostComment! || widget.isProductComment!
+                        ? "Write a Comment..."
+                        : "Write admin a message...",
+                  ),
+                ),
+                trailing: IconButton(
+                  onPressed: widget.isPostComment! || widget.isProductComment!
+                      ? addComment
+                      : addChatMessage,
+                  icon: Icon(
+                    Icons.send,
+                    size: 30.0,
+                  ),
+                ),
+              ),
+            ),
             Expanded(
               child: widget.isPostComment! || widget.isProductComment!
                   ? buildComments()
@@ -300,25 +328,6 @@ class CommentsNChatState extends State<CommentsNChat> {
             ),
             Divider(),
           ],
-        ),
-      ),
-      bottomSheet: ListTile(
-        title: TextFormField(
-          controller: _commentNMessagesController,
-          decoration: InputDecoration(
-            hintText: widget.isPostComment! || widget.isProductComment!
-                ? "Write a Comment..."
-                : "Write admin a message...",
-          ),
-        ),
-        trailing: IconButton(
-          onPressed: widget.isPostComment! || widget.isProductComment!
-              ? addComment
-              : addChatMessage,
-          icon: Icon(
-            Icons.send,
-            size: 40.0,
-          ),
         ),
       ),
     );

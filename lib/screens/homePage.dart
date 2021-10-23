@@ -536,58 +536,60 @@ class CategoryItemsViewer extends StatelessWidget {
         },
         child: Padding(
           padding: EdgeInsetsDirectional.fromSTEB(16, 8, 0, 8),
-          child: Container(
-            width: 145,
-            height: 170,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                fit: BoxFit.fill,
-                image: CachedNetworkImageProvider(
-                    "https://images.ctfassets.net/qpn1gztbusu2/6CRBRq6rVbvNSNoHB0pCT1/3fce2bfcdd96ff2842b68d41cdd4e008/Livre-Audio-Meditation.jpg"),
-              ),
-              boxShadow: [
-                BoxShadow(
-                  blurRadius: 3,
-                  color: Color(0x64000000),
-                  offset: Offset(0, 2),
-                )
-              ],
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(8, 4, 8, 0),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Card(
-                        clipBehavior: Clip.antiAliasWithSaveLayer,
-                        color: Color(0xFF1E2429),
-                        elevation: 2,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
-                          child: Icon(
-                            Icons.favorite_border,
-                            color: Colors.white,
-                            size: 24,
-                          ),
-                        ),
-                      )
-                    ],
+          child: Column(
+            children: [
+              Container(
+                width: 250,
+                height: 130,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    fit: BoxFit.fill,
+                    image: CachedNetworkImageProvider(
+                        "https://images.ctfassets.net/qpn1gztbusu2/6CRBRq6rVbvNSNoHB0pCT1/3fce2bfcdd96ff2842b68d41cdd4e008/Livre-Audio-Meditation.jpg"),
                   ),
+                  boxShadow: [
+                    BoxShadow(
+                      blurRadius: 3,
+                      color: Color(0x64000000),
+                      offset: Offset(0, 2),
+                    )
+                  ],
+                  borderRadius: BorderRadius.circular(8),
                 ),
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
-                  child: Column(
+              ),
+              Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  // Padding(
+                  //   padding: EdgeInsetsDirectional.fromSTEB(8, 4, 8, 0),
+                  //   child: Row(
+                  //     mainAxisSize: MainAxisSize.max,
+                  //     mainAxisAlignment: MainAxisAlignment.end,
+                  //     children: [
+                  //       Card(
+                  //         clipBehavior: Clip.antiAliasWithSaveLayer,
+                  //         color: Color(0xFF1E2429),
+                  //         elevation: 2,
+                  //         shape: RoundedRectangleBorder(
+                  //           borderRadius: BorderRadius.circular(30),
+                  //         ),
+                  //         child: Padding(
+                  //           padding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
+                  //           child: Icon(
+                  //             Icons.favorite_border,
+                  //             color: Colors.white,
+                  //             size: 24,
+                  //           ),
+                  //         ),
+                  //       )
+                  //     ],
+                  //   ),
+                  // ),
+                  Column(
                     // mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.center,
+
+                    mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
@@ -598,7 +600,7 @@ class CategoryItemsViewer extends StatelessWidget {
                           style: TextStyle(
                             fontFamily: 'Lexend Deca',
                             color: Colors.white,
-                            fontSize: 12,
+                            fontSize: 16,
                             fontWeight: FontWeight.normal,
                           ),
                         ),
@@ -615,7 +617,7 @@ class CategoryItemsViewer extends StatelessWidget {
                               style: TextStyle(
                                 fontFamily: 'Poppins',
                                 color: Color(0xFFF5F5F5),
-                                fontSize: 10,
+                                fontSize: 14,
                                 fontWeight: FontWeight.w100,
                               ),
                             ),
@@ -625,17 +627,17 @@ class CategoryItemsViewer extends StatelessWidget {
                             style: TextStyle(
                               fontFamily: 'Poppins',
                               color: Color(0xFFF5F5F5),
-                              fontSize: 10,
+                              fontSize: 14,
                               fontWeight: FontWeight.w100,
                             ),
                           )
                         ],
                       )
                     ],
-                  ),
-                )
-              ],
-            ),
+                  )
+                ],
+              ),
+            ],
           ),
         ),
       ),
