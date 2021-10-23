@@ -548,6 +548,7 @@ class _HomePageState extends State<HomePage> {
                       path:
                           "https://firebasestorage.googleapis.com/v0/b/medication-alive.appspot.com/o/videos%2FDaily%2FEvening_mediation.mp4?alt=media&token=ebd8c676-b1c7-4820-9d36-640aeacfe208",
                       postId: "daily1stVid",
+                      category: 'Daily',
                       videoLength: "10 min",
                       videoText: "Movement Running Meditation",
                     ),
@@ -569,6 +570,7 @@ class _HomePageState extends State<HomePage> {
                       path:
                           "https://firebasestorage.googleapis.com/v0/b/medication-alive.appspot.com/o/videos%2FMovement%2FMovement_Running_Meditation.mp4?alt=media&token=d1c432bf-e932-42d0-9802-7d86b04c96ed",
                       postId: "movement1stVid",
+                      category: 'Movement',
                       videoLength: "10 min",
                       videoText: "Movement Running Meditation",
                     ),
@@ -590,6 +592,7 @@ class _HomePageState extends State<HomePage> {
                       path:
                           "https://firebasestorage.googleapis.com/v0/b/medication-alive.appspot.com/o/videos%2FSeated%2FCharkra_Clearing_Meditation.mp4?alt=media&token=7261212b-bff2-4d1a-a5c9-844b198e703c",
                       postId: "seated1stVid",
+                      category: 'Seated',
                       videoLength: "12 min",
                       videoText: "Charkra Clearing Meditation",
                     ),
@@ -613,6 +616,7 @@ class _HomePageState extends State<HomePage> {
                       postId: "thinking1stVid",
                       videoLength: "32 min",
                       videoText: "Self Value",
+                      category: 'Thinking',
                     ),
                   ],
                 ),
@@ -634,6 +638,7 @@ class _HomePageState extends State<HomePage> {
                       postId: "education1stVid",
                       videoLength: "17 min",
                       videoText: "Letting go of Negativity",
+                      category: 'Education',
                     ),
                   ],
                 ),
@@ -671,8 +676,14 @@ class CategoryItemsViewer extends StatelessWidget {
   final String? postId;
   final String? videoLength;
   final String? videoText;
+  final String? category;
+
   const CategoryItemsViewer(
-      {this.path, this.postId, this.videoLength, this.videoText});
+      {this.path,
+      this.postId,
+      this.videoLength,
+      this.category,
+      this.videoText});
 
   @override
   Widget build(BuildContext context) {
@@ -684,6 +695,7 @@ class CategoryItemsViewer extends StatelessWidget {
             builder: (context) => VideoPage(
               path: path,
               postId: postId,
+              category: category,
               videoTitle: videoText,
             ),
           ));

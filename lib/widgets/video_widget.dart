@@ -106,11 +106,16 @@ class _VideoWidgetState extends State<VideoWidget> with WidgetsBindingObserver {
             children: [
               Padding(
                 padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
-                child: Icon(Icons.thumb_up_alt_outlined),
+                child: GestureDetector(
+                    onTap: () {}, child: Icon(Icons.favorite_border)),
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
-                child: Icon(Icons.download_for_offline_outlined),
+                child: GestureDetector(
+                    onTap: () {
+                      
+                    },
+                    child: Icon(Icons.download_for_offline_outlined)),
               ),
               InkWell(
                   onTap: () => _betterPlayerController!
