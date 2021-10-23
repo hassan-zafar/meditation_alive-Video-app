@@ -282,6 +282,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
                           children: <Widget>[
                             Expanded(
                               //  flex: 2,
+                              // ignore: unnecessary_null_comparison
                               child: this._pickedImage == null
                                   ? Container(
                                       margin: EdgeInsets.all(10),

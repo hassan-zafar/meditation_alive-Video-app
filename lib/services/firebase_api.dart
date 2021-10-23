@@ -30,7 +30,11 @@ class FirebaseApi {
   static Future downloadFile(Reference ref) async {
     final dir = await getApplicationDocumentsDirectory();
     final file = File('${dir.path}/${ref.name}');
-
-    await ref.writeToFile(file);
+    print(file.path);
+    await ref.writeToFile(file).then((p0) {
+      print(p0.totalBytes);
+      print(p0.state);
+      print(p0.bytesTransferred);
+    });
   }
 }

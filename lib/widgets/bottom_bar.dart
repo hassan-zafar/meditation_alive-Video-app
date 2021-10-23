@@ -6,6 +6,7 @@ import 'package:meditation_alive/main.dart';
 import 'package:meditation_alive/provider/dark_theme_provider.dart';
 import 'package:meditation_alive/screens/adminScreens/allUsers.dart';
 import 'package:meditation_alive/screens/adminScreens/chatLists.dart';
+import 'package:meditation_alive/screens/adminScreens/uploadVideo.dart';
 import 'package:meditation_alive/screens/homePage.dart';
 import 'package:meditation_alive/screens/search.dart';
 import 'package:meditation_alive/screens/user_info.dart';
@@ -33,7 +34,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
   void initState() {
     pages = [
       HomePage(),
-      Search(),
+      UploadProductForm(),
       WishlistScreen(),
       UserInfoScreen(),
       UserNSearch(),

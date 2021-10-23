@@ -3,6 +3,7 @@ import 'package:meditation_alive/consts/consants.dart';
 import 'package:meditation_alive/models/firebase_file.dart';
 import 'package:meditation_alive/services/firebase_api.dart';
 import 'package:meditation_alive/widgets/commentsNChat.dart';
+import 'package:meditation_alive/widgets/loadingWidget.dart';
 import 'package:meditation_alive/widgets/video_widget.dart';
 
 class VideoPage extends StatefulWidget {
@@ -19,11 +20,22 @@ class VideoPage extends StatefulWidget {
 class _VideoPageState extends State<VideoPage> {
   late Future<List<FirebaseFile>> futureFiles;
   late FirebaseFile firstFile;
+  bool isLoading = false;
   @override
   void initState() {
     super.initState();
+    getStorageFiles();
+  }
+
+  getStorageFiles() async {
+    setState(() {
+      isLoading = true;
+    });
     futureFiles = FirebaseApi.listAll("videos/${widget.category}/");
-    futureFiles.then((value) => firstFile = value.first);
+    await futureFiles.then((value) => firstFile = value.first);
+    setState(() {
+      isLoading = false;
+    });
   }
 
   @override
@@ -31,14 +43,16 @@ class _VideoPageState extends State<VideoPage> {
     return Scaffold(
       body: ListView(
         children: [
-          Container(
-            height: MediaQuery.of(context).size.height * 0.35,
-            child: VideoWidget(
-              path: widget.path!,
-              file: firstFile,
-              videoTitle: widget.videoTitle,
-            ),
-          ),
+          isLoading
+              ? LoadingIndicator()
+              : Container(
+                  height: MediaQuery.of(context).size.height * 0.35,
+                  child: VideoWidget(
+                    path: widget.path!,
+                    file: firstFile,
+                    videoTitle: widget.videoTitle,
+                  ),
+                ),
           Container(
             height: MediaQuery.of(context).size.height * 0.6,
             child: CommentsNChat(
