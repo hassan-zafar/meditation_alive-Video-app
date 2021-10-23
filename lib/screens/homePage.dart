@@ -487,14 +487,20 @@ class CategoryHeading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      categoryName!,
-      style: TextStyle(
-        fontFamily: 'Lexend Deca',
-        color: Colors.white,
-        fontSize: 16,
-        fontWeight: FontWeight.w500,
-      ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          categoryName!,
+          style: TextStyle(
+            fontFamily: 'Lexend Deca',
+            color: Colors.white,
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        Icon(Icons.chevron_right_rounded),
+      ],
     );
   }
 }

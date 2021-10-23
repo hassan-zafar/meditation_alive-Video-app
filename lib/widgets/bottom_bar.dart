@@ -35,9 +35,9 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
     pages = [
       HomePage(),
       // UploadProductForm(),
-      Search(),
-      WishlistScreen(),
-      UserInfoScreen(),
+      // Search(),
+      // WishlistScreen(),
+      // UserInfoScreen(),
       UserNSearch(),
       ChatLists(),
     ];
@@ -122,21 +122,21 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
               items: [
                 BottomNavigationBarItem(
                     icon: Icon(Icons.room_service), label: 'For You'),
-                BottomNavigationBarItem(
-                    icon: Icon(
-                      MyAppIcons.search,
-                    ),
-                    label: 'Search'),
-                BottomNavigationBarItem(
-                    icon: Icon(
-                      MyAppIcons.wishlist,
-                    ),
-                    label: 'My Favourites'),
-                BottomNavigationBarItem(
-                    icon: Icon(
-                      MyAppIcons.user,
-                    ),
-                    label: 'My Profile'),
+                // BottomNavigationBarItem(
+                //     icon: Icon(
+                //       MyAppIcons.search,
+                //     ),
+                //     label: 'Search'),
+                // BottomNavigationBarItem(
+                //     icon: Icon(
+                //       MyAppIcons.wishlist,
+                //     ),
+                //     label: 'My Favourites'),
+                // BottomNavigationBarItem(
+                //     icon: Icon(
+                //       MyAppIcons.user,
+                //     ),
+                //     label: 'My Profile'),
                 BottomNavigationBarItem(
                     icon: Icon(
                       Icons.people,

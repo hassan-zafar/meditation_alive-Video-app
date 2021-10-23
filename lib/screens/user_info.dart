@@ -221,28 +221,23 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
                                 ),
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 8.0),
-                              child: userTitle(title: 'User Information'),
-                            ),
-                            Divider(
-                              thickness: 1,
-                              color: Colors.grey,
-                            ),
-                            userListTile('Email', _email ?? '', 0, context),
-                            userListTile('Phone number',
-                                _phoneNumber.toString(), 1, context),
-                            // userListTile('Shipping address', '', 2, context),
-                            userListTile(
-                                'joined date', _joinedAt ?? '', 3, context),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 8.0),
-                              child: userTitle(title: 'User settings'),
-                            ),
-                            Divider(
-                              thickness: 1,
-                              color: Colors.grey,
-                            ),
+                            // Padding(
+                            //   padding: const EdgeInsets.only(left: 8.0),
+                            //   child: userTitle(title: 'User Information'),
+                            // ),
+                            // Divider(
+                            //   thickness: 1,
+                            //   color: Colors.grey,
+                            // ),
+                            // userListTile('Email', _email ?? '', 0, context),
+                            // userListTile('Phone number',
+                            //     _phoneNumber.toString(), 1, context),
+                            // // userListTile('Shipping address', '', 2, context),
+                            // userListTile(
+                            //     'joined date', _joinedAt ?? '', 3, context),
+
+                            userTitle(title: 'User preferences'),
+
                             ListTile(
                               onTap: () => Share.share(
                                   'check out this app https://play.google.com/store/apps/details?id=com.whatsapp',
@@ -253,6 +248,32 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
                                 Icons.person_add,
                                 color: Colors.yellow,
                               ),
+                            ),
+                            ListTileSwitch(
+                              value: themeChange.darkTheme,
+                              leading: Icon(Icons.refresh),
+                              onChanged: (value) {
+                                setState(() {
+                                  themeChange.darkTheme = value;
+                                });
+                              },
+                              visualDensity: VisualDensity.comfortable,
+                              switchType: SwitchType.cupertino,
+                              switchActiveColor: Colors.indigo,
+                              title: Text('Auto Play'),
+                            ),
+                            ListTileSwitch(
+                              value: themeChange.darkTheme,
+                              leading: Icon(Icons.notifications),
+                              onChanged: (value) {
+                                setState(() {
+                                  themeChange.darkTheme = value;
+                                });
+                              },
+                              visualDensity: VisualDensity.comfortable,
+                              switchType: SwitchType.cupertino,
+                              switchActiveColor: Colors.indigo,
+                              title: Text('Allow Notifications'),
                             ),
                             ListTileSwitch(
                               value: themeChange.darkTheme,
@@ -267,7 +288,33 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
                               switchActiveColor: Colors.indigo,
                               title: Text('Dark theme'),
                             ),
-
+                            userTitle(title: "Account"),
+                            Material(
+                              color: Colors.transparent,
+                              child: InkWell(
+                                onTap: () => Navigator.of(context)
+                                    .pushNamed(WishlistScreen.routeName),
+                                splashColor: Colors.red,
+                                child: ListTile(
+                                  title: Text('Billing'),
+                                  trailing: Icon(Icons.chevron_right_rounded),
+                                  leading: Icon(Icons.credit_card),
+                                ),
+                              ),
+                            ),
+                            Material(
+                              color: Colors.transparent,
+                              child: InkWell(
+                                onTap: () => Navigator.of(context)
+                                    .pushNamed(WishlistScreen.routeName),
+                                splashColor: Colors.red,
+                                child: ListTile(
+                                  title: Text('Report a Problem'),
+                                  trailing: Icon(Icons.chevron_right_rounded),
+                                  leading: Icon(Icons.flag),
+                                ),
+                              ),
+                            ),
                             Material(
                               color: Colors.transparent,
                               child: InkWell(
@@ -402,8 +449,8 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
   Widget userTitle({required String title}) {
     return Container(
       width: double.maxFinite,
-      color: Colors.grey.shade100,
-      padding: const EdgeInsets.all(14.0),
+      color: Colors.teal,
+      padding: const EdgeInsets.all(8.0),
       child: Text(
         title,
         style: TextStyle(
