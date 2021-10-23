@@ -18,12 +18,12 @@ class VideoPage extends StatefulWidget {
 
 class _VideoPageState extends State<VideoPage> {
   late Future<List<FirebaseFile>> futureFiles;
-
+  late FirebaseFile firstFile;
   @override
   void initState() {
     super.initState();
     futureFiles = FirebaseApi.listAll("videos/${widget.category}/");
-    futureFiles.then((value) => print(value.first.ref));
+    futureFiles.then((value) => firstFile = value.first);
   }
 
   @override
@@ -35,6 +35,7 @@ class _VideoPageState extends State<VideoPage> {
             height: MediaQuery.of(context).size.height * 0.35,
             child: VideoWidget(
               path: widget.path!,
+              file: firstFile,
               videoTitle: widget.videoTitle,
             ),
           ),

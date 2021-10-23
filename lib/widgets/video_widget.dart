@@ -1,12 +1,15 @@
 import 'package:better_player/better_player.dart';
 import 'package:flutter/material.dart';
 import 'package:meditation_alive/consts/consants.dart';
+import 'package:meditation_alive/models/firebase_file.dart';
+import 'package:meditation_alive/services/firebase_api.dart';
 import 'package:meditation_alive/widgets/videoPlayerWidget.dart';
 
 class VideoWidget extends StatefulWidget {
   final String? path;
   final String? videoTitle;
-  VideoWidget({this.path, this.videoTitle});
+  final FirebaseFile? file;
+  VideoWidget({this.path, this.videoTitle, this.file});
   @override
   _VideoWidgetState createState() => _VideoWidgetState();
 }
@@ -113,7 +116,7 @@ class _VideoWidgetState extends State<VideoWidget> with WidgetsBindingObserver {
                 padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
                 child: GestureDetector(
                     onTap: () {
-                      
+                      FirebaseApi.downloadFile(widget.file!.ref);
                     },
                     child: Icon(Icons.download_for_offline_outlined)),
               ),
