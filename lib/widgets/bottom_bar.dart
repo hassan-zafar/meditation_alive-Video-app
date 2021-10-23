@@ -34,7 +34,8 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
   void initState() {
     pages = [
       HomePage(),
-      UploadProductForm(),
+      // UploadProductForm(),
+      Search(),
       WishlistScreen(),
       UserInfoScreen(),
       UserNSearch(),
