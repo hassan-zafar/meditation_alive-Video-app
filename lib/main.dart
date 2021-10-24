@@ -9,8 +9,10 @@ import 'package:meditation_alive/auth/sign_up.dart';
 import 'package:meditation_alive/consts/collections.dart';
 import 'package:meditation_alive/database/local_database.dart';
 import 'package:meditation_alive/main_screen.dart';
+import 'package:meditation_alive/provider/auto_play_provider.dart';
 import 'package:meditation_alive/provider/dark_theme_provider.dart';
 import 'package:meditation_alive/provider/favs_provider.dart';
+import 'package:meditation_alive/provider/notification_preferences.dart';
 import 'package:meditation_alive/provider/products.dart';
 import 'package:meditation_alive/services/user_state.dart';
 import 'package:meditation_alive/widgets/bottom_bar.dart';
@@ -58,7 +60,8 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   DarkThemeProvider themeChangeProvider = DarkThemeProvider();
-
+  AutoPlayProvider autoPlayChangeProvider = AutoPlayProvider();
+  NotificationSetProvider notificationSetProvider = NotificationSetProvider();
   void getCurrentAppTheme() async {
     themeChangeProvider.darkTheme =
         await themeChangeProvider.darkThemePreferences.getTheme();
@@ -68,15 +71,16 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     getCurrentAppTheme();
     super.initState();
-    bool isAutoPlay = UserLocalData().getIsAutoPlay()!;
-    bool isNotificationSet = UserLocalData().getNotification()!;
-    if (isNotificationSet != null && isNotificationSet) {
-      FirebaseMessaging.instance.subscribeToTopic("meditation_alive");
-      isNotificationSetGlobal = isNotificationSet;
-    }if (isAutoPlay != null && isAutoPlay) {
-      isAutoPlayGlobal = isAutoPlay;
-    }
-
+    // UserLocalData().set1stOpen();
+    // bool isAutoPlay = UserLocalData().getIsAutoPlay()!;
+    // bool isNotificationSet = UserLocalData().getNotification()!;
+    // if (isNotificationSet != null && isNotificationSet) {
+    //   FirebaseMessaging.instance.subscribeToTopic("meditation_alive");
+    //   isNotificationSetGlobal = isNotificationSet;
+    // }
+    // if (isAutoPlay != null && isAutoPlay) {
+    //   isAutoPlayGlobal = isAutoPlay;
+    // }
   }
 
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
@@ -110,6 +114,12 @@ class _MyAppState extends State<MyApp> {
             providers: [
               ChangeNotifierProvider(create: (_) {
                 return themeChangeProvider;
+              }),
+              ChangeNotifierProvider(create: (_) {
+                return autoPlayChangeProvider;
+              }),
+              ChangeNotifierProvider(create: (_) {
+                return notificationSetProvider;
               }),
               ChangeNotifierProvider(
                 create: (_) => Products(),

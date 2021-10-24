@@ -85,7 +85,7 @@ class _FeedProductsState extends State<FeedProducts> {
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8.0),
                       child: Text(
-                        '\$ ${productsAttributes.price}',
+                        '\$ ${productsAttributes.videoUrl}',
                         overflow: TextOverflow.ellipsis,
                         maxLines: 2,
                         style: TextStyle(
@@ -93,35 +93,6 @@ class _FeedProductsState extends State<FeedProducts> {
                             color: Colors.black,
                             fontWeight: FontWeight.w900),
                       ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          '${productsAttributes.pallets}',
-                          style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey,
-                              fontWeight: FontWeight.w600),
-                        ),
-                        Material(
-                          color: Colors.transparent,
-                          child: InkWell(
-                              onTap: () async {
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) => FeedDialog(
-                                    productId: productsAttributes.productId!,
-                                  ),
-                                );
-                              },
-                              borderRadius: BorderRadius.circular(18.0),
-                              child: Icon(
-                                Icons.more_horiz,
-                                color: Colors.grey,
-                              )),
-                        )
-                      ],
                     ),
                   ],
                 ),

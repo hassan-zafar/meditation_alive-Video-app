@@ -269,7 +269,7 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
                               title: Text('Auto Play'),
                             ),
                             ListTileSwitch(
-                              value: themeChange.darkTheme,
+                              value: notificationChange.notificationSet,
                               leading: Icon(Icons.notifications),
                               onChanged: (value) {
                                 setState(() {

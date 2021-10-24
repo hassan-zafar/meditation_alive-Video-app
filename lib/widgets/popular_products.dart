@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:meditation_alive/models/product.dart';
@@ -81,7 +80,7 @@ class PopularProducts extends StatelessWidget {
                         padding: EdgeInsets.all(10.0),
                         color: Theme.of(context).backgroundColor,
                         child: Text(
-                          '\$ ${productsAttributes.price}',
+                          '\$ ${productsAttributes.videoUrl}',
                           style: TextStyle(
                             color: Theme.of(context).textSelectionColor,
                           ),
@@ -118,7 +117,7 @@ class PopularProducts extends StatelessWidget {
                             ),
                           ),
                           Spacer(),
-                     ],
+                        ],
                       )
                     ],
                   ),

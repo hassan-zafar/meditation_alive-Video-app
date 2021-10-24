@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:meditation_alive/consts/colors.dart';
@@ -16,7 +15,6 @@ class FeedDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final productsData = Provider.of<Products>(context, listen: false);
-
 
     final favsProvider = Provider.of<FavsProvider>(context);
 
@@ -53,7 +51,7 @@ class FeedDialog extends StatelessWidget {
                         () => {
                               favsProvider.addAndRemoveFromFav(
                                   productId,
-                                  prodAttr.price!,
+                                  prodAttr.videoUrl!,
                                   prodAttr.title!,
                                   prodAttr.imageUrl!),
                               Navigator.canPop(context)
@@ -72,10 +70,8 @@ class FeedDialog extends StatelessWidget {
                               //     .then((value) => Navigator.canPop(context)
                               //         ? Navigator.pop(context)
                               //         : null),
-                            }
-                            ),
+                            }),
                   ),
-
                 ]),
           ),
 

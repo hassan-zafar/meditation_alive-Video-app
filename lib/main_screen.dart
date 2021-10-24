@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meditation_alive/screens/homePage.dart';
 import 'package:meditation_alive/widgets/bottom_bar.dart';
 
 class MainScreens extends StatelessWidget {
@@ -8,7 +9,8 @@ class MainScreens extends StatelessWidget {
   Widget build(BuildContext context) {
     return PageView(
       children: [
-        BottomBarScreen(),
+        HomePage()
+        // BottomBarScreen(),
         // UploadProductForm()
       ],
     );

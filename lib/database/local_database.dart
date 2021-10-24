@@ -29,6 +29,11 @@ class UserLocalData {
   // Setters
   //
 
+  Future set1stOpen() async {
+    getStorageProference.write(_isAutoPlay, true);
+    getStorageProference.write(_notificationSet, true);
+  }
+
   Future setNotification(bool? notificationSet) async =>
       getStorageProference.write(_notificationSet, notificationSet);
   Future setIsAutoPlay(bool? isAutoPlay) async =>
