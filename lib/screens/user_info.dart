@@ -6,7 +6,9 @@ import 'package:list_tile_switch/list_tile_switch.dart';
 import 'package:meditation_alive/consts/colors.dart';
 import 'package:meditation_alive/consts/consants.dart';
 import 'package:meditation_alive/consts/my_icons.dart';
+import 'package:meditation_alive/provider/auto_play_provider.dart';
 import 'package:meditation_alive/provider/dark_theme_provider.dart';
+import 'package:meditation_alive/provider/notification_preferences.dart';
 import 'package:meditation_alive/widgets/loadingWidget.dart';
 import 'package:meditation_alive/wishlist/wishlist.dart';
 import 'package:provider/provider.dart';
@@ -76,6 +78,8 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
   @override
   Widget build(BuildContext context) {
     final themeChange = Provider.of<DarkThemeProvider>(context);
+    final autoPlayChange = Provider.of<AutoPlayProvider>(context);
+    final notificationChange = Provider.of<NotificationSetProvider>(context);
     return SafeArea(
       child: Scaffold(
         body: isLoading
@@ -250,12 +254,14 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
                               ),
                             ),
                             ListTileSwitch(
-                              value: ,
+                              value: autoPlayChange.autoPlay,
                               leading: Icon(Icons.refresh),
                               onChanged: (value) {
                                 print(value);
 
-                                setState(() {});
+                                setState(() {
+                                  autoPlayChange.autoPlay = value;
+                                });
                               },
                               visualDensity: VisualDensity.comfortable,
                               switchType: SwitchType.cupertino,
@@ -267,7 +273,7 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
                               leading: Icon(Icons.notifications),
                               onChanged: (value) {
                                 setState(() {
-                                  themeChange.darkTheme = value;
+                                  notificationChange.notificationSet = value;
                                 });
                               },
                               visualDensity: VisualDensity.comfortable,
