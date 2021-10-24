@@ -250,12 +250,12 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
                               ),
                             ),
                             ListTileSwitch(
-                              value: themeChange.darkTheme,
+                              value: ,
                               leading: Icon(Icons.refresh),
                               onChanged: (value) {
-                                setState(() {
-                                  themeChange.darkTheme = value;
-                                });
+                                print(value);
+
+                                setState(() {});
                               },
                               visualDensity: VisualDensity.comfortable,
                               switchType: SwitchType.cupertino,

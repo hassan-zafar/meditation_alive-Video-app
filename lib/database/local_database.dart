@@ -18,6 +18,9 @@ class UserLocalData {
   // final _imageUrlKey = 'IMAGEURLKEY';
   // final _password = 'PASSWORD';
   final _isAdmin = 'ISADMIN';
+  final _notificationSet = 'NOTIFICATION';
+  final _isAutoPlay = 'AUTOPLAY';
+
   final _token = 'TOKEN';
   final _branches = 'BRANCHES';
   final _classes = 'CLASSES';
@@ -25,6 +28,11 @@ class UserLocalData {
   //
   // Setters
   //
+
+  Future setNotification(bool? notificationSet) async =>
+      getStorageProference.write(_notificationSet, notificationSet);
+  Future setIsAutoPlay(bool? isAutoPlay) async =>
+      getStorageProference.write(_isAutoPlay, isAutoPlay);
 
   Future setUserModel(String userModel) async =>
       getStorageProference.write(_userModelString, userModel);
@@ -53,6 +61,10 @@ class UserLocalData {
   //
   // Getters
   //
+
+  bool? getIsAutoPlay() => getStorageProference.read(_isAutoPlay);
+  bool? getNotification() => getStorageProference.read(_notificationSet);
+
   bool? getIsAdmin() => getStorageProference.read(_isAdmin);
   String getUserData() => getStorageProference.read(_userModelString) ?? '';
   String getBranches() => getStorageProference.read(_branches) ?? "";

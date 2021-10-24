@@ -10,3 +10,5 @@ final activityFeedRef = FirebaseFirestore.instance.collection('activityFeed');
 
 AppUserModel? currentUser;
 bool? isAdmin;
+bool? isNotificationSetGlobal;
+bool? isAutoPlayGlobal;

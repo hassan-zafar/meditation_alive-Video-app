@@ -6,6 +6,8 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:meditation_alive/auth/forget_password.dart';
 import 'package:meditation_alive/auth/login.dart';
 import 'package:meditation_alive/auth/sign_up.dart';
+import 'package:meditation_alive/consts/collections.dart';
+import 'package:meditation_alive/database/local_database.dart';
 import 'package:meditation_alive/main_screen.dart';
 import 'package:meditation_alive/provider/dark_theme_provider.dart';
 import 'package:meditation_alive/provider/favs_provider.dart';
@@ -66,6 +68,15 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     getCurrentAppTheme();
     super.initState();
+    bool isAutoPlay = UserLocalData().getIsAutoPlay()!;
+    bool isNotificationSet = UserLocalData().getNotification()!;
+    if (isNotificationSet != null && isNotificationSet) {
+      FirebaseMessaging.instance.subscribeToTopic("meditation_alive");
+      isNotificationSetGlobal = isNotificationSet;
+    }if (isAutoPlay != null && isAutoPlay) {
+      isAutoPlayGlobal = isAutoPlay;
+    }
+
   }
 
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
