@@ -34,10 +34,10 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
   void initState() {
     pages = [
       HomePage(),
-      // UploadProductForm(),
+      UploadProductForm(),
       // Search(),
       // WishlistScreen(),
-      // UserInfoScreen(),
+      UserInfoScreen(),
       UserNSearch(),
       ChatLists(),
     ];
@@ -127,16 +127,16 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
                 //       MyAppIcons.search,
                 //     ),
                 //     label: 'Search'),
-                // BottomNavigationBarItem(
-                //     icon: Icon(
-                //       MyAppIcons.wishlist,
-                //     ),
-                //     label: 'My Favourites'),
-                // BottomNavigationBarItem(
-                //     icon: Icon(
-                //       MyAppIcons.user,
-                //     ),
-                //     label: 'My Profile'),
+                BottomNavigationBarItem(
+                    icon: Icon(
+                      MyAppIcons.wishlist,
+                    ),
+                    label: 'My Favourites'),
+                BottomNavigationBarItem(
+                    icon: Icon(
+                      MyAppIcons.user,
+                    ),
+                    label: 'My Profile'),
                 BottomNavigationBarItem(
                     icon: Icon(
                       Icons.people,

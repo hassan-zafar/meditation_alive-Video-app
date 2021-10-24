@@ -27,10 +27,10 @@ class _UploadProductFormState extends State<UploadProductForm> {
   var _productQuantity = '';
   final TextEditingController _categoryController = TextEditingController();
   final TextEditingController _brandController = TextEditingController();
-  late String _categoryValue;
+  String? _categoryValue;
   GlobalMethods _globalMethods = GlobalMethods();
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  late File _pickedImage;
+  File? _pickedImage;
   bool _isLoading = false;
   late String url;
   var uuid = Uuid();
@@ -82,7 +82,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
               .ref()
               .child('productsImages')
               .child(_productTitle + '.jpg');
-          await ref.putFile(_pickedImage);
+          await ref.putFile(_pickedImage!);
           url = await ref.getDownloadURL();
 
           final User? user = _auth.currentUser;
@@ -236,7 +236,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                   },
                                   keyboardType: TextInputType.emailAddress,
                                   decoration: InputDecoration(
-                                    labelText: 'Product Title',
+                                    labelText: 'Video Title',
                                   ),
                                   onSaved: (value) {
                                     _productTitle = value!;
@@ -310,7 +310,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                               Theme.of(context).backgroundColor,
                                         ),
                                         child: Image.file(
-                                          this._pickedImage,
+                                          this._pickedImage!,
                                           fit: BoxFit.contain,
                                           alignment: Alignment.center,
                                         ),
@@ -409,15 +409,15 @@ class _UploadProductFormState extends State<UploadProductForm> {
                             DropdownButton<String>(
                               items: [
                                 DropdownMenuItem<String>(
-                                  child: Text('Phones'),
+                                  child: Text('Daily'),
                                   value: 'Phones',
                                 ),
                                 DropdownMenuItem<String>(
-                                  child: Text('Clothes'),
+                                  child: Text('Movement'),
                                   value: 'Clothes',
                                 ),
                                 DropdownMenuItem<String>(
-                                  child: Text('Beauty & health'),
+                                  child: Text('Seated'),
                                   value: 'Beauty',
                                 ),
                                 DropdownMenuItem<String>(
@@ -425,11 +425,11 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                   value: 'Shoes',
                                 ),
                                 DropdownMenuItem<String>(
-                                  child: Text('Funiture'),
+                                  child: Text('Thinking'),
                                   value: 'Funiture',
                                 ),
                                 DropdownMenuItem<String>(
-                                  child: Text('Watches'),
+                                  child: Text('Education'),
                                   value: 'Watches',
                                 ),
                               ],

@@ -9,8 +9,8 @@ class MainScreens extends StatelessWidget {
   Widget build(BuildContext context) {
     return PageView(
       children: [
-        HomePage()
-        // BottomBarScreen(),
+        // HomePage()
+        BottomBarScreen(),
         // UploadProductForm()
       ],
     );

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:meditation_alive/consts/colors.dart';
 import 'package:meditation_alive/models/favs_attr.dart';
@@ -62,7 +61,7 @@ class _WishlistFullState extends State<WishlistFull> {
                             height: 20.0,
                           ),
                           Text(
-                            "\$ ${favsAttr.price}",
+                            "\$ ${favsAttr.videoUrl}",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 18.0),
                           ),
