@@ -1,12 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:meditation_alive/consts/consants.dart';
+import 'package:meditation_alive/models/product.dart';
+import 'package:meditation_alive/provider/products.dart';
 import 'package:meditation_alive/screens/search.dart';
 import 'package:meditation_alive/screens/user_info.dart';
 import 'package:meditation_alive/screens/videoPage.dart';
-import 'package:meditation_alive/widgets/commentsNChat.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   // EventshomeWidget({Key key}) : super(key: key);
@@ -27,14 +26,47 @@ class _HomePageState extends State<HomePage> {
     'BEGINNERS',
     "ALL",
   ];
+  List<Product> dailyVideos=[];
+  List<Product> movementVideos=[];
+  List<Product> seatedVideos=[];
+  List<Product> thinkingVideos=[];
+  List<Product> educationVideos=[];
   @override
   void initState() {
     super.initState();
     textController = TextEditingController();
+    _getProductsOnRefresh();
+  }
+
+  Future<void> _getProductsOnRefresh() async {
+    await Provider.of<Products>(context, listen: false).fetchProducts();
+ final Products _productsProvider = Provider.of<Products>(context);
+ _productsProvider.products.forEach((element) {
+   if(element.productCategoryName=="Daily"){
+     dailyVideos.add(element);
+   }
+   if(element.productCategoryName=="Seated"){
+     seatedVideos.add(element);
+   }
+   if(element.productCategoryName=="Thinking"){
+     thinkingVideos.add(element);
+   }
+   if(element.productCategoryName=="Education"){
+     educationVideos.add(element);
+   }
+   if(element.productCategoryName=="Movement"){
+     movementVideos.add(element);
+   }
+   
+  });
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    final Products productsProvider = Provider.of<Products>(context);
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: Color(0xFF1E2429),
@@ -58,420 +90,291 @@ class _HomePageState extends State<HomePage> {
               child: CircleAvatar(radius: 30, child: Icon(Icons.search)))
         ],
       ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
+      body: RefreshIndicator(
+        onRefresh: _getProductsOnRefresh,
+        child: SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        ListView.builder(itemCount: productsProvider.products.length,itemBuilder: (context, index) {
+                          
+                        return Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(16, 8, 0, 8),
+                          child: Container(
+                            width: 250,
+                            height: 170,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                fit: BoxFit.cover,
+                                image: CachedNetworkImageProvider(
+                                    productsProvider.products[index].imageUrl!),
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  blurRadius: 3,
+                                  color: Color(0x64000000),
+                                  offset: Offset(0, 2),
+                                )
+                              ],
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      8, 4, 8, 0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Card(
+                                        clipBehavior:
+                                            Clip.antiAliasWithSaveLayer,
+                                        color: Color(0x9839D2C0),
+                                        elevation: 0,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                        ),
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  6, 2, 6, 2),
+                                          child: Text(
+                                            'UnLock',
+                                            style: TextStyle(
+                                              fontFamily: 'Lexend Deca',
+                                              color: Colors.white,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.normal,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Card(
+                                        clipBehavior:
+                                            Clip.antiAliasWithSaveLayer,
+                                        color: Color(0xFF1E2429),
+                                        elevation: 2,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(30),
+                                        ),
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  8, 8, 8, 8),
+                                          child: Icon(
+                                            Icons.favorite_border,
+                                            color: Colors.white,
+                                            size: 24,
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      8, 0, 0, 8),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            8, 0, 0, 0),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              productsProvider.products[index].title!,
+                                              style: TextStyle(
+                                                fontFamily: 'Lexend Deca',
+                                                color: Colors.white,
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.normal,
+                                              ),
+                                            ),
+                                            // Text(
+                                            //   'Seated Medication',
+                                            //   style: TextStyle(
+                                            //     fontFamily: 'Lexend Deca',
+                                            //     color: Colors.white,
+                                            //     fontSize: 12,
+                                            //     fontWeight: FontWeight.normal,
+                                            //   ),
+                                            // )
+                                          ],
+                                        ),
+                                      ),
+                                      // Column(
+                                      //   mainAxisSize: MainAxisSize.max,
+                                      //   mainAxisAlignment:
+                                      //       MainAxisAlignment.center,
+                                      //   children: [
+                                      //     Text(
+                                      //       '7 min',
+                                      //       style: TextStyle(
+                                      //         fontFamily: 'Poppins',
+                                      //         color: Color(0xFFD6D6D6),
+                                      //         fontSize: 12,
+                                      //       ),
+                                      //     ),
+                                      //     Text(
+                                      //       'Ambient',
+                                      //       style: TextStyle(
+                                      //         fontFamily: 'Poppins',
+                                      //         color: Color(0xFFD6D6D6),
+                                      //         fontSize: 12,
+                                      //       ),
+                                      //     )
+                                      //   ],
+                                      // )
+                                  
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        )
+                       
+                        },),
+                      ],
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 0),
+                  child: CategoryHeading(
+                    categoryName: 'Daily',
+                  ),
+                ),
+                Container(
+                  height: 200,
+                  child: ListView.builder(itemBuilder: (context, index) {
+                       return CategoryItemsViewer(
+                        path:
+                            dailyVideos[index].imageUrl,
+                        postId: dailyVideos[index].productId,
+                        category: dailyVideos[index].productCategoryName,
+                        videoLength: "10 min",
+                        videoText: dailyVideos[index].title,
+                      );
+                  },
+                    scrollDirection: Axis.horizontal,
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 0),
+                  child: CategoryHeading(
+                    categoryName: 'Movement',
+                  ),
+                ),
+                Container(
+                  height: 200,
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
                     children: [
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(16, 8, 0, 8),
-                        child: Container(
-                          width: 250,
-                          height: 170,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: CachedNetworkImageProvider(
-                                  "https://www.psypost.org/wp-content/uploads/2021/07/meditation-750x375.jpg"),
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                blurRadius: 3,
-                                color: Color(0x64000000),
-                                offset: Offset(0, 2),
-                              )
-                            ],
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(8, 4, 8, 0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Card(
-                                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                                      color: Color(0x9839D2C0),
-                                      elevation: 0,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                      child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            6, 2, 6, 2),
-                                        child: Text(
-                                          'UnLock',
-                                          style: TextStyle(
-                                            fontFamily: 'Lexend Deca',
-                                            color: Colors.white,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.normal,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Card(
-                                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                                      color: Color(0xFF1E2429),
-                                      elevation: 2,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(30),
-                                      ),
-                                      child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            8, 8, 8, 8),
-                                        child: Icon(
-                                          Icons.favorite_border,
-                                          color: Colors.white,
-                                          size: 24,
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(8, 0, 0, 8),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          8, 0, 0, 0),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            'Super Human Boost',
-                                            style: TextStyle(
-                                              fontFamily: 'Lexend Deca',
-                                              color: Colors.white,
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.normal,
-                                            ),
-                                          ),
-                                          Text(
-                                            'Seated Medication',
-                                            style: TextStyle(
-                                              fontFamily: 'Lexend Deca',
-                                              color: Colors.white,
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.normal,
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                    Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          '7 min',
-                                          style: TextStyle(
-                                            fontFamily: 'Poppins',
-                                            color: Color(0xFFD6D6D6),
-                                            fontSize: 12,
-                                          ),
-                                        ),
-                                        Text(
-                                          'Ambient',
-                                          style: TextStyle(
-                                            fontFamily: 'Poppins',
-                                            color: Color(0xFFD6D6D6),
-                                            fontSize: 12,
-                                          ),
-                                        )
-                                      ],
-                                    )
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
+                      CategoryItemsViewer(
+                        path:
+                            "https://firebasestorage.googleapis.com/v0/b/medication-alive.appspot.com/o/videos%2FMovement%2FMovement_Running_Meditation.mp4?alt=media&token=d1c432bf-e932-42d0-9802-7d86b04c96ed",
+                        postId: "movement1stVid",
+                        category: 'Movement',
+                        videoLength: "10 min",
+                        videoText: "Movement Running Meditation",
                       ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(16, 8, 0, 8),
-                        child: Container(
-                          width: 250,
-                          height: 170,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: CachedNetworkImageProvider(
-                                  "https://www.psypost.org/wp-content/uploads/2021/07/meditation-750x375.jpg"),
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                blurRadius: 3,
-                                color: Color(0x64000000),
-                                offset: Offset(0, 2),
-                              )
-                            ],
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(8, 4, 8, 0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Card(
-                                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                                      color: Color(0x9839D2C0),
-                                      elevation: 0,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                      child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            6, 2, 6, 2),
-                                        child: Text(
-                                          'UnLock',
-                                          style: TextStyle(
-                                            fontFamily: 'Lexend Deca',
-                                            color: Colors.white,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.normal,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Card(
-                                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                                      color: Color(0xFF1E2429),
-                                      elevation: 2,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(30),
-                                      ),
-                                      child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            8, 8, 8, 8),
-                                        child: Icon(
-                                          Icons.favorite_border,
-                                          color: Colors.white,
-                                          size: 24,
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(8, 0, 0, 8),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          8, 0, 0, 0),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            'Super Human Boost',
-                                            style: TextStyle(
-                                              fontFamily: 'Lexend Deca',
-                                              color: Colors.white,
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.normal,
-                                            ),
-                                          ),
-                                          Text(
-                                            'Seated Medication',
-                                            style: TextStyle(
-                                              fontFamily: 'Lexend Deca',
-                                              color: Colors.white,
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.normal,
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                    Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          '7 min',
-                                          style: TextStyle(
-                                            fontFamily: 'Poppins',
-                                            color: Color(0xFFD6D6D6),
-                                            fontSize: 12,
-                                          ),
-                                        ),
-                                        Text(
-                                          'Ambient',
-                                          style: TextStyle(
-                                            fontFamily: 'Poppins',
-                                            color: Color(0xFFD6D6D6),
-                                            fontSize: 12,
-                                          ),
-                                        )
-                                      ],
-                                    )
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      )
                     ],
                   ),
                 ),
-              ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 0),
-                child: CategoryHeading(
-                  categoryName: 'Daily',
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 0),
+                  child: CategoryHeading(
+                    categoryName: 'Seated',
+                  ),
                 ),
-              ),
-              Container(
-                height: 200,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: [
-                    CategoryItemsViewer(
-                      path:
-                          "https://firebasestorage.googleapis.com/v0/b/medication-alive.appspot.com/o/videos%2FDaily%2FEvening_mediation.mp4?alt=media&token=ebd8c676-b1c7-4820-9d36-640aeacfe208",
-                      postId: "daily1stVid",
-                      category: 'Daily',
-                      videoLength: "10 min",
-                      videoText: "Movement Running Meditation",
-                    ),
-                  ],
+                Container(
+                  height: 200,
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    children: [
+                      CategoryItemsViewer(
+                        path:
+                            "https://firebasestorage.googleapis.com/v0/b/medication-alive.appspot.com/o/videos%2FSeated%2FCharkra_Clearing_Meditation.mp4?alt=media&token=7261212b-bff2-4d1a-a5c9-844b198e703c",
+                        postId: "seated1stVid",
+                        category: 'Seated',
+                        videoLength: "12 min",
+                        videoText: "Charkra Clearing Meditation",
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 0),
-                child: CategoryHeading(
-                  categoryName: 'Movement',
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 0),
+                  child: CategoryHeading(
+                    categoryName: 'Thinking',
+                  ),
                 ),
-              ),
-              Container(
-                height: 200,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: [
-                    CategoryItemsViewer(
-                      path:
-                          "https://firebasestorage.googleapis.com/v0/b/medication-alive.appspot.com/o/videos%2FMovement%2FMovement_Running_Meditation.mp4?alt=media&token=d1c432bf-e932-42d0-9802-7d86b04c96ed",
-                      postId: "movement1stVid",
-                      category: 'Movement',
-                      videoLength: "10 min",
-                      videoText: "Movement Running Meditation",
-                    ),
-                  ],
+                Container(
+                  height: 200,
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    children: [
+                      CategoryItemsViewer(
+                        path:
+                            "https://firebasestorage.googleapis.com/v0/b/medication-alive.appspot.com/o/videos%2FThinking%2FSelf_Value.mp4?alt=media&token=e4822ed2-cda2-48c7-83b6-04f3eb6d4a80",
+                        postId: "thinking1stVid",
+                        videoLength: "32 min",
+                        videoText: "Self Value",
+                        category: 'Thinking',
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 0),
-                child: CategoryHeading(
-                  categoryName: 'Seated',
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 0),
+                  child: CategoryHeading(
+                    categoryName: 'Education',
+                  ),
                 ),
-              ),
-              Container(
-                height: 200,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: [
-                    CategoryItemsViewer(
-                      path:
-                          "https://firebasestorage.googleapis.com/v0/b/medication-alive.appspot.com/o/videos%2FSeated%2FCharkra_Clearing_Meditation.mp4?alt=media&token=7261212b-bff2-4d1a-a5c9-844b198e703c",
-                      postId: "seated1stVid",
-                      category: 'Seated',
-                      videoLength: "12 min",
-                      videoText: "Charkra Clearing Meditation",
-                    ),
-                  ],
+                Container(
+                  height: 200,
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    children: [
+                      CategoryItemsViewer(
+                        path:
+                            "https://firebasestorage.googleapis.com/v0/b/medication-alive.appspot.com/o/videos%2FEducation%2FLetting_go_of_Negativity.mp4?alt=media&token=cb9db466-94dd-4d76-946e-0a07b80851f3",
+                        postId: "education1stVid",
+                        videoLength: "17 min",
+                        videoText: "Letting go of Negativity",
+                        category: 'Education',
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 0),
-                child: CategoryHeading(
-                  categoryName: 'Thinking',
-                ),
-              ),
-              Container(
-                height: 200,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: [
-                    CategoryItemsViewer(
-                      path:
-                          "https://firebasestorage.googleapis.com/v0/b/medication-alive.appspot.com/o/videos%2FThinking%2FSelf_Value.mp4?alt=media&token=e4822ed2-cda2-48c7-83b6-04f3eb6d4a80",
-                      postId: "thinking1stVid",
-                      videoLength: "32 min",
-                      videoText: "Self Value",
-                      category: 'Thinking',
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 0),
-                child: CategoryHeading(
-                  categoryName: 'Education',
-                ),
-              ),
-              Container(
-                height: 200,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: [
-                    CategoryItemsViewer(
-                      path:
-                          "https://firebasestorage.googleapis.com/v0/b/medication-alive.appspot.com/o/videos%2FEducation%2FLetting_go_of_Negativity.mp4?alt=media&token=cb9db466-94dd-4d76-946e-0a07b80851f3",
-                      postId: "education1stVid",
-                      videoLength: "17 min",
-                      videoText: "Letting go of Negativity",
-                      category: 'Education',
-                    ),
-                  ],
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

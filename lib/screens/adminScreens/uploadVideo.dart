@@ -11,7 +11,7 @@ import 'package:meditation_alive/services/firebase_api.dart';
 import 'package:meditation_alive/services/global_method.dart';
 import 'package:uuid/uuid.dart';
 import 'package:file_picker/file_picker.dart';
-
+import 'package:video_player/video_player.dart';
 class UploadProductForm extends StatefulWidget {
   static const routeName = '/UploadProductForm';
 
@@ -576,12 +576,18 @@ class _UploadProductFormState extends State<UploadProductForm> {
   }
 
   Future selectFile() async {
-    final result = await FilePicker.platform.pickFiles(allowMultiple: false);
-
+    final result = await FilePicker.platform
+        .pickFiles(allowMultiple: false, type: FileType.video);
     if (result == null) return;
     final path = result.files.single.path!;
 
     setState(() => file = File(path));
+     VideoPlayerController fileVideocontroller = new VideoPlayerController.file(file)
+     ..initialize().then((_) {
+
+       debugPrint("========"+fileVideocontroller.value.duration.toString());
+     });
+   });
   }
 
   Future uploadFile() async {
