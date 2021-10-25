@@ -123,7 +123,7 @@ class _UserNSearchState extends State<UserNSearch>
                 AppUserModel user = AppUserModel.fromDocument(doc);
 
                 //remove auth user from recommended list
-                if (user.isAdmin!) {
+                if (user.isAdmin != null && user.isAdmin!) {
                   UserResult adminResult = UserResult(user);
                   allAdmins.add(adminResult);
                 }

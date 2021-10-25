@@ -27,11 +27,11 @@ class _HomePageState extends State<HomePage> {
     'BEGINNERS',
     "ALL",
   ];
-  List<Product> dailyVideos=[];
-  List<Product> movementVideos=[];
-  List<Product> seatedVideos=[];
-  List<Product> thinkingVideos=[];
-  List<Product> educationVideos=[];
+  List<Product> dailyVideos = [];
+  List<Product> movementVideos = [];
+  List<Product> seatedVideos = [];
+  List<Product> thinkingVideos = [];
+  List<Product> educationVideos = [];
   @override
   void initState() {
     super.initState();
@@ -41,25 +41,24 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> _getProductsOnRefresh() async {
     await Provider.of<Products>(context, listen: false).fetchProducts();
- final Products _productsProvider = Provider.of<Products>(context);
- _productsProvider.products.forEach((element) {
-   if(element.productCategoryName=="Daily"){
-     dailyVideos.add(element);
-   }
-   if(element.productCategoryName=="Seated"){
-     seatedVideos.add(element);
-   }
-   if(element.productCategoryName=="Thinking"){
-     thinkingVideos.add(element);
-   }
-   if(element.productCategoryName=="Education"){
-     educationVideos.add(element);
-   }
-   if(element.productCategoryName=="Movement"){
-     movementVideos.add(element);
-   }
-   
-  });
+    // final Products _productsProvider = Provider.of<Products>(context);
+    // _productsProvider.products.forEach((element) {
+    //   if (element.productCategoryName == "Daily") {
+    //     dailyVideos.add(element);
+    //   }
+    //   if (element.productCategoryName == "Seated") {
+    //     seatedVideos.add(element);
+    //   }
+    //   if (element.productCategoryName == "Thinking") {
+    //     thinkingVideos.add(element);
+    //   }
+    //   if (element.productCategoryName == "Education") {
+    //     educationVideos.add(element);
+    //   }
+    //   if (element.productCategoryName == "Movement") {
+    //     movementVideos.add(element);
+    //   }
+    // });
     if (mounted) {
       setState(() {});
     }
@@ -101,13 +100,11 @@ class _HomePageState extends State<HomePage> {
               children: [
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        ListView.builder(itemCount: productsProvider.products.length,itemBuilder: (context, index) {
-                          
+                  child: Container(
+                    height: 280,
+                    child: ListView.builder(
+                      itemCount: productsProvider.products.length,
+                      itemBuilder: (context, index) {
                         return Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(16, 8, 0, 8),
                           child: Container(
@@ -208,7 +205,8 @@ class _HomePageState extends State<HomePage> {
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              productsProvider.products[index].title!,
+                                              productsProvider
+                                                  .products[index].title!,
                                               style: TextStyle(
                                                 fontFamily: 'Lexend Deca',
                                                 color: Colors.white,
@@ -251,17 +249,14 @@ class _HomePageState extends State<HomePage> {
                                       //     )
                                       //   ],
                                       // )
-                                  
                                     ],
                                   ),
                                 )
                               ],
                             ),
                           ),
-                        )
-                       
-                        },),
-                      ],
+                        );
+                      },
                     ),
                   ),
                 ),
@@ -273,18 +268,24 @@ class _HomePageState extends State<HomePage> {
                 ),
                 Container(
                   height: 200,
-                  child: ListView.builder(itemBuilder: (context, index) {
-                           
-                       if(dailyVideos.length>0){return CategoryItemsViewer(
-                        path:
-                            dailyVideos[index].imageUrl,
-                        postId: dailyVideos[index].productId,
-                        category: dailyVideos[index].productCategoryName,
-                        videoLength: dailyVideos[index].videoLength,
-                        videoText: dailyVideos[index].title,
-                      );   }
-                       else{return Text("Currently No Video Uploaded",style: titleTextStyle(),);}
-                  },itemCount: dailyVideos.length,
+                  child: ListView.builder(
+                    itemBuilder: (context, index) {
+                      if (dailyVideos.length > 0) {
+                        return CategoryItemsViewer(
+                          path: dailyVideos[index].imageUrl,
+                          postId: dailyVideos[index].productId,
+                          category: dailyVideos[index].productCategoryName,
+                          videoLength: dailyVideos[index].videoLength,
+                          videoText: dailyVideos[index].title,
+                        );
+                      } else {
+                        return Text(
+                          "Currently No Video Uploaded",
+                          style: titleTextStyle(),
+                        );
+                      }
+                    },
+                    itemCount: dailyVideos.length,
                     scrollDirection: Axis.horizontal,
                   ),
                 ),
@@ -296,21 +297,24 @@ class _HomePageState extends State<HomePage> {
                 ),
                 Container(
                   height: 200,
-                  child:ListView.builder(itemBuilder: (context, index) {
-                        
-                       if(movementVideos.length>0){
-                         return  CategoryItemsViewer(
-                        path:
-                            movementVideos[index].imageUrl,
-                        postId: movementVideos[index].productId,
-                        category: movementVideos[index].productCategoryName,
-                        videoLength: movementVideos[index].videoLength,
-                        videoText: movementVideos[index].title,
-                      );
-                       }
-                       else{return Text("Currently No Video Uploaded",style: titleTextStyle(),);}
-                      
-                  },itemCount:movementVideos.length,
+                  child: ListView.builder(
+                    itemBuilder: (context, index) {
+                      if (movementVideos.length > 0) {
+                        return CategoryItemsViewer(
+                          path: movementVideos[index].imageUrl,
+                          postId: movementVideos[index].productId,
+                          category: movementVideos[index].productCategoryName,
+                          videoLength: movementVideos[index].videoLength,
+                          videoText: movementVideos[index].title,
+                        );
+                      } else {
+                        return Text(
+                          "Currently No Video Uploaded",
+                          style: titleTextStyle(),
+                        );
+                      }
+                    },
+                    itemCount: movementVideos.length,
                     scrollDirection: Axis.horizontal,
                   ),
                 ),
@@ -322,18 +326,24 @@ class _HomePageState extends State<HomePage> {
                 ),
                 Container(
                   height: 200,
-                  child:ListView.builder(itemBuilder: (context, index) {
-                         
-                       if(seatedVideos.length>0){  return CategoryItemsViewer(
-                        path:
-                            seatedVideos[index].imageUrl,
-                        postId: seatedVideos[index].productId,
-                        category: seatedVideos[index].productCategoryName,
-                        videoLength: seatedVideos[index].videoLength,
-                        videoText: seatedVideos[index].title,
-                      );   }
-                       else{return Text("Currently No Video Uploaded",style: titleTextStyle(),);}
-                  },itemCount: seatedVideos.length,
+                  child: ListView.builder(
+                    itemBuilder: (context, index) {
+                      if (seatedVideos.length > 0) {
+                        return CategoryItemsViewer(
+                          path: seatedVideos[index].imageUrl,
+                          postId: seatedVideos[index].productId,
+                          category: seatedVideos[index].productCategoryName,
+                          videoLength: seatedVideos[index].videoLength,
+                          videoText: seatedVideos[index].title,
+                        );
+                      } else {
+                        return Text(
+                          "Currently No Video Uploaded",
+                          style: titleTextStyle(),
+                        );
+                      }
+                    },
+                    itemCount: seatedVideos.length,
                     scrollDirection: Axis.horizontal,
                   ),
                 ),
@@ -345,18 +355,24 @@ class _HomePageState extends State<HomePage> {
                 ),
                 Container(
                   height: 200,
-                  child: ListView.builder(itemBuilder: (context, index) {
-                           
-                       if(thinkingVideos.length>0){return CategoryItemsViewer(
-                        path:
-                            thinkingVideos[index].imageUrl,
-                        postId: thinkingVideos[index].productId,
-                        category: thinkingVideos[index].productCategoryName,
-                        videoLength: thinkingVideos[index].videoLength,
-                        videoText: thinkingVideos[index].title,
-                      );   }
-                       else{return Text("Currently No Video Uploaded",style: titleTextStyle(),);}
-                  },itemCount: thinkingVideos.length,
+                  child: ListView.builder(
+                    itemBuilder: (context, index) {
+                      if (thinkingVideos.length > 0) {
+                        return CategoryItemsViewer(
+                          path: thinkingVideos[index].imageUrl,
+                          postId: thinkingVideos[index].productId,
+                          category: thinkingVideos[index].productCategoryName,
+                          videoLength: thinkingVideos[index].videoLength,
+                          videoText: thinkingVideos[index].title,
+                        );
+                      } else {
+                        return Text(
+                          "Currently No Video Uploaded",
+                          style: titleTextStyle(),
+                        );
+                      }
+                    },
+                    itemCount: thinkingVideos.length,
                     scrollDirection: Axis.horizontal,
                   ),
                 ),
@@ -368,18 +384,24 @@ class _HomePageState extends State<HomePage> {
                 ),
                 Container(
                   height: 200,
-                  child: ListView.builder(itemBuilder: (context, index) {
-                         
-                       if(educationVideos.length>0){  return CategoryItemsViewer(
-                        path:
-                            educationVideos[index].imageUrl,
-                        postId: educationVideos[index].productId,
-                        category: educationVideos[index].productCategoryName,
-                        videoLength:educationVideos[index].videoLength,
-                        videoText: educationVideos[index].title,
-                      );   }
-                       else{return Text("Currently No Video Uploaded",style: titleTextStyle(),);}
-                  },itemCount: educationVideos.length,
+                  child: ListView.builder(
+                    itemBuilder: (context, index) {
+                      if (educationVideos.length > 0) {
+                        return CategoryItemsViewer(
+                          path: educationVideos[index].imageUrl,
+                          postId: educationVideos[index].productId,
+                          category: educationVideos[index].productCategoryName,
+                          videoLength: educationVideos[index].videoLength,
+                          videoText: educationVideos[index].title,
+                        );
+                      } else {
+                        return Text(
+                          "Currently No Video Uploaded",
+                          style: titleTextStyle(),
+                        );
+                      }
+                    },
+                    itemCount: educationVideos.length,
                     scrollDirection: Axis.horizontal,
                   ),
                 ),
