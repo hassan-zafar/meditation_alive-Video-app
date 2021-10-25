@@ -1,20 +1,20 @@
 {
   "project_info": {
-    "project_number": "163549486060",
-    "project_id": "medication-alive",
-    "storage_bucket": "medication-alive.appspot.com"
+    "project_number": "186591266492",
+    "project_id": "meditation-alive",
+    "storage_bucket": "meditation-alive.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:163549486060:android:da4802c245664914023ec9",
+        "mobilesdk_app_id": "1:186591266492:android:648d1bce5e15e56168f2b9",
         "android_client_info": {
           "package_name": "com.hassan.meditation_alive"
         }
       },
       "oauth_client": [
         {
-          "client_id": "163549486060-pa0tchjhjn0rekpqvkfv3isglglftg3r.apps.googleusercontent.com",
+          "client_id": "186591266492-t4m73r8jo96apvgoe6rni3k7f63vo0f6.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.hassan.meditation_alive",
@@ -22,20 +22,20 @@
           }
         },
         {
-          "client_id": "163549486060-h176ah8e67bu4l9sanbb15hrocfbv5n2.apps.googleusercontent.com",
+          "client_id": "186591266492-m6qlmb392h8e4id2bl4ru2ksgiksrdgm.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyC51RTYb3lr2CFTTT9Fq_9ptqYVtUgMbXY"
+          "current_key": "AIzaSyCQK4Nyp6m_30UjWhfDyrH87-treeXG8MM"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "163549486060-h176ah8e67bu4l9sanbb15hrocfbv5n2.apps.googleusercontent.com",
+              "client_id": "186591266492-m6qlmb392h8e4id2bl4ru2ksgiksrdgm.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

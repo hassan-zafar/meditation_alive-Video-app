@@ -12,6 +12,7 @@ import 'package:meditation_alive/services/global_method.dart';
 import 'package:uuid/uuid.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:video_player/video_player.dart';
+
 class UploadProductForm extends StatefulWidget {
   static const routeName = '/UploadProductForm';
 
@@ -29,7 +30,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
   var _productCategory = '';
   var _productBrand = '';
   var _productDescription = '';
-  var _productQuantity = '';
+  var _videoLength = '';
   final TextEditingController _categoryController = TextEditingController();
   final TextEditingController _brandController = TextEditingController();
   String? _categoryValue;
@@ -70,7 +71,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
       print(_productCategory);
       print(_productBrand);
       print(_productDescription);
-      print(_productQuantity);
+      print(_videoLength);
       // Use those values to send our request ...
     }
     if (isValid) {
@@ -103,7 +104,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
             'productCategory': _productCategory,
             'productBrand': _productBrand,
             'productDescription': _productDescription,
-            'productQuantity': _productQuantity,
+            'videoPength': _videoLength,
             'userId': _uid,
             'createdAt': Timestamp.now(),
           });
@@ -582,12 +583,10 @@ class _UploadProductFormState extends State<UploadProductForm> {
     final path = result.files.single.path!;
 
     setState(() => file = File(path));
-     VideoPlayerController fileVideocontroller = new VideoPlayerController.file(file)
-     ..initialize().then((_) {
+    VideoPlayerController fileVideocontroller =
+        VideoPlayerController.file(file!)..initialize();
+    debugPrint("========" + fileVideocontroller.value.duration.toString());
 
-       debugPrint("========"+fileVideocontroller.value.duration.toString());
-     });
-   });
   }
 
   Future uploadFile() async {

@@ -595,42 +595,42 @@ class _ContentState extends State<Content>
   }
 }
 
-void _about(BuildContext context) {
-  showDialog(
-    context: context,
-    builder: (_) => Dialog(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          ListTile(
-            title: Text(
-              'chips_choice',
-              style: TextStyle(color: Colors.black87),
-            ),
-            subtitle: const Text('by davigmacode'),
-            trailing: IconButton(
-              icon: const Icon(Icons.close),
-              onPressed: () => Navigator.pop(context),
-            ),
-          ),
-          Flexible(
-            fit: FlexFit.loose,
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Text(
-                    'Easy way to provide a single or multiple choice chips.',
-                    style: TextStyle(color: Colors.black87),
-                  ),
-                  Container(height: 15),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    ),
-  );
-}
+// void _about(BuildContext context) {
+//   showDialog(
+//     context: context,
+//     builder: (_) => Dialog(
+//       child: Column(
+//         mainAxisSize: MainAxisSize.min,
+//         children: <Widget>[
+//           ListTile(
+//             title: Text(
+//               'chips_choice',
+//               style: TextStyle(color: Colors.black87),
+//             ),
+//             subtitle: const Text('by davigmacode'),
+//             trailing: IconButton(
+//               icon: const Icon(Icons.close),
+//               onPressed: () => Navigator.pop(context),
+//             ),
+//           ),
+//           Flexible(
+//             fit: FlexFit.loose,
+//             child: Container(
+//               padding: const EdgeInsets.symmetric(horizontal: 15),
+//               child: Column(
+//                 mainAxisSize: MainAxisSize.min,
+//                 children: <Widget>[
+//                   Text(
+//                     'Easy way to provide a single or multiple choice chips.',
+//                     style: TextStyle(color: Colors.black87),
+//                   ),
+//                   Container(height: 15),
+//                 ],
+//               ),
+//             ),
+//           ),
+//         ],
+//       ),
+//     ),
+//   );
+// }
