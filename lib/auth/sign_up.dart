@@ -74,6 +74,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             'phoneNumber': _phoneNumber,
             'imageUrl': url,
             'joinedAt': formattedDate,
+            'isAdmin': false,
             'createdAt': Timestamp.now(),
           });
           Navigator.canPop(context) ? Navigator.pop(context) : null;

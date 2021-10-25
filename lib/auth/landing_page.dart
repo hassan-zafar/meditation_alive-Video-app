@@ -79,6 +79,7 @@ class _LandingPageState extends State<LandingPage>
             'imageUrl': authResult.user!.photoURL,
             'joinedAt': formattedDate,
             'createdAt': Timestamp.now(),
+            "isAdmin": false,
           });
         } catch (error) {
           _globalMethods.authErrorHandle(error.toString(), context);
