@@ -3,10 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:meditation_alive/auth/landing_page.dart';
 import 'package:meditation_alive/consts/collections.dart';
 import 'package:meditation_alive/database/database.dart';
+import 'package:meditation_alive/screens/homePage.dart';
 
 import '../main_screen.dart';
-
-
 
 class UserState extends StatelessWidget {
   @override
@@ -26,7 +25,9 @@ class UserState extends StatelessWidget {
               print(currentUser);
 
               print('The user is already logged in');
-              return MainScreens();
+              return HomePage();
+
+              // MainScreens();
             } else {
               print('The user didn\'t login yet');
               return
