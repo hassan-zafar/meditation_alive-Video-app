@@ -6,8 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:meditation_alive/consts/colors.dart';
+import 'package:meditation_alive/consts/consants.dart';
+import 'package:meditation_alive/services/firebase_api.dart';
 import 'package:meditation_alive/services/global_method.dart';
 import 'package:uuid/uuid.dart';
+import 'package:file_picker/file_picker.dart';
 
 class UploadProductForm extends StatefulWidget {
   static const routeName = '/UploadProductForm';
@@ -18,9 +21,11 @@ class UploadProductForm extends StatefulWidget {
 
 class _UploadProductFormState extends State<UploadProductForm> {
   final _formKey = GlobalKey<FormState>();
+  UploadTask? task;
+  File? file;
 
   var _productTitle = '';
-  var _productPrice = '';
+  String _productVideoUrl = '';
   var _productCategory = '';
   var _productBrand = '';
   var _productDescription = '';
@@ -62,7 +67,6 @@ class _UploadProductFormState extends State<UploadProductForm> {
     if (isValid) {
       _formKey.currentState!.save();
       print(_productTitle);
-      print(_productPrice);
       print(_productCategory);
       print(_productBrand);
       print(_productDescription);
@@ -94,7 +98,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
               .set({
             'productId': productId,
             'productTitle': _productTitle,
-            'price': _productPrice,
+            'videoUrl': _productVideoUrl,
             'productImage': url,
             'productCategory': _productCategory,
             'productBrand': _productBrand,
@@ -151,6 +155,8 @@ class _UploadProductFormState extends State<UploadProductForm> {
 
   @override
   Widget build(BuildContext context) {
+    final fileName = file != null ? _productTitle : 'No File Selected';
+
     return Scaffold(
       bottomSheet: Container(
         height: kBottomNavigationBarHeight * 0.8,
@@ -218,65 +224,87 @@ class _UploadProductFormState extends State<UploadProductForm> {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Flexible(
-                              flex: 3,
-                              child: Padding(
-                                padding: const EdgeInsets.only(right: 9),
-                                child: TextFormField(
-                                  key: ValueKey('Title'),
-                                  validator: (value) {
-                                    if (value!.isEmpty) {
-                                      return 'Please enter a Title';
-                                    }
-                                    return null;
-                                  },
-                                  keyboardType: TextInputType.emailAddress,
-                                  decoration: InputDecoration(
-                                    labelText: 'Video Title',
-                                  ),
-                                  onSaved: (value) {
-                                    _productTitle = value!;
-                                  },
-                                ),
-                              ),
+                        // Row(
+                        //   crossAxisAlignment: CrossAxisAlignment.start,
+                        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        //   children: [
+                        // Flexible(
+                        //   flex: 3,
+                        // child:
+                        Padding(
+                          padding: const EdgeInsets.only(right: 9),
+                          child: TextFormField(
+                            key: ValueKey('Title'),
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Please enter a Title';
+                              }
+                              return null;
+                            },
+                            keyboardType: TextInputType.emailAddress,
+                            decoration: InputDecoration(
+                              labelText: 'Video Title',
                             ),
-                            Flexible(
-                              flex: 1,
-                              child: TextFormField(
-                                key: ValueKey('Price \$'),
-                                keyboardType: TextInputType.number,
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'Price is missed';
-                                  }
-                                  return null;
-                                },
-                                inputFormatters: <TextInputFormatter>[
-                                  FilteringTextInputFormatter.allow(
-                                      RegExp(r'[0-9]')),
-                                ],
-                                decoration: InputDecoration(
-                                  labelText: 'Price \$',
-                                  //  prefixIcon: Icon(Icons.mail),
-                                  // suffixIcon: Text(
-                                  //   '\n \n \$',
-                                  //   textAlign: TextAlign.start,
-                                  // ),
-                                ),
-                                //obscureText: true,
-                                onSaved: (value) {
-                                  _productPrice = value!;
-                                },
-                              ),
-                            ),
-                          ],
+                            onSaved: (value) {
+                              _productTitle = value!;
+                            },
+                          ),
                         ),
+                        // ),
+                        //   Flexible(
+                        //     flex: 1,
+                        //     child: TextFormField(
+                        //       key: ValueKey('Price \$'),
+                        //       keyboardType: TextInputType.number,
+                        //       validator: (value) {
+                        //         if (value!.isEmpty) {
+                        //           return 'Price is missed';
+                        //         }
+                        //         return null;
+                        //       },
+                        //       inputFormatters: <TextInputFormatter>[
+                        //         FilteringTextInputFormatter.allow(
+                        //             RegExp(r'[0-9]')),
+                        //       ],
+                        //       decoration: InputDecoration(
+                        //         labelText: 'Price \$',
+                        //         //  prefixIcon: Icon(Icons.mail),
+                        //         // suffixIcon: Text(
+                        //         //   '\n \n \$',
+                        //         //   textAlign: TextAlign.start,
+                        //         // ),
+                        //       ),
+                        //       //obscureText: true,
+                        //       onSaved: (value) {
+                        //         _productPrice = value!;
+                        //       },
+                        //     ),
+                        //   ),
+
+                        // ],
+                        // ),
+                        SizedBox(height: 10),
+                        Text(
+                          "Select Video",
+                          style: titleTextStyle(
+                              color: Theme.of(context).dividerColor),
+                        ),
+                        ElevatedButton.icon(
+                            onPressed: selectFile,
+                            icon: Icon(Icons.select_all_rounded),
+                            label: Text("Select Video")),
+
+                        ElevatedButton.icon(
+                            onPressed: uploadFile,
+                            icon: Icon(Icons.file_upload_outlined),
+                            label: Text("Upload Video")),
                         SizedBox(height: 10),
                         /* Image picker here ***********************************/
+                        Text(
+                          "Select Image",
+                          style: titleTextStyle(
+                              color: Theme.of(context).dividerColor),
+                        ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
@@ -458,10 +486,11 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                   child: TextFormField(
                                     controller: _brandController,
 
-                                    key: ValueKey('Brand'),
+                                    key: ValueKey(
+                                        'Category Description(OPtional)'),
                                     validator: (value) {
                                       if (value!.isEmpty) {
-                                        return 'Brand is missed';
+                                        return 'Category Description is missed';
                                       }
                                       return null;
                                     },
@@ -503,34 +532,34 @@ class _UploadProductFormState extends State<UploadProductForm> {
                               // setState(() => charLength -= text.length);
                             }),
                         //    SizedBox(height: 10),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Expanded(
-                              //flex: 2,
-                              child: Padding(
-                                padding: const EdgeInsets.only(right: 9),
-                                child: TextFormField(
-                                  keyboardType: TextInputType.number,
-                                  key: ValueKey('Quantity'),
-                                  validator: (value) {
-                                    if (value!.isEmpty) {
-                                      return 'Quantity is missed';
-                                    }
-                                    return null;
-                                  },
-                                  decoration: InputDecoration(
-                                    labelText: 'Quantity',
-                                  ),
-                                  onSaved: (value) {
-                                    _productQuantity = value!;
-                                  },
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        //   crossAxisAlignment: CrossAxisAlignment.end,
+                        //   children: [
+                        //     Expanded(
+                        //       //flex: 2,
+                        //       child: Padding(
+                        //         padding: const EdgeInsets.only(right: 9),
+                        //         child: TextFormField(
+                        //           keyboardType: TextInputType.number,
+                        //           key: ValueKey('Quantity'),
+                        //           validator: (value) {
+                        //             if (value!.isEmpty) {
+                        //               return 'Quantity is missed';
+                        //             }
+                        //             return null;
+                        //           },
+                        //           decoration: InputDecoration(
+                        //             labelText: 'Quantity',
+                        //           ),
+                        //           onSaved: (value) {
+                        //             _productQuantity = value!;
+                        //           },
+                        //         ),
+                        //       ),
+                        //     ),
+                        //   ],
+                        // ),
                       ],
                     ),
                   ),
@@ -545,6 +574,51 @@ class _UploadProductFormState extends State<UploadProductForm> {
       ),
     );
   }
+
+  Future selectFile() async {
+    final result = await FilePicker.platform.pickFiles(allowMultiple: false);
+
+    if (result == null) return;
+    final path = result.files.single.path!;
+
+    setState(() => file = File(path));
+  }
+
+  Future uploadFile() async {
+    if (file == null) return;
+    final fileName = _productTitle;
+    final destination = 'videos/$_productCategory/$fileName';
+
+    task = FirebaseApi.uploadFile(destination, file!);
+    setState(() {});
+
+    if (task == null) return;
+
+    final snapshot = await task!.whenComplete(() {});
+    final urlDownload = await snapshot.ref.getDownloadURL();
+    setState(() {
+      _productVideoUrl = urlDownload;
+    });
+    print('Download-Link: $urlDownload');
+  }
+
+  Widget buildUploadStatus(UploadTask task) => StreamBuilder<TaskSnapshot>(
+        stream: task.snapshotEvents,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            final snap = snapshot.data!;
+            final progress = snap.bytesTransferred / snap.totalBytes;
+            final percentage = (progress * 100).toStringAsFixed(2);
+
+            return Text(
+              '$percentage %',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            );
+          } else {
+            return Container();
+          }
+        },
+      );
 }
 
 class GradientIcon extends StatelessWidget {

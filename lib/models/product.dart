@@ -28,7 +28,6 @@ class Product with ChangeNotifier {
         description: doc.data()["productDescription"],
         videoUrl: doc.data()["videoUrl"],
         imageUrl: doc.data()["productImage"],
-        isIndividual: doc.data()["isIndividual"],
         isFavorite: doc.data()["isFavorite"],
         productCategoryName: doc.data()["productCategory"],
         isPopular: true);
