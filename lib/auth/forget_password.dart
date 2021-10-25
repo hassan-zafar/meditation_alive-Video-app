@@ -29,6 +29,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
             .sendPasswordResetEmail(email: _emailAddress.trim().toLowerCase())
             .then((value) => messageToast("An email has been sent"));
 
+        // ignore: unnecessary_statements
         Navigator.canPop(context) ? Navigator.pop(context) : null;
       } catch (error) {
         _globalMethods.authErrorHandle(error.toString(), context);

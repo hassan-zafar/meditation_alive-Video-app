@@ -1,8 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:meditation_alive/consts/my_icons.dart';
-import 'package:meditation_alive/main.dart';
 import 'package:meditation_alive/provider/dark_theme_provider.dart';
 import 'package:meditation_alive/screens/adminScreens/allUsers.dart';
 import 'package:meditation_alive/screens/adminScreens/chatLists.dart';
@@ -23,23 +20,17 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
   // List<Map<String, Object>> _pages;
   ScrollController? _scrollController;
   var top = 0.0;
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  String? _uid;
-  String? _name = "User Name";
-  String? _email;
-  String? _joinedAt;
-  String? _userImageUrl;
-  int? _phoneNumber;
+
   @override
   void initState() {
     pages = [
       HomePage(),
-      UploadProductForm(),
       // Search(),
       // WishlistScreen(),
       UserInfoScreen(),
       UserNSearch(),
       ChatLists(),
+      UploadProductForm(),
     ];
     //
     super.initState();
@@ -127,11 +118,11 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
                 //       MyAppIcons.search,
                 //     ),
                 //     label: 'Search'),
-                BottomNavigationBarItem(
-                    icon: Icon(
-                      MyAppIcons.wishlist,
-                    ),
-                    label: 'My Favourites'),
+                // BottomNavigationBarItem(
+                //     icon: Icon(
+                //       MyAppIcons.wishlist,
+                //     ),
+                //     label: 'My Favourites'),
                 BottomNavigationBarItem(
                     icon: Icon(
                       MyAppIcons.user,
@@ -147,8 +138,8 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
                       Icons.chat_bubble,
                     ),
                     label: 'Admin Chats'),
-                // BottomNavigationBarItem(
-                //     icon: Icon(MyAppIcons.user), label: 'User'),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.upload_file), label: 'Upload Video'),
               ],
             ),
           ),

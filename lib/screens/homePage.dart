@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:meditation_alive/consts/consants.dart';
 import 'package:meditation_alive/models/product.dart';
 import 'package:meditation_alive/provider/products.dart';
 import 'package:meditation_alive/screens/search.dart';
@@ -273,15 +274,17 @@ class _HomePageState extends State<HomePage> {
                 Container(
                   height: 200,
                   child: ListView.builder(itemBuilder: (context, index) {
-                       return CategoryItemsViewer(
+                           
+                       if(dailyVideos.length>0){return CategoryItemsViewer(
                         path:
                             dailyVideos[index].imageUrl,
                         postId: dailyVideos[index].productId,
                         category: dailyVideos[index].productCategoryName,
-                        videoLength: "10 min",
+                        videoLength: dailyVideos[index].videoLength,
                         videoText: dailyVideos[index].title,
-                      );
-                  },
+                      );   }
+                       else{return Text("Currently No Video Uploaded",style: titleTextStyle(),);}
+                  },itemCount: dailyVideos.length,
                     scrollDirection: Axis.horizontal,
                   ),
                 ),
@@ -293,18 +296,22 @@ class _HomePageState extends State<HomePage> {
                 ),
                 Container(
                   height: 200,
-                  child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: [
-                      CategoryItemsViewer(
+                  child:ListView.builder(itemBuilder: (context, index) {
+                        
+                       if(movementVideos.length>0){
+                         return  CategoryItemsViewer(
                         path:
-                            "https://firebasestorage.googleapis.com/v0/b/medication-alive.appspot.com/o/videos%2FMovement%2FMovement_Running_Meditation.mp4?alt=media&token=d1c432bf-e932-42d0-9802-7d86b04c96ed",
-                        postId: "movement1stVid",
-                        category: 'Movement',
-                        videoLength: "10 min",
-                        videoText: "Movement Running Meditation",
-                      ),
-                    ],
+                            movementVideos[index].imageUrl,
+                        postId: movementVideos[index].productId,
+                        category: movementVideos[index].productCategoryName,
+                        videoLength: movementVideos[index].videoLength,
+                        videoText: movementVideos[index].title,
+                      );
+                       }
+                       else{return Text("Currently No Video Uploaded",style: titleTextStyle(),);}
+                      
+                  },itemCount:movementVideos.length,
+                    scrollDirection: Axis.horizontal,
                   ),
                 ),
                 Padding(
@@ -315,18 +322,19 @@ class _HomePageState extends State<HomePage> {
                 ),
                 Container(
                   height: 200,
-                  child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: [
-                      CategoryItemsViewer(
+                  child:ListView.builder(itemBuilder: (context, index) {
+                         
+                       if(seatedVideos.length>0){  return CategoryItemsViewer(
                         path:
-                            "https://firebasestorage.googleapis.com/v0/b/medication-alive.appspot.com/o/videos%2FSeated%2FCharkra_Clearing_Meditation.mp4?alt=media&token=7261212b-bff2-4d1a-a5c9-844b198e703c",
-                        postId: "seated1stVid",
-                        category: 'Seated',
-                        videoLength: "12 min",
-                        videoText: "Charkra Clearing Meditation",
-                      ),
-                    ],
+                            seatedVideos[index].imageUrl,
+                        postId: seatedVideos[index].productId,
+                        category: seatedVideos[index].productCategoryName,
+                        videoLength: seatedVideos[index].videoLength,
+                        videoText: seatedVideos[index].title,
+                      );   }
+                       else{return Text("Currently No Video Uploaded",style: titleTextStyle(),);}
+                  },itemCount: seatedVideos.length,
+                    scrollDirection: Axis.horizontal,
                   ),
                 ),
                 Padding(
@@ -337,18 +345,19 @@ class _HomePageState extends State<HomePage> {
                 ),
                 Container(
                   height: 200,
-                  child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: [
-                      CategoryItemsViewer(
+                  child: ListView.builder(itemBuilder: (context, index) {
+                           
+                       if(thinkingVideos.length>0){return CategoryItemsViewer(
                         path:
-                            "https://firebasestorage.googleapis.com/v0/b/medication-alive.appspot.com/o/videos%2FThinking%2FSelf_Value.mp4?alt=media&token=e4822ed2-cda2-48c7-83b6-04f3eb6d4a80",
-                        postId: "thinking1stVid",
-                        videoLength: "32 min",
-                        videoText: "Self Value",
-                        category: 'Thinking',
-                      ),
-                    ],
+                            thinkingVideos[index].imageUrl,
+                        postId: thinkingVideos[index].productId,
+                        category: thinkingVideos[index].productCategoryName,
+                        videoLength: thinkingVideos[index].videoLength,
+                        videoText: thinkingVideos[index].title,
+                      );   }
+                       else{return Text("Currently No Video Uploaded",style: titleTextStyle(),);}
+                  },itemCount: thinkingVideos.length,
+                    scrollDirection: Axis.horizontal,
                   ),
                 ),
                 Padding(
@@ -359,18 +368,19 @@ class _HomePageState extends State<HomePage> {
                 ),
                 Container(
                   height: 200,
-                  child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: [
-                      CategoryItemsViewer(
+                  child: ListView.builder(itemBuilder: (context, index) {
+                         
+                       if(educationVideos.length>0){  return CategoryItemsViewer(
                         path:
-                            "https://firebasestorage.googleapis.com/v0/b/medication-alive.appspot.com/o/videos%2FEducation%2FLetting_go_of_Negativity.mp4?alt=media&token=cb9db466-94dd-4d76-946e-0a07b80851f3",
-                        postId: "education1stVid",
-                        videoLength: "17 min",
-                        videoText: "Letting go of Negativity",
-                        category: 'Education',
-                      ),
-                    ],
+                            educationVideos[index].imageUrl,
+                        postId: educationVideos[index].productId,
+                        category: educationVideos[index].productCategoryName,
+                        videoLength:educationVideos[index].videoLength,
+                        videoText: educationVideos[index].title,
+                      );   }
+                       else{return Text("Currently No Video Uploaded",style: titleTextStyle(),);}
+                  },itemCount: educationVideos.length,
+                    scrollDirection: Axis.horizontal,
                   ),
                 ),
               ],
