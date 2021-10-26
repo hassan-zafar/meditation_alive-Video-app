@@ -41,24 +41,8 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> _getProductsOnRefresh() async {
     await Provider.of<Products>(context, listen: false).fetchProducts();
-    final Products _productsProvider = Provider.of<Products>(context);
-    _productsProvider.products.forEach((element) {
-      if (element.productCategoryName == "Daily") {
-        dailyVideos.add(element);
-      }
-      if (element.productCategoryName == "Seated") {
-        seatedVideos.add(element);
-      }
-      if (element.productCategoryName == "Thinking") {
-        thinkingVideos.add(element);
-      }
-      if (element.productCategoryName == "Education") {
-        educationVideos.add(element);
-      }
-      if (element.productCategoryName == "Movement") {
-        movementVideos.add(element);
-      }
-    });
+    // final Products _productsProvider = Provider.of<Products>(context);
+
     if (mounted) {
       setState(() {});
     }
@@ -67,6 +51,33 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final Products productsProvider = Provider.of<Products>(context);
+    dailyVideos = [];
+    movementVideos = [];
+    seatedVideos = [];
+    thinkingVideos = [];
+    educationVideos = [];
+    productsProvider.products.forEach((element) {
+      if (element.productCategoryName == "Daily" &&
+          !dailyVideos.contains(element)) {
+        dailyVideos.add(element);
+      }
+      if (element.productCategoryName == "Seated" &&
+          !seatedVideos.contains(element)) {
+        seatedVideos.add(element);
+      }
+      if (element.productCategoryName == "Thinking" &&
+          !thinkingVideos.contains(element)) {
+        thinkingVideos.add(element);
+      }
+      if (element.productCategoryName == "Education" &&
+          !educationVideos.contains(element)) {
+        educationVideos.add(element);
+      }
+      if (element.productCategoryName == "Movement" &&
+          !movementVideos.contains(element)) {
+        movementVideos.add(element);
+      }
+    });
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: Color(0xFF1E2429),
@@ -101,7 +112,7 @@ class _HomePageState extends State<HomePage> {
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
                   child: Container(
-                    height: 240,
+                    height: 200,
                     child: ListView.builder(
                       itemCount: productsProvider.products.length,
                       scrollDirection: Axis.horizontal,
@@ -287,10 +298,12 @@ class _HomePageState extends State<HomePage> {
                 Container(
                   height: 200,
                   child: ListView.builder(
+                    shrinkWrap: true,
                     itemBuilder: (context, index) {
                       if (dailyVideos.length > 0) {
                         return CategoryItemsViewer(
                           path: dailyVideos[index].videoUrl,
+                          imageUrl: dailyVideos[index].imageUrl,
                           postId: dailyVideos[index].productId,
                           category: dailyVideos[index].productCategoryName,
                           videoLength: dailyVideos[index].videoLength,
@@ -319,7 +332,8 @@ class _HomePageState extends State<HomePage> {
                     itemBuilder: (context, index) {
                       if (movementVideos.length > 0) {
                         return CategoryItemsViewer(
-                          path: movementVideos[index].imageUrl,
+                          path: movementVideos[index].videoUrl,
+                          imageUrl: movementVideos[index].imageUrl,
                           postId: movementVideos[index].productId,
                           category: movementVideos[index].productCategoryName,
                           videoLength: movementVideos[index].videoLength,
@@ -348,7 +362,8 @@ class _HomePageState extends State<HomePage> {
                     itemBuilder: (context, index) {
                       if (seatedVideos.length > 0) {
                         return CategoryItemsViewer(
-                          path: seatedVideos[index].imageUrl,
+                          path: seatedVideos[index].videoUrl,
+                          imageUrl: seatedVideos[index].imageUrl,
                           postId: seatedVideos[index].productId,
                           category: seatedVideos[index].productCategoryName,
                           videoLength: seatedVideos[index].videoLength,
@@ -377,7 +392,8 @@ class _HomePageState extends State<HomePage> {
                     itemBuilder: (context, index) {
                       if (thinkingVideos.length > 0) {
                         return CategoryItemsViewer(
-                          path: thinkingVideos[index].imageUrl,
+                          path: thinkingVideos[index].videoUrl,
+                          imageUrl: thinkingVideos[index].imageUrl,
                           postId: thinkingVideos[index].productId,
                           category: thinkingVideos[index].productCategoryName,
                           videoLength: thinkingVideos[index].videoLength,
@@ -406,7 +422,8 @@ class _HomePageState extends State<HomePage> {
                     itemBuilder: (context, index) {
                       if (educationVideos.length > 0) {
                         return CategoryItemsViewer(
-                          path: educationVideos[index].imageUrl,
+                          path: educationVideos[index].videoUrl,
+                          imageUrl: educationVideos[index].imageUrl,
                           postId: educationVideos[index].productId,
                           category: educationVideos[index].productCategoryName,
                           videoLength: educationVideos[index].videoLength,
@@ -464,11 +481,13 @@ class CategoryItemsViewer extends StatelessWidget {
   final String? videoLength;
   final String? videoText;
   final String? category;
+  final String? imageUrl;
 
   const CategoryItemsViewer(
       {this.path,
       this.postId,
       this.videoLength,
+      this.imageUrl,
       this.category,
       this.videoText});
 
@@ -490,6 +509,8 @@ class CategoryItemsViewer extends StatelessWidget {
         child: Padding(
           padding: EdgeInsetsDirectional.fromSTEB(16, 8, 0, 8),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
                 width: 250,
@@ -497,8 +518,7 @@ class CategoryItemsViewer extends StatelessWidget {
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     fit: BoxFit.fill,
-                    image: CachedNetworkImageProvider(
-                        "https://images.ctfassets.net/qpn1gztbusu2/6CRBRq6rVbvNSNoHB0pCT1/3fce2bfcdd96ff2842b68d41cdd4e008/Livre-Audio-Meditation.jpg"),
+                    image: CachedNetworkImageProvider(imageUrl!),
                   ),
                   boxShadow: [
                     BoxShadow(
@@ -548,6 +568,7 @@ class CategoryItemsViewer extends StatelessWidget {
                       Container(
                         child: Text(
                           videoText!,
+                          textAlign: TextAlign.start,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
                           style: TextStyle(
@@ -575,15 +596,15 @@ class CategoryItemsViewer extends StatelessWidget {
                               ),
                             ),
                           ),
-                          Text(
-                            'Guitar',
-                            style: TextStyle(
-                              fontFamily: 'Poppins',
-                              color: Color(0xFFF5F5F5),
-                              fontSize: 14,
-                              fontWeight: FontWeight.w100,
-                            ),
-                          )
+                          // Text(
+                          //   'Guitar',
+                          //   style: TextStyle(
+                          //     fontFamily: 'Poppins',
+                          //     color: Color(0xFFF5F5F5),
+                          //     fontSize: 14,
+                          //     fontWeight: FontWeight.w100,
+                          //   ),
+                          // )
                         ],
                       )
                     ],
