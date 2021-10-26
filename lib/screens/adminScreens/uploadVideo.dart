@@ -9,6 +9,8 @@ import 'package:meditation_alive/consts/colors.dart';
 import 'package:meditation_alive/consts/consants.dart';
 import 'package:meditation_alive/services/firebase_api.dart';
 import 'package:meditation_alive/services/global_method.dart';
+import 'package:meditation_alive/widgets/custom_toast%20copy.dart';
+import 'package:meditation_alive/widgets/loadingWidget.dart';
 import 'package:uuid/uuid.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:video_player/video_player.dart';
@@ -28,16 +30,19 @@ class _UploadProductFormState extends State<UploadProductForm> {
   var _productTitle = '';
   String _productVideoUrl = '';
   var _productCategory = '';
-  var _productBrand = '';
+  var _categoryDescription = '';
   var _productDescription = '';
   var _videoLength = '';
   final TextEditingController _categoryController = TextEditingController();
-  final TextEditingController _brandController = TextEditingController();
+  final TextEditingController _categoryDescriptionController =
+      TextEditingController();
   String? _categoryValue;
   GlobalMethods _globalMethods = GlobalMethods();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   File? _pickedImage;
   bool _isLoading = false;
+  bool _isVideoSelected = false;
+
   late String url;
   var uuid = Uuid();
   showAlertDialog(BuildContext context, String title, String body) {
@@ -62,6 +67,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
   }
 
   void _trySubmit() async {
+    print("here");
     final isValid = _formKey.currentState!.validate();
     FocusScope.of(context).unfocus();
 
@@ -69,7 +75,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
       _formKey.currentState!.save();
       print(_productTitle);
       print(_productCategory);
-      print(_productBrand);
+      print(_categoryDescription);
       print(_productDescription);
       print(_videoLength);
       // Use those values to send our request ...
@@ -79,6 +85,8 @@ class _UploadProductFormState extends State<UploadProductForm> {
       try {
         if (_pickedImage == null) {
           _globalMethods.authErrorHandle('Please pick an image', context);
+        } else if (_productVideoUrl == null) {
+          _globalMethods.authErrorHandle('Please pick a video', context);
         } else {
           setState(() {
             _isLoading = true;
@@ -90,6 +98,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
           await ref.putFile(_pickedImage!);
           url = await ref.getDownloadURL();
 
+          await uploadFile();
           final User? user = _auth.currentUser;
           final _uid = user!.uid;
           final productId = uuid.v4();
@@ -102,9 +111,9 @@ class _UploadProductFormState extends State<UploadProductForm> {
             'videoUrl': _productVideoUrl,
             'productImage': url,
             'productCategory': _productCategory,
-            'productBrand': _productBrand,
+            'categoryDescription': _categoryDescription,
             'productDescription': _productDescription,
-            'videoPength': _videoLength,
+            'videoLength': _videoLength,
             'userId': _uid,
             'createdAt': Timestamp.now(),
           });
@@ -174,7 +183,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
         child: Material(
           color: Theme.of(context).backgroundColor,
           child: InkWell(
-            onTap: _trySubmit,
+            onTap: () => _trySubmit(),
             splashColor: Colors.grey,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -286,7 +295,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
                         // ),
                         SizedBox(height: 10),
                         Text(
-                          "Select Video",
+                          _isVideoSelected ? "Video Selected" : "Select Video",
                           style: titleTextStyle(
                               color: Theme.of(context).dividerColor),
                         ),
@@ -295,10 +304,12 @@ class _UploadProductFormState extends State<UploadProductForm> {
                             icon: Icon(Icons.select_all_rounded),
                             label: Text("Select Video")),
 
-                        ElevatedButton.icon(
-                            onPressed: uploadFile,
-                            icon: Icon(Icons.file_upload_outlined),
-                            label: Text("Upload Video")),
+                        // _isLoadingButtons
+                        //     ? LoadingIndicator()
+                        //     : ElevatedButton.icon(
+                        //         onPressed: uploadFile,
+                        //         icon: Icon(Icons.file_upload_outlined),
+                        //         label: Text("Upload Video")),
                         SizedBox(height: 10),
                         /* Image picker here ***********************************/
                         Text(
@@ -439,15 +450,15 @@ class _UploadProductFormState extends State<UploadProductForm> {
                               items: [
                                 DropdownMenuItem<String>(
                                   child: Text('Daily'),
-                                  value: 'Phones',
+                                  value: 'Daily',
                                 ),
                                 DropdownMenuItem<String>(
                                   child: Text('Movement'),
-                                  value: 'Clothes',
+                                  value: 'Movement',
                                 ),
                                 DropdownMenuItem<String>(
                                   child: Text('Seated'),
-                                  value: 'Beauty',
+                                  value: 'Seated',
                                 ),
                                 DropdownMenuItem<String>(
                                   child: Text('Shoes'),
@@ -455,11 +466,11 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                 ),
                                 DropdownMenuItem<String>(
                                   child: Text('Thinking'),
-                                  value: 'Funiture',
+                                  value: 'Thinking',
                                 ),
                                 DropdownMenuItem<String>(
                                   child: Text('Education'),
-                                  value: 'Watches',
+                                  value: 'Education',
                                 ),
                               ],
                               onChanged: (String? value) {
@@ -485,7 +496,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                 padding: const EdgeInsets.only(right: 9),
                                 child: Container(
                                   child: TextFormField(
-                                    controller: _brandController,
+                                    controller: _categoryDescriptionController,
 
                                     key: ValueKey(
                                         'Category Description(OPtional)'),
@@ -497,10 +508,10 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                     },
                                     //keyboardType: TextInputType.emailAddress,
                                     decoration: InputDecoration(
-                                      labelText: 'Brand',
+                                      labelText: 'Category Description',
                                     ),
                                     onSaved: (value) {
-                                      _productBrand = value!;
+                                      _categoryDescription = value!;
                                     },
                                   ),
                                 ),
@@ -513,7 +524,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
                             key: ValueKey('Description'),
                             validator: (value) {
                               if (value!.isEmpty) {
-                                return 'product description is required';
+                                return 'video description is required';
                               }
                               return null;
                             },
@@ -523,7 +534,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
                             decoration: InputDecoration(
                               //  counterText: charLength.toString(),
                               labelText: 'Description',
-                              hintText: 'Product description',
+                              hintText: 'Video description',
                               border: OutlineInputBorder(),
                             ),
                             onSaved: (value) {
@@ -579,14 +590,18 @@ class _UploadProductFormState extends State<UploadProductForm> {
   Future selectFile() async {
     final result = await FilePicker.platform
         .pickFiles(allowMultiple: false, type: FileType.video);
+
     if (result == null) return;
     final path = result.files.single.path!;
 
-    setState(() => file = File(path));
+    setState(() {
+      file = File(path);
+      _isVideoSelected = true;
+    });
     VideoPlayerController fileVideocontroller =
         VideoPlayerController.file(file!)..initialize();
+    CustomToast.successToast(message: "Video Selected Successfully");
     debugPrint("========" + fileVideocontroller.value.duration.toString());
-
   }
 
   Future uploadFile() async {
@@ -604,6 +619,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
     setState(() {
       _productVideoUrl = urlDownload;
     });
+    CustomToast.successToast(message: "Video Uploaded SuccessFully");
     print('Download-Link: $urlDownload');
   }
 
