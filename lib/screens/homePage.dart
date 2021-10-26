@@ -104,109 +104,68 @@ class _HomePageState extends State<HomePage> {
                     height: 280,
                     child: ListView.builder(
                       itemCount: productsProvider.products.length,
+                      scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
                         return Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(16, 8, 0, 8),
-                          child: Container(
-                            width: 250,
-                            height: 170,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: CachedNetworkImageProvider(
-                                    productsProvider.products[index].imageUrl!),
+                          child: InkWell(
+                            onTap: () =>
+                                Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => VideoPage(
+                                path: productsProvider.products[index].videoUrl,
+                                postId:
+                                    productsProvider.products[index].productId,
+                                category: productsProvider
+                                    .products[index].productCategoryName,
                               ),
-                              boxShadow: [
-                                BoxShadow(
-                                  blurRadius: 3,
-                                  color: Color(0x64000000),
-                                  offset: Offset(0, 2),
-                                )
-                              ],
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      8, 4, 8, 0),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Card(
-                                        clipBehavior:
-                                            Clip.antiAliasWithSaveLayer,
-                                        color: Color(0x9839D2C0),
-                                        elevation: 0,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                        ),
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  6, 2, 6, 2),
-                                          child: Text(
-                                            'UnLock',
-                                            style: TextStyle(
-                                              fontFamily: 'Lexend Deca',
-                                              color: Colors.white,
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.normal,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Card(
-                                        clipBehavior:
-                                            Clip.antiAliasWithSaveLayer,
-                                        color: Color(0xFF1E2429),
-                                        elevation: 2,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(30),
-                                        ),
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  8, 8, 8, 8),
-                                          child: Icon(
-                                            Icons.favorite_border,
-                                            color: Colors.white,
-                                            size: 24,
-                                          ),
-                                        ),
-                                      )
-                                    ],
-                                  ),
+                            )),
+                            child: Container(
+                              width: 250,
+                              height: 170,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  fit: BoxFit.cover,
+                                  image: CachedNetworkImageProvider(
+                                      productsProvider
+                                          .products[index].imageUrl!),
                                 ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      8, 0, 0, 8),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            8, 0, 0, 0),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              productsProvider
-                                                  .products[index].title!,
+                                boxShadow: [
+                                  BoxShadow(
+                                    blurRadius: 3,
+                                    color: Color(0x64000000),
+                                    offset: Offset(0, 2),
+                                  )
+                                ],
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        8, 4, 8, 0),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Card(
+                                          clipBehavior:
+                                              Clip.antiAliasWithSaveLayer,
+                                          color: Color(0x9839D2C0),
+                                          elevation: 0,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                          ),
+                                          child: Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    6, 2, 6, 2),
+                                            child: Text(
+                                              'UnLock',
                                               style: TextStyle(
                                                 fontFamily: 'Lexend Deca',
                                                 color: Colors.white,
@@ -214,45 +173,102 @@ class _HomePageState extends State<HomePage> {
                                                 fontWeight: FontWeight.normal,
                                               ),
                                             ),
-                                            // Text(
-                                            //   'Seated Medication',
-                                            //   style: TextStyle(
-                                            //     fontFamily: 'Lexend Deca',
-                                            //     color: Colors.white,
-                                            //     fontSize: 12,
-                                            //     fontWeight: FontWeight.normal,
-                                            //   ),
-                                            // )
-                                          ],
+                                          ),
                                         ),
-                                      ),
-                                      // Column(
-                                      //   mainAxisSize: MainAxisSize.max,
-                                      //   mainAxisAlignment:
-                                      //       MainAxisAlignment.center,
-                                      //   children: [
-                                      //     Text(
-                                      //       '7 min',
-                                      //       style: TextStyle(
-                                      //         fontFamily: 'Poppins',
-                                      //         color: Color(0xFFD6D6D6),
-                                      //         fontSize: 12,
-                                      //       ),
-                                      //     ),
-                                      //     Text(
-                                      //       'Ambient',
-                                      //       style: TextStyle(
-                                      //         fontFamily: 'Poppins',
-                                      //         color: Color(0xFFD6D6D6),
-                                      //         fontSize: 12,
-                                      //       ),
-                                      //     )
-                                      //   ],
-                                      // )
-                                    ],
+                                        Card(
+                                          clipBehavior:
+                                              Clip.antiAliasWithSaveLayer,
+                                          color: Color(0xFF1E2429),
+                                          elevation: 2,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(30),
+                                          ),
+                                          child: Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    8, 8, 8, 8),
+                                            child: Icon(
+                                              Icons.favorite_border,
+                                              color: Colors.white,
+                                              size: 24,
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
                                   ),
-                                )
-                              ],
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        8, 0, 0, 8),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  8, 0, 0, 0),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                productsProvider
+                                                    .products[index].title!,
+                                                style: TextStyle(
+                                                  fontFamily: 'Lexend Deca',
+                                                  color: Colors.white,
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.normal,
+                                                ),
+                                              ),
+                                              // Text(
+                                              //   'Seated Medication',
+                                              //   style: TextStyle(
+                                              //     fontFamily: 'Lexend Deca',
+                                              //     color: Colors.white,
+                                              //     fontSize: 12,
+                                              //     fontWeight: FontWeight.normal,
+                                              //   ),
+                                              // )
+                                            ],
+                                          ),
+                                        ),
+                                        // Column(
+                                        //   mainAxisSize: MainAxisSize.max,
+                                        //   mainAxisAlignment:
+                                        //       MainAxisAlignment.center,
+                                        //   children: [
+                                        //     Text(
+                                        //       '7 min',
+                                        //       style: TextStyle(
+                                        //         fontFamily: 'Poppins',
+                                        //         color: Color(0xFFD6D6D6),
+                                        //         fontSize: 12,
+                                        //       ),
+                                        //     ),
+                                        //     Text(
+                                        //       'Ambient',
+                                        //       style: TextStyle(
+                                        //         fontFamily: 'Poppins',
+                                        //         color: Color(0xFFD6D6D6),
+                                        //         fontSize: 12,
+                                        //       ),
+                                        //     )
+                                        //   ],
+                                        // )
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
                           ),
                         );
@@ -272,7 +288,7 @@ class _HomePageState extends State<HomePage> {
                     itemBuilder: (context, index) {
                       if (dailyVideos.length > 0) {
                         return CategoryItemsViewer(
-                          path: dailyVideos[index].imageUrl,
+                          path: dailyVideos[index].videoUrl,
                           postId: dailyVideos[index].productId,
                           category: dailyVideos[index].productCategoryName,
                           videoLength: dailyVideos[index].videoLength,
