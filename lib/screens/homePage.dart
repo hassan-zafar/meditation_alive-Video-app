@@ -41,24 +41,24 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> _getProductsOnRefresh() async {
     await Provider.of<Products>(context, listen: false).fetchProducts();
-    // final Products _productsProvider = Provider.of<Products>(context);
-    // _productsProvider.products.forEach((element) {
-    //   if (element.productCategoryName == "Daily") {
-    //     dailyVideos.add(element);
-    //   }
-    //   if (element.productCategoryName == "Seated") {
-    //     seatedVideos.add(element);
-    //   }
-    //   if (element.productCategoryName == "Thinking") {
-    //     thinkingVideos.add(element);
-    //   }
-    //   if (element.productCategoryName == "Education") {
-    //     educationVideos.add(element);
-    //   }
-    //   if (element.productCategoryName == "Movement") {
-    //     movementVideos.add(element);
-    //   }
-    // });
+    final Products _productsProvider = Provider.of<Products>(context);
+    _productsProvider.products.forEach((element) {
+      if (element.productCategoryName == "Daily") {
+        dailyVideos.add(element);
+      }
+      if (element.productCategoryName == "Seated") {
+        seatedVideos.add(element);
+      }
+      if (element.productCategoryName == "Thinking") {
+        thinkingVideos.add(element);
+      }
+      if (element.productCategoryName == "Education") {
+        educationVideos.add(element);
+      }
+      if (element.productCategoryName == "Movement") {
+        movementVideos.add(element);
+      }
+    });
     if (mounted) {
       setState(() {});
     }
@@ -101,7 +101,7 @@ class _HomePageState extends State<HomePage> {
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
                   child: Container(
-                    height: 280,
+                    height: 240,
                     child: ListView.builder(
                       itemCount: productsProvider.products.length,
                       scrollDirection: Axis.horizontal,
