@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:meditation_alive/consts/consants.dart';
@@ -123,13 +125,7 @@ class _HomePageState extends State<HomePage> {
                             onTap: () =>
                                 Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => VideoPage(
-                                path: productsProvider.products[index].videoUrl,
-                                videoTitle:
-                                    productsProvider.products[index].title,
-                                postId:
-                                    productsProvider.products[index].productId,
-                                category: productsProvider
-                                    .products[index].productCategoryName,
+                                product: productsProvider.products[index],
                               ),
                             )),
                             child: Container(
@@ -482,13 +478,14 @@ class CategoryItemsViewer extends StatelessWidget {
   final String? videoText;
   final String? category;
   final String? imageUrl;
+  final Product? product;
 
   const CategoryItemsViewer(
       {this.path,
       this.postId,
       this.videoLength,
       this.imageUrl,
-      this.category,
+      this.category,this.product,
       this.videoText});
 
   @override
@@ -499,10 +496,7 @@ class CategoryItemsViewer extends StatelessWidget {
         onTap: () {
           Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => VideoPage(
-              path: path,
-              postId: postId,
-              category: category,
-              videoTitle: videoText,
+           product: product,
             ),
           ));
         },

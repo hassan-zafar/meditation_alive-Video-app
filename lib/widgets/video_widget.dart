@@ -2,14 +2,18 @@ import 'package:better_player/better_player.dart';
 import 'package:flutter/material.dart';
 import 'package:meditation_alive/consts/consants.dart';
 import 'package:meditation_alive/models/firebase_file.dart';
+import 'package:meditation_alive/models/product.dart';
+import 'package:meditation_alive/provider/favs_provider.dart';
+import 'package:meditation_alive/provider/products.dart';
 import 'package:meditation_alive/services/firebase_api.dart';
 import 'package:meditation_alive/widgets/videoPlayerWidget.dart';
+import 'package:provider/provider.dart';
 
 class VideoWidget extends StatefulWidget {
   final String? path;
-  final String? videoTitle;
   final FirebaseFile? file;
-  VideoWidget({this.path, this.videoTitle, this.file});
+  final Product? product;
+  VideoWidget({this.path, this.file, this.product});
   @override
   _VideoWidgetState createState() => _VideoWidgetState();
 }
@@ -75,6 +79,10 @@ class _VideoWidgetState extends State<VideoWidget> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     // final isMuted = _betterPlayerController.value.volume == 0;
+    final productsData = Provider.of<Products>(context, listen: false);
+
+    final favsProvider = Provider.of<FavsProvider>(context);
+    final prodAttr = productsData.findById(widget.product!.id);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -97,7 +105,7 @@ class _VideoWidgetState extends State<VideoWidget> with WidgetsBindingObserver {
         Padding(
           padding: const EdgeInsets.only(left: 8, right: 8, bottom: 16),
           child: Text(
-            widget.videoTitle!,
+            widget.product!.title!,
             style: titleTextStyle(
                 fontSize: 20, color: Theme.of(context).dividerColor),
           ),
@@ -110,7 +118,17 @@ class _VideoWidgetState extends State<VideoWidget> with WidgetsBindingObserver {
               Padding(
                 padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
                 child: GestureDetector(
-                    onTap: () {}, child: Icon(Icons.favorite_border)),
+                    onTap: () {
+                      favsProvider.addAndRemoveFromFav(
+                          widget.product!.id,
+                          prodAttr.videoUrl!,
+                          prodAttr.title!,
+                          prodAttr.imageUrl!);
+                    },
+                    child: favsProvider.getFavsItems
+                            .containsKey(widget.product!.id)
+                        ? Icon(Icons.favorite)
+                        : Icon(Icons.favorite_border)),
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),

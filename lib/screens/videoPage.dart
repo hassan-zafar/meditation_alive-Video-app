@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:meditation_alive/consts/consants.dart';
 import 'package:meditation_alive/models/firebase_file.dart';
+import 'package:meditation_alive/models/product.dart';
 import 'package:meditation_alive/services/firebase_api.dart';
 import 'package:meditation_alive/widgets/commentsNChat.dart';
 import 'package:meditation_alive/widgets/loadingWidget.dart';
 import 'package:meditation_alive/widgets/video_widget.dart';
 
 class VideoPage extends StatefulWidget {
-  final String? path;
-  final String? postId;
-  final String? category;
-
-  final String? videoTitle;
-  VideoPage({this.path, this.postId, this.videoTitle, this.category});
+  final Product? product;
+  VideoPage({this.product});
   @override
   _VideoPageState createState() => _VideoPageState();
 }
@@ -21,6 +17,7 @@ class _VideoPageState extends State<VideoPage> {
   late Future<List<FirebaseFile>> futureFiles;
   late FirebaseFile firstFile;
   bool isLoading = false;
+
   @override
   void initState() {
     super.initState();
@@ -31,7 +28,8 @@ class _VideoPageState extends State<VideoPage> {
     setState(() {
       isLoading = true;
     });
-    futureFiles = FirebaseApi.listAll("videos/${widget.category}/");
+    futureFiles =
+        FirebaseApi.listAll("videos/${widget.product!.productCategoryName}/");
     await futureFiles.then((value) => firstFile = value.first);
     setState(() {
       isLoading = false;
@@ -48,9 +46,9 @@ class _VideoPageState extends State<VideoPage> {
               : Container(
                   height: MediaQuery.of(context).size.height * 0.35,
                   child: VideoWidget(
-                    path: widget.path!,
+                    path: widget.product!.videoUrl,
+                    product: widget.product,
                     file: firstFile,
-                    videoTitle: widget.videoTitle,
                   ),
                 ),
           Container(
@@ -58,7 +56,7 @@ class _VideoPageState extends State<VideoPage> {
             child: CommentsNChat(
               isPostComment: true,
               isProductComment: false,
-              postId: widget.postId!,
+              postId: widget.product!.productId,
               isAdmin: false,
             ),
           ),
