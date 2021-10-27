@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:meditation_alive/consts/consants.dart';
 import 'package:meditation_alive/models/product.dart';
+import 'package:meditation_alive/provider/favs_provider.dart';
 import 'package:meditation_alive/provider/products.dart';
 import 'package:meditation_alive/screens/search.dart';
 import 'package:meditation_alive/screens/user_info.dart';
@@ -53,6 +54,9 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final Products productsProvider = Provider.of<Products>(context);
+
+    final favsProvider = Provider.of<FavsProvider>(context);
+
     dailyVideos = [];
     movementVideos = [];
     seatedVideos = [];
@@ -119,6 +123,9 @@ class _HomePageState extends State<HomePage> {
                       itemCount: productsProvider.products.length,
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
+                        final prodAttr = productsProvider.findById(
+                            productsProvider.products[index].productId!);
+
                         return Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(16, 8, 0, 8),
                           child: InkWell(
@@ -184,23 +191,40 @@ class _HomePageState extends State<HomePage> {
                                             ),
                                           ),
                                         ),
-                                        Card(
-                                          clipBehavior:
-                                              Clip.antiAliasWithSaveLayer,
-                                          color: Color(0xFF1E2429),
-                                          elevation: 2,
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(30),
-                                          ),
-                                          child: Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    8, 8, 8, 8),
-                                            child: Icon(
-                                              Icons.favorite_border,
-                                              color: Colors.white,
-                                              size: 24,
+                                        InkWell(
+                                          onTap: () {
+                                            favsProvider.addAndRemoveFromFav(
+                                              productsProvider
+                                                  .products[index].productId!,
+                                              prodAttr.videoUrl!,
+                                              prodAttr.title!,
+                                              prodAttr.imageUrl!,
+                                              prodAttr.productCategoryName!,
+                                            );
+                                          },
+                                          child: Card(
+                                            clipBehavior:
+                                                Clip.antiAliasWithSaveLayer,
+                                            color: Color(0xFF1E2429),
+                                            elevation: 2,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(30),
+                                            ),
+                                            child: Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(8, 8, 8, 8),
+                                              child: Icon(
+                                                favsProvider.getFavsItems
+                                                        .containsKey(
+                                                            productsProvider
+                                                                .products[index]
+                                                                .productId)
+                                                    ? Icons.favorite
+                                                    : Icons.favorite_border,
+                                                color: Colors.white,
+                                                size: 24,
+                                              ),
                                             ),
                                           ),
                                         )
