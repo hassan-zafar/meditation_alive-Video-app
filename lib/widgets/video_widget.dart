@@ -133,14 +133,14 @@ class _VideoWidgetState extends State<VideoWidget> with WidgetsBindingObserver {
                         ? Icon(Icons.favorite)
                         : Icon(Icons.favorite_border)),
               ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
-                child: GestureDetector(
-                    onTap: () {
-                      FirebaseApi.downloadFile(widget.file!.ref);
-                    },
-                    child: Icon(Icons.download_for_offline_outlined)),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
+              //   child: GestureDetector(
+              //       onTap: () {
+              //         FirebaseApi.downloadFile(widget.file!.ref);
+              //       },
+              //       child: Icon(Icons.download_for_offline_outlined)),
+              // ),
               InkWell(
                   onTap: () => _betterPlayerController!
                       .enablePictureInPicture(_betterPlayerKey),

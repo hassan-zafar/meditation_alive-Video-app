@@ -211,20 +211,20 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
                                 ),
                               ),
                             ),
-                            Material(
-                              color: Colors.transparent,
-                              child: InkWell(
-                                onTap: () => Navigator.of(context)
-                                    .pushNamed(WishlistScreen.routeName),
-                                splashColor: Colors.red,
-                                child: ListTile(
-                                  title: Text('Downloads'),
-                                  trailing: Icon(Icons.chevron_right_rounded),
-                                  leading:
-                                      Icon(Icons.download_for_offline_rounded),
-                                ),
-                              ),
-                            ),
+                            // Material(
+                            //   color: Colors.transparent,
+                            //   child: InkWell(
+                            //     onTap: () => Navigator.of(context)
+                            //         .pushNamed(WishlistScreen.routeName),
+                            //     splashColor: Colors.red,
+                            //     child: ListTile(
+                            //       title: Text('Downloads'),
+                            //       trailing: Icon(Icons.chevron_right_rounded),
+                            //       leading:
+                            //           Icon(Icons.download_for_offline_rounded),
+                            //     ),
+                            //   ),
+                            // ),
                             // Padding(
                             //   padding: const EdgeInsets.only(left: 8.0),
                             //   child: userTitle(title: 'User Information'),
