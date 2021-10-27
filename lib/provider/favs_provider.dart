@@ -8,8 +8,8 @@ class FavsProvider with ChangeNotifier {
     return {..._favsItems};
   }
 
-  void addAndRemoveFromFav(
-      String productId, String videoUrl, String title, String imageUrl) {
+  void addAndRemoveFromFav(String productId, String videoUrl, String title,
+      String imageUrl, String category) {
     if (_favsItems.containsKey(productId)) {
       removeItem(productId);
     } else {
@@ -19,6 +19,7 @@ class FavsProvider with ChangeNotifier {
               id: DateTime.now().toString(),
               title: title,
               videoUrl: videoUrl,
+              category: category,
               imageUrl: imageUrl));
     }
     notifyListeners();

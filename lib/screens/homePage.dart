@@ -299,6 +299,7 @@ class _HomePageState extends State<HomePage> {
                       if (dailyVideos.length > 0) {
                         return CategoryItemsViewer(
                           path: dailyVideos[index].videoUrl,
+                          product: dailyVideos[index],
                           imageUrl: dailyVideos[index].imageUrl,
                           postId: dailyVideos[index].productId,
                           category: dailyVideos[index].productCategoryName,
@@ -329,6 +330,7 @@ class _HomePageState extends State<HomePage> {
                       if (movementVideos.length > 0) {
                         return CategoryItemsViewer(
                           path: movementVideos[index].videoUrl,
+                          product: movementVideos[index],
                           imageUrl: movementVideos[index].imageUrl,
                           postId: movementVideos[index].productId,
                           category: movementVideos[index].productCategoryName,
@@ -359,6 +361,7 @@ class _HomePageState extends State<HomePage> {
                       if (seatedVideos.length > 0) {
                         return CategoryItemsViewer(
                           path: seatedVideos[index].videoUrl,
+                          product: seatedVideos[index],
                           imageUrl: seatedVideos[index].imageUrl,
                           postId: seatedVideos[index].productId,
                           category: seatedVideos[index].productCategoryName,
@@ -389,6 +392,7 @@ class _HomePageState extends State<HomePage> {
                       if (thinkingVideos.length > 0) {
                         return CategoryItemsViewer(
                           path: thinkingVideos[index].videoUrl,
+                          product: thinkingVideos[index],
                           imageUrl: thinkingVideos[index].imageUrl,
                           postId: thinkingVideos[index].productId,
                           category: thinkingVideos[index].productCategoryName,
@@ -419,6 +423,7 @@ class _HomePageState extends State<HomePage> {
                       if (educationVideos.length > 0) {
                         return CategoryItemsViewer(
                           path: educationVideos[index].videoUrl,
+                          product: educationVideos[index],
                           imageUrl: educationVideos[index].imageUrl,
                           postId: educationVideos[index].productId,
                           category: educationVideos[index].productCategoryName,
@@ -485,7 +490,8 @@ class CategoryItemsViewer extends StatelessWidget {
       this.postId,
       this.videoLength,
       this.imageUrl,
-      this.category,this.product,
+      this.category,
+      required this.product,
       this.videoText});
 
   @override
@@ -496,7 +502,7 @@ class CategoryItemsViewer extends StatelessWidget {
         onTap: () {
           Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => VideoPage(
-           product: product,
+              product: product,
             ),
           ));
         },

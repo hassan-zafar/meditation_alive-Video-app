@@ -16,13 +16,13 @@ class WishlistScreen extends StatelessWidget {
         ? Scaffold(body: WishlistEmpty())
         : Scaffold(
             appBar: AppBar(
-              title: Text('Wishlist (${favsProvider.getFavsItems.length})'),
+              title: Text('Favourites (${favsProvider.getFavsItems.length})'),
               actions: [
                 IconButton(
                   onPressed: () {
                     globalMethods.showDialogg(
-                        'Clear wishlist!',
-                        'Your wishlist will be cleared!',
+                        'Clear favourites!',
+                        'Your favourites will be cleared!',
                         () => favsProvider.clearFavs(),
                         context);
                     // cartProvider.clearCart();

@@ -13,7 +13,7 @@ class VideoWidget extends StatefulWidget {
   final String? path;
   final FirebaseFile? file;
   final Product? product;
-  VideoWidget({this.path, this.file, this.product});
+  VideoWidget({this.path, this.file, required this.product});
   @override
   _VideoWidgetState createState() => _VideoWidgetState();
 }
@@ -82,7 +82,7 @@ class _VideoWidgetState extends State<VideoWidget> with WidgetsBindingObserver {
     final productsData = Provider.of<Products>(context, listen: false);
 
     final favsProvider = Provider.of<FavsProvider>(context);
-    final prodAttr = productsData.findById(widget.product!.id);
+    final prodAttr = productsData.findById(widget.product!.productId!);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -119,14 +119,17 @@ class _VideoWidgetState extends State<VideoWidget> with WidgetsBindingObserver {
                 padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
                 child: GestureDetector(
                     onTap: () {
+                      print(widget.product!.productId!);
                       favsProvider.addAndRemoveFromFav(
-                          widget.product!.id,
-                          prodAttr.videoUrl!,
-                          prodAttr.title!,
-                          prodAttr.imageUrl!);
+                        widget.product!.productId!,
+                        prodAttr.videoUrl!,
+                        prodAttr.title!,
+                        prodAttr.imageUrl!,
+                        prodAttr.productCategoryName!,
+                      );
                     },
                     child: favsProvider.getFavsItems
-                            .containsKey(widget.product!.id)
+                            .containsKey(widget.product!.productId)
                         ? Icon(Icons.favorite)
                         : Icon(Icons.favorite_border)),
               ),

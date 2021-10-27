@@ -50,10 +50,12 @@ class FeedDialog extends StatelessWidget {
                         0,
                         () => {
                               favsProvider.addAndRemoveFromFav(
-                                  productId,
-                                  prodAttr.videoUrl!,
-                                  prodAttr.title!,
-                                  prodAttr.imageUrl!),
+                                productId,
+                                prodAttr.videoUrl!,
+                                prodAttr.title!,
+                                prodAttr.imageUrl!,
+                                prodAttr.productCategoryName!,
+                              ),
                               Navigator.canPop(context)
                                   ? Navigator.pop(context)
                                   : null
@@ -112,8 +114,8 @@ class FeedDialog extends StatelessWidget {
 
     List<String> _texts = [
       favs.getFavsItems.containsKey(productId)
-          ? 'In wishlist'
-          : 'Add to wishlist',
+          ? 'In Favourties'
+          : 'Add to Favourites',
       'View product',
       // cart.getCartItems.containsKey(productId) ? 'In Cart ' : 'Add to cart',
     ];

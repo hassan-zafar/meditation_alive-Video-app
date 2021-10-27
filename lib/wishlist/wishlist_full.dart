@@ -61,7 +61,7 @@ class _WishlistFullState extends State<WishlistFull> {
                             height: 20.0,
                           ),
                           Text(
-                            "\$ ${favsAttr.videoUrl}",
+                            "${favsAttr.category}",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 18.0),
                           ),
@@ -100,7 +100,7 @@ class _WishlistFullState extends State<WishlistFull> {
             onPressed: () => {
                   globalMethods.showDialogg(
                       'Remove wish!',
-                      'This product will be removed from your wishlist!',
+                      'This product will be removed from your favourites!',
                       () => favsProvider.removeItem(productId),
                       context),
                 }),

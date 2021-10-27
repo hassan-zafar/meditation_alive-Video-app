@@ -8,7 +8,7 @@ import 'package:meditation_alive/widgets/video_widget.dart';
 
 class VideoPage extends StatefulWidget {
   final Product? product;
-  VideoPage({this.product});
+  VideoPage({required this.product});
   @override
   _VideoPageState createState() => _VideoPageState();
 }

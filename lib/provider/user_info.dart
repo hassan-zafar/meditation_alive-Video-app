@@ -166,7 +166,7 @@ class _UserInfoState extends State<UserInfo> {
                             .pushNamed(WishlistScreen.routeName),
                         splashColor: Colors.red,
                         child: ListTile(
-                          title: Text('Wishlist'),
+                          title: Text('Favourites'),
                           trailing: Icon(Icons.chevron_right_rounded),
                           leading: Icon(MyAppIcons.wishlist),
                         ),
