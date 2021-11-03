@@ -5,8 +5,6 @@ import 'package:meditation_alive/models/firebase_file.dart';
 import 'package:meditation_alive/models/product.dart';
 import 'package:meditation_alive/provider/favs_provider.dart';
 import 'package:meditation_alive/provider/products.dart';
-import 'package:meditation_alive/services/firebase_api.dart';
-import 'package:meditation_alive/widgets/videoPlayerWidget.dart';
 import 'package:provider/provider.dart';
 
 class VideoWidget extends StatefulWidget {
@@ -23,15 +21,17 @@ class _VideoWidgetState extends State<VideoWidget> with WidgetsBindingObserver {
   BetterPlayerController? _betterPlayerController;
   BetterPlayerConfiguration? _betterPlayerConfiguration;
   GlobalKey _betterPlayerKey = GlobalKey();
-
+  List<BetterPlayerDataSource> dataSourceList = [];
   @override
   void initState() {
     super.initState();
+    createDataSet();
     _betterPlayerConfiguration = BetterPlayerConfiguration(
         allowedScreenSleep: true,
         autoPlay: true,
         looping: true,
         controlsConfiguration: BetterPlayerControlsConfiguration(
+            enableAudioTracks: true,
             enablePip: true,
             // customControlsBuilder: (BetterPlayerController controller) {
             //   return InkWell(
@@ -42,16 +42,19 @@ class _VideoWidgetState extends State<VideoWidget> with WidgetsBindingObserver {
             pipMenuIcon: Icons.picture_in_picture_rounded,
             iconsColor: Colors.white));
     BetterPlayerDataSource betterPlayerDataSource = BetterPlayerDataSource(
-        BetterPlayerDataSourceType.network, widget.path!);
-    _betterPlayerController = BetterPlayerController(
-      _betterPlayerConfiguration!,
-      betterPlayerDataSource: betterPlayerDataSource,
+      BetterPlayerDataSourceType.network,
+      widget.path!,
     );
+    // _betterPlayerController = BetterPlayerController(
+    //   _betterPlayerConfiguration!,
+    //   betterPlayerDataSource: betterPlayerDataSource,
+    // );
   }
 
   @override
   void dispose() {
     WidgetsBinding.instance!.removeObserver(this);
+    _betterPlayerController!.dispose();
 
     super.dispose();
   }
@@ -68,12 +71,24 @@ class _VideoWidgetState extends State<VideoWidget> with WidgetsBindingObserver {
     if (state == AppLifecycleState.paused) {
       _betterPlayerController!.enablePictureInPicture(_betterPlayerKey);
     }
+  }
 
-    @override
-    void dispose() {
-      _betterPlayerController!.dispose();
-      super.dispose();
-    }
+  List<BetterPlayerDataSource> createDataSet() {
+    dataSourceList.add(
+      BetterPlayerDataSource(
+        BetterPlayerDataSourceType.network,
+        "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+      ),
+    );
+    dataSourceList.add(
+      BetterPlayerDataSource(BetterPlayerDataSourceType.network,
+          "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"),
+    );
+    dataSourceList.add(
+      BetterPlayerDataSource(BetterPlayerDataSourceType.network,
+          "http://sample.vodobox.com/skate_phantom_flex_4k/skate_phantom_flex_4k.m3u8"),
+    );
+    return dataSourceList;
   }
 
   @override
@@ -88,7 +103,14 @@ class _VideoWidgetState extends State<VideoWidget> with WidgetsBindingObserver {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Expanded(
-            child: VideoPlayerWidget(controller: _betterPlayerController!)),
+            child: BetterPlayerPlaylist(
+                betterPlayerDataSourceList: dataSourceList,
+                betterPlayerConfiguration: BetterPlayerConfiguration(),
+                betterPlayerPlaylistConfiguration:
+                    BetterPlayerPlaylistConfiguration(
+                        nextVideoDelay: Duration(seconds: 1)))
+            //  VideoPlayerWidget(controller: _betterPlayerController!)
+            ),
         // const SizedBox(height: 32),
         // if (controller != null && controller.value.isInitialized)
         //   CircleAvatar(
