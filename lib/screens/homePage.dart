@@ -133,6 +133,7 @@ class _HomePageState extends State<HomePage> {
                                 Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => VideoPage(
                                 product: productsProvider.products[index],
+                                allProducts: productsProvider.products,
                               ),
                             )),
                             child: Container(

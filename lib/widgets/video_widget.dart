@@ -9,9 +9,9 @@ import 'package:provider/provider.dart';
 
 class VideoWidget extends StatefulWidget {
   final String? path;
-  final FirebaseFile? file;
+  final List<FirebaseFile>? allFile;
   final Product? product;
-  VideoWidget({this.path, this.file, required this.product});
+  VideoWidget({this.path, this.allFile, required this.product});
   @override
   _VideoWidgetState createState() => _VideoWidgetState();
 }
@@ -54,7 +54,7 @@ class _VideoWidgetState extends State<VideoWidget> with WidgetsBindingObserver {
   @override
   void dispose() {
     WidgetsBinding.instance!.removeObserver(this);
-    _betterPlayerController!.dispose();
+    // _betterPlayerController!.dispose();
 
     super.dispose();
   }
@@ -74,20 +74,15 @@ class _VideoWidgetState extends State<VideoWidget> with WidgetsBindingObserver {
   }
 
   List<BetterPlayerDataSource> createDataSet() {
-    dataSourceList.add(
-      BetterPlayerDataSource(
-        BetterPlayerDataSourceType.network,
-        "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
-      ),
-    );
-    dataSourceList.add(
-      BetterPlayerDataSource(BetterPlayerDataSourceType.network,
-          "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"),
-    );
-    dataSourceList.add(
-      BetterPlayerDataSource(BetterPlayerDataSourceType.network,
-          "http://sample.vodobox.com/skate_phantom_flex_4k/skate_phantom_flex_4k.m3u8"),
-    );
+    widget.allFile!.forEach((element) {
+      dataSourceList.add(
+        BetterPlayerDataSource(
+          BetterPlayerDataSourceType.network,
+          element.url,
+        ),
+      );
+    });
+
     return dataSourceList;
   }
 
@@ -108,7 +103,7 @@ class _VideoWidgetState extends State<VideoWidget> with WidgetsBindingObserver {
                 betterPlayerConfiguration: BetterPlayerConfiguration(),
                 betterPlayerPlaylistConfiguration:
                     BetterPlayerPlaylistConfiguration(
-                        nextVideoDelay: Duration(seconds: 1)))
+                        nextVideoDelay: Duration(seconds: 1),))
             //  VideoPlayerWidget(controller: _betterPlayerController!)
             ),
         // const SizedBox(height: 32),

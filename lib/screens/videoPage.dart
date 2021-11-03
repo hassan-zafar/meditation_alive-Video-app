@@ -18,7 +18,7 @@ class _VideoPageState extends State<VideoPage> {
   late Future<List<FirebaseFile>> futureFiles;
   late FirebaseFile firstFile;
   bool isLoading = false;
-
+  List<FirebaseFile> allFiles = [];
   @override
   void initState() {
     super.initState();
@@ -32,6 +32,7 @@ class _VideoPageState extends State<VideoPage> {
     futureFiles =
         FirebaseApi.listAll("videos/${widget.product!.productCategoryName}/");
     await futureFiles.then((value) => firstFile = value.first);
+    allFiles = await futureFiles;
     setState(() {
       isLoading = false;
     });
@@ -49,7 +50,7 @@ class _VideoPageState extends State<VideoPage> {
                   child: VideoWidget(
                     path: widget.product!.videoUrl,
                     product: widget.product,
-                    file: firstFile,
+                    allFile: allFiles,
                   ),
                 ),
           Container(
