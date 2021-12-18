@@ -6,6 +6,7 @@ import 'package:meditation_alive/consts/consants.dart';
 import 'package:meditation_alive/models/product.dart';
 import 'package:meditation_alive/provider/favs_provider.dart';
 import 'package:meditation_alive/provider/products.dart';
+import 'package:meditation_alive/screens/payment_screen.dart';
 import 'package:meditation_alive/screens/search.dart';
 import 'package:meditation_alive/screens/user_info.dart';
 import 'package:meditation_alive/screens/videoPage.dart';
@@ -129,13 +130,15 @@ class _HomePageState extends State<HomePage> {
                         return Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(16, 8, 0, 8),
                           child: InkWell(
-                            onTap: () =>
-                                Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => VideoPage(
-                                product: productsProvider.products[index],
-                                allProducts: productsProvider.products,
-                              ),
-                            )),
+                            onTap: () => Navigator.of(context).push(
+                                MaterialPageRoute(
+                                    builder: (context) => PaymentScreen(    product: productsProvider.products[index],
+                                      allProducts: productsProvider.products,)
+                                    // VideoPage(
+                                      // product: productsProvider.products[index],
+                                      // allProducts: productsProvider.products,
+                                    // ),
+                                    )),
                             child: Container(
                               width: 250,
                               height: 170,

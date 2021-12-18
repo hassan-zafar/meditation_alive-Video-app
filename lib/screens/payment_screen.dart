@@ -3,9 +3,13 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:meditation_alive/models/product.dart';
+import 'package:meditation_alive/screens/videoPage.dart';
 
 class PaymentScreen extends StatefulWidget {
-  const PaymentScreen({Key? key}) : super(key: key);
+  final Product? product;
+  final List<Product>? allProducts;
+  PaymentScreen({required this.product, this.allProducts});
 
   @override
   _PaymentScreenState createState() => _PaymentScreenState();
@@ -16,13 +20,10 @@ class _PaymentScreenState extends State<PaymentScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Stripe Tutorial'),
-      ),
       body: Center(
         child: InkWell(
           onTap: () async {
-            await makePayment();
+            await makePayment(widget.product!, widget.allProducts!);
           },
           child: Container(
             height: 50,
@@ -40,7 +41,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
     );
   }
 
-  Future<void> makePayment() async {
+  Future<void> makePayment(Product product, List<Product> allProducts) async {
     try {
       paymentIntentData =
           await createPaymentIntent('20', 'USD'); //json.decode(response.body);
@@ -59,13 +60,13 @@ class _PaymentScreenState extends State<PaymentScreen> {
           .then((value) {});
 
       ///now finally display payment sheeet
-      displayPaymentSheet();
+      displayPaymentSheet(product, allProducts);
     } catch (e, s) {
       print('exception:$e$s');
     }
   }
 
-  displayPaymentSheet() async {
+  displayPaymentSheet(Product product, List<Product> allProducts) async {
     try {
       await Stripe.instance
           .presentPaymentSheet(
@@ -82,6 +83,12 @@ class _PaymentScreenState extends State<PaymentScreen> {
         //orderPlaceApi(paymentIntentData!['id'].toString());
         ScaffoldMessenger.of(context)
             .showSnackBar(SnackBar(content: Text("paid successfully")));
+        Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => VideoPage(
+            product: product,
+            allProducts: allProducts,
+          ),
+        ));
 
         paymentIntentData = null;
       }).onError((error, stackTrace) {
@@ -112,7 +119,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
           Uri.parse('https://api.stripe.com/v1/payment_intents'),
           body: body,
           headers: {
-            'Authorization': 'Bearer your token',
+            'Authorization':
+                'Bearer sk_test_51JvN23LbLnT1uHuWUJahSXKDn2LO7cZG4cciGVCw1tUrvEQT6W2kNyOdEhFyCEiwDIwm3mnFMeTbT6hqVWkxcp8V00jAv01FBf',
             'Content-Type': 'application/x-www-form-urlencoded'
           });
       print('Create Intent reponse ===> ${response.body.toString()}');
