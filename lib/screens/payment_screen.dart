@@ -20,23 +20,27 @@ class _PaymentScreenState extends State<PaymentScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: InkWell(
-          onTap: () async {
-            await makePayment(widget.product!, widget.allProducts!);
-          },
-          child: Container(
-            height: 50,
-            width: 200,
-            color: Colors.green,
-            child: Center(
-              child: Text(
-                'Pay',
-                style: TextStyle(color: Colors.white, fontSize: 20),
+      body: Column(
+        children: [Text(''),
+          Center(
+            child: InkWell(
+              onTap: () async {
+                await makePayment(widget.product!, widget.allProducts!);
+              },
+              child: Container(
+                height: 50,
+                width: 200,
+                color: Colors.green,
+                child: Center(
+                  child: Text(
+                    'Pay',
+                    style: TextStyle(color: Colors.white, fontSize: 20),
+                  ),
+                ),
               ),
             ),
           ),
-        ),
+        ],
       ),
     );
   }
