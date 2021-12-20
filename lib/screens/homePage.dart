@@ -1,4 +1,3 @@
-import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -106,7 +105,7 @@ class _HomePageState extends State<HomePage> {
               onTap: () => Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => Search(),
                   )),
-              child: CircleAvatar(radius: 30, child: Icon(Icons.search)))
+              child: CircleAvatar(radius: 30, child: Icon(Icons.search),),),
         ],
       ),
       body: RefreshIndicator(
@@ -538,7 +537,13 @@ class CategoryItemsViewer extends StatelessWidget {
     return Padding(
       padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
       child: InkWell(
-        onTap: () {
+        onTap: ()async {
+          if (currentUser!.subscriptionEndTIme == null ||
+              currentUser!.subscriptionEndTIme!.isEmpty) {
+            await    userRef.doc(currentUser!.id).update({
+                  'subscriptionEndTIme':DateTime.now().toIso8601String();
+                });
+              }
           DateTime subEndTime =
               DateTime.parse(currentUser!.subscriptionEndTIme!);
           if (subEndTime.isBefore(DateTime.now())) {
