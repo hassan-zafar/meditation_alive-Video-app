@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:meditation_alive/consts/collections.dart';
 import 'package:meditation_alive/consts/consants.dart';
 import 'package:meditation_alive/models/product.dart';
 import 'package:meditation_alive/provider/favs_provider.dart';
@@ -130,13 +131,17 @@ class _HomePageState extends State<HomePage> {
                         return Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(16, 8, 0, 8),
                           child: InkWell(
-                            onTap: () => Navigator.of(context).push(
-                                MaterialPageRoute(
-                                    builder: (context) => PaymentScreen(    product: productsProvider.products[index],
-                                      allProducts: productsProvider.products,)
+                            onTap: () =>
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => PaymentScreen(
+                                          product:
+                                              productsProvider.products[index],
+                                          allProducts:
+                                              productsProvider.products,
+                                        )
                                     // VideoPage(
-                                      // product: productsProvider.products[index],
-                                      // allProducts: productsProvider.products,
+                                    // product: productsProvider.products[index],
+                                    // allProducts: productsProvider.products,
                                     // ),
                                     )),
                             child: Container(
@@ -512,13 +517,14 @@ class CategoryItemsViewer extends StatelessWidget {
   final String? category;
   final String? imageUrl;
   final Product? product;
-
+  final List<Product>? allProducts;
   const CategoryItemsViewer(
       {this.path,
       this.postId,
       this.videoLength,
       this.imageUrl,
       this.category,
+      required this.allProducts,
       required this.product,
       this.videoText});
 
@@ -528,11 +534,23 @@ class CategoryItemsViewer extends StatelessWidget {
       padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
       child: InkWell(
         onTap: () {
-          Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => VideoPage(
-              product: product,
-            ),
-          ));
+          DateTime subEndTime =
+              DateTime.parse(currentUser!.subscriptionEndTIme!);
+          if (subEndTime.isBefore(DateTime.now())) {
+            Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => PaymentScreen(
+                product: product,
+                allProducts: allProducts,
+              ),
+            ));
+          } else {
+            Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => VideoPage(
+                product: product,
+                allProducts: allProducts,
+              ),
+            ));
+          }
         },
         child: Padding(
           padding: EdgeInsetsDirectional.fromSTEB(16, 8, 0, 8),
