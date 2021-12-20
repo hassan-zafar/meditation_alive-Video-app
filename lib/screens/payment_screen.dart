@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:meditation_alive/consts/collections.dart';
 import 'package:meditation_alive/consts/consants.dart';
 import 'package:meditation_alive/models/product.dart';
 import 'package:meditation_alive/screens/videoPage.dart';
@@ -79,7 +80,18 @@ class _PaymentScreenState extends State<PaymentScreen> {
               Center(
                 child: InkWell(
                   onTap: () async {
-                    await makePayment(widget.product!, widget.allProducts!);
+                    DateTime subEndTime =
+                        DateTime.parse(currentUser!.subscriptionEndTIme!);
+                    if (subEndTime.isBefore(DateTime.now())) {
+                      await makePayment(widget.product!, widget.allProducts!);
+                    } else {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => VideoPage(
+                          product: widget.product,
+                          allProducts: widget.allProducts,
+                        ),
+                      ));
+                    }
                   },
                   child: Container(
                     // height: 50,
@@ -158,6 +170,10 @@ class _PaymentScreenState extends State<PaymentScreen> {
         print('payment intent' + paymentIntentData!['amount'].toString());
         print('payment intent' + paymentIntentData.toString());
         //orderPlaceApi(paymentIntentData!['id'].toString());
+        userRef.doc(currentUser!.id).update({
+          'subscriptionEndTIme':
+              DateTime.now().add(Duration(days: 30)).toIso8601String()
+        });
         ScaffoldMessenger.of(context)
             .showSnackBar(SnackBar(content: Text("paid successfully")));
         Navigator.of(context).push(MaterialPageRoute(

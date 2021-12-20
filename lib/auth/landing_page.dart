@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:meditation_alive/auth/sign_up.dart';
+import 'package:meditation_alive/consts/collections.dart';
 import 'package:meditation_alive/consts/colors.dart';
+import 'package:meditation_alive/database/local_database.dart';
+import 'package:meditation_alive/models/users.dart';
 import 'package:meditation_alive/services/global_method.dart';
 
 import 'login.dart';
@@ -60,27 +63,50 @@ class _LandingPageState extends State<LandingPage>
       final googleAuth = await googleAccount.authentication;
       if (googleAuth.accessToken != null && googleAuth.idToken != null) {
         try {
-          var date = DateTime.now().toString();
-          var dateparse = DateTime.parse(date);
-          var formattedDate =
-              "${dateparse.day}-${dateparse.month}-${dateparse.year}";
-          final authResult = await _auth.signInWithCredential(
+          String date = DateTime.now().toString();
+          DateTime dateparse = DateTime.parse(date);
+          String formattedDate =
+              '${dateparse.day}-${dateparse.month}-${dateparse.year}';
+          final UserCredential authResult = await _auth.signInWithCredential(
               GoogleAuthProvider.credential(
                   idToken: googleAuth.idToken,
                   accessToken: googleAuth.accessToken));
-          await FirebaseFirestore.instance
-              .collection('users')
-              .doc(authResult.user!.uid)
-              .set({
-            'id': authResult.user!.uid,
-            'name': authResult.user!.displayName,
-            'email': authResult.user!.email,
-            'phoneNumber': authResult.user!.phoneNumber,
-            'imageUrl': authResult.user!.photoURL,
-            'joinedAt': formattedDate,
-            'createdAt': Timestamp.now(),
-            "isAdmin": false,
-          });
+          DocumentSnapshot doc = await userRef.doc(authResult.user!.uid).get();
+          print(doc.exists);
+          if (doc.exists) {
+            currentUser = AppUserModel.fromDocument(doc);
+            // final bool _isOkay = await UserAPI().addUser(currentUser!);
+
+            // return true;
+          } else {
+            await FirebaseFirestore.instance
+                .collection('users')
+                .doc(authResult.user!.uid)
+                .set({
+              'id': authResult.user!.uid,
+              'name': authResult.user!.displayName,
+              'email': authResult.user!.email,
+              'phoneNumber': authResult.user!.phoneNumber,
+              'imageUrl': authResult.user!.photoURL,
+              'joinedAt': formattedDate,
+              'createdAt': Timestamp.now(),
+              "isAdmin": false,
+            }).then((value) {
+              final AppUserModel _appUser = AppUserModel(
+                  id: authResult.user!.uid,
+                  name: authResult.user!.displayName,
+                  email: authResult.user!.email,
+                  phoneNo: "",
+                  androidNotificationToken: "",
+                  password: "",
+                  isAdmin: false,
+                  subscriptionEndTIme: DateTime.now().toIso8601String(),
+                  timestamp: formattedDate);
+              currentUser = _appUser;
+
+              UserLocalData().storeAppUserData(appUser: _appUser);
+            });
+          }
         } catch (error) {
           _globalMethods.authErrorHandle(error.toString(), context);
         }

@@ -73,6 +73,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             'email': _emailAddress,
             'phoneNumber': _phoneNumber,
             'imageUrl': url,
+            'subscriptionEndTIme': DateTime.now().toIso8601String(),
             'joinedAt': formattedDate,
             'isAdmin': false,
             'createdAt': Timestamp.now(),

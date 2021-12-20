@@ -1,4 +1,5 @@
 import 'package:get_storage/get_storage.dart';
+import 'package:meditation_alive/models/users.dart';
 
 class UserLocalData {
   String s = 'sd';
@@ -79,4 +80,10 @@ class UserLocalData {
   bool? isLoggedIn() => getStorageProference.read(_uidKey);
   String getUserEmail() => getStorageProference.read(_emailKey) ?? '';
   String getname() => getStorageProference.read(_nameKey) ?? '';
+
+    void storeAppUserData({required AppUserModel appUser, String token = ''}) {
+    setUserUID(appUser.id!);
+    setUserEmail(appUser.email!);
+    
+  }
 }
