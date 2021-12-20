@@ -332,6 +332,7 @@ class _HomePageState extends State<HomePage> {
                       if (dailyVideos.length > 0) {
                         return CategoryItemsViewer(
                           path: dailyVideos[index].videoUrl,
+                          allProducts: dailyVideos,
                           product: dailyVideos[index],
                           imageUrl: dailyVideos[index].imageUrl,
                           postId: dailyVideos[index].productId,
@@ -363,6 +364,7 @@ class _HomePageState extends State<HomePage> {
                       if (movementVideos.length > 0) {
                         return CategoryItemsViewer(
                           path: movementVideos[index].videoUrl,
+                          allProducts: movementVideos,
                           product: movementVideos[index],
                           imageUrl: movementVideos[index].imageUrl,
                           postId: movementVideos[index].productId,
@@ -394,6 +396,7 @@ class _HomePageState extends State<HomePage> {
                       if (seatedVideos.length > 0) {
                         return CategoryItemsViewer(
                           path: seatedVideos[index].videoUrl,
+                          allProducts: seatedVideos,
                           product: seatedVideos[index],
                           imageUrl: seatedVideos[index].imageUrl,
                           postId: seatedVideos[index].productId,
@@ -425,6 +428,7 @@ class _HomePageState extends State<HomePage> {
                       if (thinkingVideos.length > 0) {
                         return CategoryItemsViewer(
                           path: thinkingVideos[index].videoUrl,
+                          allProducts: thinkingVideos,
                           product: thinkingVideos[index],
                           imageUrl: thinkingVideos[index].imageUrl,
                           postId: thinkingVideos[index].productId,
@@ -456,6 +460,7 @@ class _HomePageState extends State<HomePage> {
                       if (educationVideos.length > 0) {
                         return CategoryItemsViewer(
                           path: educationVideos[index].videoUrl,
+                          allProducts: educationVideos,
                           product: educationVideos[index],
                           imageUrl: educationVideos[index].imageUrl,
                           postId: educationVideos[index].productId,
