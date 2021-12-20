@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:meditation_alive/consts/consants.dart';
 import 'package:meditation_alive/models/product.dart';
 import 'package:meditation_alive/screens/videoPage.dart';
 
@@ -19,28 +20,100 @@ class _PaymentScreenState extends State<PaymentScreen> {
   Map<String, dynamic>? paymentIntentData;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [Text(''),
-          Center(
-            child: InkWell(
-              onTap: () async {
-                await makePayment(widget.product!, widget.allProducts!);
-              },
-              child: Container(
-                height: 50,
-                width: 200,
-                color: Colors.green,
-                child: Center(
-                  child: Text(
-                    'Pay',
-                    style: TextStyle(color: Colors.white, fontSize: 20),
+    return SafeArea(
+      child: Scaffold(
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Unlock ',
+                    style: titleTextStyle(color: Colors.white),
+                  ),
+                  Image.asset(
+                    logo,
+                    height: 60,
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Icon(Icons.done),
+                  Text(
+                    'Access to hundreds powerful guided medications',
+                    // style: titleTextStyle(color: Colors.white),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Icon(Icons.done),
+                  Text(
+                    'New Content added daily',
+                    // style: titleTextStyle(color: Colors.white),
+                  ),
+                ],
+              ),
+              Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                Icon(Icons.done),
+                Text(
+                  'Medications for every mood and goal',
+                  // style: titleTextStyle(color: Colors.white),
+                ),
+              ]),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Icon(Icons.done),
+                  Text(
+                    'Exclusive access to all Moving Medications',
+                  ),
+                ],
+              ),
+              Center(
+                child: InkWell(
+                  onTap: () async {
+                    await makePayment(widget.product!, widget.allProducts!);
+                  },
+                  child: Container(
+                    // height: 50,
+                    // width: 200,
+                    decoration: BoxDecoration(
+                        color: Colors.green,
+                        gradient: LinearGradient(colors: [
+                          Colors.limeAccent,
+                          Colors.orange,
+                          Colors.orange
+                        ]),
+                        borderRadius: BorderRadius.circular(
+                          20,
+                        )),
+                    padding: EdgeInsets.all(20), margin: EdgeInsets.all(20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Text(
+                          'MONTHLY',
+                          style: titleTextStyle(),
+                        ),
+                        Text(
+                          'Pay 9.99/Mo',
+                          style: titleTextStyle(),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

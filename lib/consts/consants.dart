@@ -6,7 +6,7 @@ String daily = "assets/videos/Daily";
 String education = "assets/videos/Education";
 String movement = "assets/videos/Movement";
 String seated = "assets/videos/Seated";
-
+String logo = "assets/images/logo.png";
 String thinking1stVid = "$thinking/Self Value.mp4";
 // "Conscious calming connecting mediation.mp4"
 // "Quick wealth.mp4"
