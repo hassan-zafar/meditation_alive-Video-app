@@ -7,8 +7,6 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:meditation_alive/auth/forget_password.dart';
 import 'package:meditation_alive/auth/login.dart';
 import 'package:meditation_alive/auth/sign_up.dart';
-import 'package:meditation_alive/consts/collections.dart';
-import 'package:meditation_alive/database/local_database.dart';
 import 'package:meditation_alive/main_screen.dart';
 import 'package:meditation_alive/provider/auto_play_provider.dart';
 import 'package:meditation_alive/provider/dark_theme_provider.dart';

@@ -1,15 +1,17 @@
-
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:meditation_alive/consts/collections.dart';
 import 'package:meditation_alive/consts/consants.dart';
 import 'package:meditation_alive/models/product.dart';
+import 'package:meditation_alive/models/users.dart';
 import 'package:meditation_alive/provider/favs_provider.dart';
 import 'package:meditation_alive/provider/products.dart';
 import 'package:meditation_alive/screens/payment_screen.dart';
 import 'package:meditation_alive/screens/search.dart';
 import 'package:meditation_alive/screens/user_info.dart';
 import 'package:meditation_alive/screens/videoPage.dart';
+import 'package:meditation_alive/widgets/loadingWidget.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
@@ -102,10 +104,14 @@ class _HomePageState extends State<HomePage> {
         ),
         actions: [
           InkWell(
-              onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => Search(),
-                  )),
-              child: CircleAvatar(radius: 30, child: Icon(Icons.search),),),
+            onTap: () => Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => Search(),
+            )),
+            child: CircleAvatar(
+              radius: 30,
+              child: Icon(Icons.search),
+            ),
+          ),
         ],
       ),
       body: RefreshIndicator(
@@ -537,13 +543,17 @@ class CategoryItemsViewer extends StatelessWidget {
     return Padding(
       padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
       child: InkWell(
-        onTap: ()async {
+        onTap: () async {
+          print(currentUser!.subscriptionEndTIme);
           if (currentUser!.subscriptionEndTIme == null ||
               currentUser!.subscriptionEndTIme!.isEmpty) {
-            await    userRef.doc(currentUser!.id).update({
-                  'subscriptionEndTIme':DateTime.now().toIso8601String();
-                });
-              }
+            LoadingIndicator();
+            await userRef.doc(currentUser!.id).update({
+              'subscriptionEndTIme': DateTime.now().toIso8601String(),
+            });
+            DocumentSnapshot asd = await userRef.doc(currentUser!.id).get();
+            currentUser = AppUserModel.fromDocument(asd);
+          }
           DateTime subEndTime =
               DateTime.parse(currentUser!.subscriptionEndTIme!);
           if (subEndTime.isBefore(DateTime.now())) {
