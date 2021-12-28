@@ -467,8 +467,16 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                   value: 'Thinking',
                                 ),
                                 DropdownMenuItem<String>(
-                                  child: Text('Education'),
-                                  value: 'Education',
+                                  child: Text('Educational'),
+                                  value: 'Educational',
+                                ),
+                                DropdownMenuItem<String>(
+                                  child: Text('Task'),
+                                  value: 'Task',
+                                ),
+                                DropdownMenuItem<String>(
+                                  child: Text('Relaxation'),
+                                  value: 'Relaxation',
                                 ),
                               ],
                               onChanged: (String? value) {
@@ -497,7 +505,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                     controller: _categoryDescriptionController,
 
                                     key: ValueKey(
-                                        'Category Description(OPtional)'),
+                                        'Category Description(Optional)'),
                                     validator: (value) {
                                       if (value!.isEmpty) {
                                         return 'Category Description is missed';

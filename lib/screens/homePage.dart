@@ -37,7 +37,10 @@ class _HomePageState extends State<HomePage> {
   List<Product> movementVideos = [];
   List<Product> seatedVideos = [];
   List<Product> thinkingVideos = [];
-  List<Product> educationVideos = [];
+  List<Product> educationalVideos = [];
+  List<Product> taskVideos = [];
+  List<Product> relaxingVideos = [];
+
   @override
   void initState() {
     super.initState();
@@ -64,7 +67,10 @@ class _HomePageState extends State<HomePage> {
     movementVideos = [];
     seatedVideos = [];
     thinkingVideos = [];
-    educationVideos = [];
+    educationalVideos = [];
+    taskVideos = [];
+    relaxingVideos = [];
+
     productsProvider.products.forEach((element) {
       if (element.productCategoryName == "Daily" &&
           !dailyVideos.contains(element)) {
@@ -78,13 +84,21 @@ class _HomePageState extends State<HomePage> {
           !thinkingVideos.contains(element)) {
         thinkingVideos.add(element);
       }
-      if (element.productCategoryName == "Education" &&
-          !educationVideos.contains(element)) {
-        educationVideos.add(element);
+      if (element.productCategoryName == "Educational" &&
+          !educationalVideos.contains(element)) {
+        educationalVideos.add(element);
       }
       if (element.productCategoryName == "Movement" &&
           !movementVideos.contains(element)) {
         movementVideos.add(element);
+      }
+      if (element.productCategoryName == "Task" &&
+          !taskVideos.contains(element)) {
+        taskVideos.add(element);
+      }
+      if (element.productCategoryName == "Relaxing" &&
+          !relaxingVideos.contains(element)) {
+        relaxingVideos.add(element);
       }
     });
     return Scaffold(
@@ -455,23 +469,24 @@ class _HomePageState extends State<HomePage> {
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 0),
                   child: CategoryHeading(
-                    categoryName: 'Education',
+                    categoryName: 'Educational',
                   ),
                 ),
                 Container(
                   height: 200,
                   child: ListView.builder(
                     itemBuilder: (context, index) {
-                      if (educationVideos.length > 0) {
+                      if (educationalVideos.length > 0) {
                         return CategoryItemsViewer(
-                          path: educationVideos[index].videoUrl,
-                          allProducts: educationVideos,
-                          product: educationVideos[index],
-                          imageUrl: educationVideos[index].imageUrl,
-                          postId: educationVideos[index].productId,
-                          category: educationVideos[index].productCategoryName,
-                          videoLength: educationVideos[index].videoLength,
-                          videoText: educationVideos[index].title,
+                          path: educationalVideos[index].videoUrl,
+                          allProducts: educationalVideos,
+                          product: educationalVideos[index],
+                          imageUrl: educationalVideos[index].imageUrl,
+                          postId: educationalVideos[index].productId,
+                          category:
+                              educationalVideos[index].productCategoryName,
+                          videoLength: educationalVideos[index].videoLength,
+                          videoText: educationalVideos[index].title,
                         );
                       } else {
                         return Text(
@@ -480,7 +495,71 @@ class _HomePageState extends State<HomePage> {
                         );
                       }
                     },
-                    itemCount: educationVideos.length,
+                    itemCount: educationalVideos.length,
+                    scrollDirection: Axis.horizontal,
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 0),
+                  child: CategoryHeading(
+                    categoryName: 'Task',
+                  ),
+                ),
+                Container(
+                  height: 200,
+                  child: ListView.builder(
+                    itemBuilder: (context, index) {
+                      if (taskVideos.length > 0) {
+                        return CategoryItemsViewer(
+                          path: taskVideos[index].videoUrl,
+                          allProducts: taskVideos,
+                          product: taskVideos[index],
+                          imageUrl: taskVideos[index].imageUrl,
+                          postId: taskVideos[index].productId,
+                          category: taskVideos[index].productCategoryName,
+                          videoLength: taskVideos[index].videoLength,
+                          videoText: taskVideos[index].title,
+                        );
+                      } else {
+                        return Text(
+                          "Currently No Video Uploaded",
+                          style: titleTextStyle(),
+                        );
+                      }
+                    },
+                    itemCount: taskVideos.length,
+                    scrollDirection: Axis.horizontal,
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 0),
+                  child: CategoryHeading(
+                    categoryName: 'Relaxing',
+                  ),
+                ),
+                Container(
+                  height: 200,
+                  child: ListView.builder(
+                    itemBuilder: (context, index) {
+                      if (relaxingVideos.length > 0) {
+                        return CategoryItemsViewer(
+                          path: relaxingVideos[index].videoUrl,
+                          allProducts: relaxingVideos,
+                          product: relaxingVideos[index],
+                          imageUrl: relaxingVideos[index].imageUrl,
+                          postId: relaxingVideos[index].productId,
+                          category: relaxingVideos[index].productCategoryName,
+                          videoLength: relaxingVideos[index].videoLength,
+                          videoText: relaxingVideos[index].title,
+                        );
+                      } else {
+                        return Text(
+                          "Currently No Video Uploaded",
+                          style: titleTextStyle(),
+                        );
+                      }
+                    },
+                    itemCount: relaxingVideos.length,
                     scrollDirection: Axis.horizontal,
                   ),
                 ),
