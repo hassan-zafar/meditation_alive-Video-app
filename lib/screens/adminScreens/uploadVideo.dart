@@ -26,7 +26,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
   File? file;
 
   var _productTitle = '';
-  String _productVideoUrl = '';
+  String _productAudioUrl = '';
   var _productCategory = '';
   var _categoryDescription = '';
   var _productDescription = '';
@@ -39,7 +39,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   File? _pickedImage;
   bool _isLoading = false;
-  bool _isVideoSelected = false;
+  bool _isAudioSelected = false;
 
   late String url;
   var uuid = Uuid();
@@ -83,7 +83,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
       try {
         if (_pickedImage == null) {
           _globalMethods.authErrorHandle('Please pick an image', context);
-        } else if (_productVideoUrl == null) {
+        } else if (_productAudioUrl == null) {
           _globalMethods.authErrorHandle('Please pick a video', context);
         } else {
           setState(() {
@@ -106,7 +106,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
               .set({
             'productId': productId,
             'productTitle': _productTitle,
-            'videoUrl': _productVideoUrl,
+            'videoUrl': _productAudioUrl,
             'productImage': url,
             'productCategory': _productCategory,
             'categoryDescription': _categoryDescription,
@@ -251,7 +251,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
                             },
                             keyboardType: TextInputType.emailAddress,
                             decoration: InputDecoration(
-                              labelText: 'Video Title',
+                              labelText: 'Audio Title',
                             ),
                             onSaved: (value) {
                               _productTitle = value!;
@@ -293,14 +293,14 @@ class _UploadProductFormState extends State<UploadProductForm> {
                         // ),
                         SizedBox(height: 10),
                         Text(
-                          _isVideoSelected ? "Video Selected" : "Select Video",
+                          _isAudioSelected ? "Audio Selected" : "Select Audio",
                           style: titleTextStyle(
                               color: Theme.of(context).dividerColor),
                         ),
                         ElevatedButton.icon(
                             onPressed: selectFile,
                             icon: Icon(Icons.select_all_rounded),
-                            label: Text("Select Video")),
+                            label: Text("Select Audio")),
 
                         // _isLoadingButtons
                         //     ? LoadingIndicator()
@@ -540,7 +540,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
                             decoration: InputDecoration(
                               //  counterText: charLength.toString(),
                               labelText: 'Description',
-                              hintText: 'Video description',
+                              hintText: 'Audio description',
                               border: OutlineInputBorder(),
                             ),
                             onSaved: (value) {
@@ -595,19 +595,19 @@ class _UploadProductFormState extends State<UploadProductForm> {
 
   Future selectFile() async {
     final result = await FilePicker.platform
-        .pickFiles(allowMultiple: false, type: FileType.video);
+        .pickFiles(allowMultiple: false, type: FileType.audio);
 
     if (result == null) return;
     final path = result.files.single.path!;
 
     setState(() {
       file = File(path);
-      _isVideoSelected = true;
+      _isAudioSelected = true;
     });
-    VideoPlayerController fileVideocontroller =
-        VideoPlayerController.file(file!)..initialize();
-    CustomToast.successToast(message: "Video Selected Successfully");
-    debugPrint("========" + fileVideocontroller.value.duration.toString());
+    // VideoPlayerController fileVideocontroller =
+    // VideoPlayerController.file(file!)..initialize();
+    CustomToast.successToast(message: "Audio Selected Successfully");
+    // debugPrint("========" + fileVideocontroller.value.duration.toString());
   }
 
   Future uploadFile() async {
@@ -623,9 +623,9 @@ class _UploadProductFormState extends State<UploadProductForm> {
     final snapshot = await task!.whenComplete(() {});
     final urlDownload = await snapshot.ref.getDownloadURL();
     setState(() {
-      _productVideoUrl = urlDownload;
+      _productAudioUrl = urlDownload;
     });
-    CustomToast.successToast(message: "Video Uploaded SuccessFully");
+    CustomToast.successToast(message: "Audio Uploaded SuccessFully");
     print('Download-Link: $urlDownload');
   }
 
