@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:meditation_alive/screens/homePage.dart';
+import 'package:meditation_alive/screens/adminScreens/uploadVideo.dart';
 import 'package:meditation_alive/widgets/bottom_bar.dart';
 
 class MainScreens extends StatelessWidget {
@@ -11,7 +11,7 @@ class MainScreens extends StatelessWidget {
       children: [
         // HomePage()
         BottomBarScreen(),
-        // UploadProductForm()
+        UploadProductForm()
       ],
     );
   }

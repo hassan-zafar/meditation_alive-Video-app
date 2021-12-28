@@ -156,7 +156,7 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
                                 children: [
                                   Text(
                                     "Settings",
-                                    style: titleTextStyle(),
+                                    style: titleTextStyle(color: Colors.white),
                                   ),
                                   CircleAvatar(
                                     maxRadius: 50,

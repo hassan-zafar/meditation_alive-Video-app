@@ -1,7 +1,6 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 import 'package:meditation_alive/auth/landing_page.dart';
 import 'package:meditation_alive/consts/collections.dart';
@@ -33,7 +32,6 @@ class _UserNSearchState extends State<UserNSearch>
       Future<QuerySnapshot> users = userRef
           .where("name", isGreaterThanOrEqualTo: query)
           .where("isAdmin", isNotEqualTo: true)
-          .where("isTeacher", isEqualTo: false)
           .get();
       setState(() {
         searchResultsFuture = users;
@@ -123,9 +121,12 @@ class _UserNSearchState extends State<UserNSearch>
                 AppUserModel user = AppUserModel.fromDocument(doc);
 
                 //remove auth user from recommended list
-                if (user.isAdmin != null && user.isAdmin!) {
+                if (user.isAdmin!) {
                   UserResult adminResult = UserResult(user);
                   allAdmins.add(adminResult);
+                } else {
+                  UserResult userResult = UserResult(user);
+                  userResults.add(userResult);
                 }
               });
               return GlassContainer(
@@ -156,17 +157,18 @@ class _UserNSearchState extends State<UserNSearch>
                                             });
                                           },
                                           child: GlassContainer(
-                                              opacity: 0.7,
-                                              shadowStrength: 8,
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: Text(
-                                                  "All Users ${userResults.length}",
-                                                  style:
-                                                      TextStyle(fontSize: 20.0),
-                                                ),
-                                              )),
+                                            opacity: 0.7,
+                                            shadowStrength: 8,
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Text(
+                                                "All Users ${userResults.length}",
+                                                style:
+                                                    TextStyle(fontSize: 20.0),
+                                              ),
+                                            ),
+                                          ),
                                         ),
                                       ),
                                     ],
@@ -186,17 +188,18 @@ class _UserNSearchState extends State<UserNSearch>
                                             });
                                           },
                                           child: GlassContainer(
-                                              opacity: 0.7,
-                                              shadowStrength: 8,
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: Text(
-                                                  "All Admins ${allAdmins.length}",
-                                                  style:
-                                                      TextStyle(fontSize: 20.0),
-                                                ),
-                                              )),
+                                            opacity: 0.7,
+                                            shadowStrength: 8,
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Text(
+                                                "All Admins ${allAdmins.length}",
+                                                style:
+                                                    TextStyle(fontSize: 20.0),
+                                              ),
+                                            ),
+                                          ),
                                         ),
                                       ),
                                     ],
@@ -226,7 +229,9 @@ class _UserNSearchState extends State<UserNSearch>
             child: GestureDetector(
               onTap: () {
                 AuthenticationService().signOut();
-                Get.off(LandingPage());
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  builder: (context) => LandingPage(),
+                ));
               },
               child: Container(
                   decoration: BoxDecoration(
@@ -310,7 +315,7 @@ class UserResult extends StatelessWidget {
               SimpleDialogOption(
                 onPressed: () {
                   Navigator.pop(context);
-                  deleteUser();
+                  deleteUser(user.email!, user.password!);
                 },
                 child: Text(
                   'Delete User',
@@ -337,7 +342,7 @@ class UserResult extends StatelessWidget {
     // activityFeedRef.doc(user.id).collection('feedItems').add({
     //   "type": "mercReq",
     //   "commentData": msg,
-    //   "name": user.displayName,
+    //   "userName": user.displayName,
     //   "userId": user.id,
     //   "userProfileImg": user.photoUrl,
     //   "ownerId": currentUser.id,
@@ -346,9 +351,8 @@ class UserResult extends StatelessWidget {
     //   "productId": "",
     // });
   }
-
-  void deleteUser() async {
-    deleteUser();
+  void deleteUser(String email, String password) async {
+    AuthenticationService().deleteUser(email, password);
     BotToast.showText(text: 'User Deleted Refresh');
   }
 }

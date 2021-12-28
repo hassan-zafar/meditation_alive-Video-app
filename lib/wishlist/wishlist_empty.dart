@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:meditation_alive/consts/colors.dart';
 import 'package:meditation_alive/provider/dark_theme_provider.dart';
@@ -60,7 +59,7 @@ class WishlistEmpty extends StatelessWidget {
               ),
               color: Colors.yellow,
               child: Text(
-                'Add to wish'.toUpperCase(),
+                'Add to favourite'.toUpperCase(),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     color: Theme.of(context).backgroundColor,

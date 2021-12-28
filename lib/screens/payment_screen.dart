@@ -132,8 +132,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
   Future<void> makePayment(Product product, List<Product> allProducts) async {
     try {
-      paymentIntentData =
-          await createPaymentIntent('20', 'USD'); //json.decode(response.body);
+      paymentIntentData = await createPaymentIntent(
+          '9.99', 'USD'); //json.decode(response.body);
       // print('Response body==>${response.body.toString()}');
       await Stripe.instance
           .initPaymentSheet(
@@ -203,7 +203,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
   createPaymentIntent(String amount, String currency) async {
     try {
       Map<String, dynamic> body = {
-        'amount': calculateAmount('20'),
+        'amount': calculateAmount('9.99'),
         'currency': currency,
         'payment_method_types[]': 'card'
       };
@@ -223,6 +223,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
     }
   }
 
+// 'Bearer sk_test_51JvN23LbLnT1uHuWUJahSXKDn2LO7cZG4cciGVCw1tUrvEQT6W2kNyOdEhFyCEiwDIwm3mnFMeTbT6hqVWkxcp8V00jAv01FBf'
   calculateAmount(String amount) {
     final a = (int.parse(amount)) * 100;
     return a.toString();
