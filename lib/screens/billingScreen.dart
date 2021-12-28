@@ -23,20 +23,35 @@ class _BillingScreenState extends State<BillingScreen> {
         title: Text('Billing'),
         centerTitle: true,
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Text(
-            'Monthly Subscription',
-            style: titleTextStyle(color: Colors.white),
-          ),
-          Text(
-            'Next billing date is $formattedtime',
-            style: titleTextStyle(color: Colors.white, fontSize: 22),
-          )
-        ],
-      ),
+      body: expiryDate.isBefore(DateTime.now())
+          ? Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  'You Have not purchased any subscription yet',
+                  textAlign: TextAlign.center,
+                  style: titleTextStyle(color: Theme.of(context).dividerColor),
+                )
+              ],
+            )
+          : Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  'Monthly Subscription',
+                  textAlign: TextAlign.center,
+                  style: titleTextStyle(color: Theme.of(context).dividerColor),
+                ),
+                Text(
+                  'Next billing date is $formattedtime',
+                  textAlign: TextAlign.center,
+                  style: titleTextStyle(
+                      color: Theme.of(context).dividerColor, fontSize: 22),
+                )
+              ],
+            ),
     );
   }
 }
