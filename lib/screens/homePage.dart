@@ -40,7 +40,7 @@ class _HomePageState extends State<HomePage> {
   List<Product> educationalVideos = [];
   List<Product> taskVideos = [];
   List<Product> relaxingVideos = [];
-
+  DateTime subEndTime = DateTime.parse(currentUser!.subscriptionEndTIme!);
   @override
   void initState() {
     super.initState();
@@ -150,7 +150,8 @@ class _HomePageState extends State<HomePage> {
                         return Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(16, 8, 0, 8),
                           child: InkWell(
-                            onTap: () =>
+                            onTap: () {
+                              if (subEndTime.isBefore(DateTime.now())) {
                                 Navigator.of(context).push(MaterialPageRoute(
                                     builder: (context) => PaymentScreen(
                                           product:
@@ -162,7 +163,16 @@ class _HomePageState extends State<HomePage> {
                                     // product: productsProvider.products[index],
                                     // allProducts: productsProvider.products,
                                     // ),
-                                    )),
+                                    ));
+                              } else {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => VideoPage(
+                                    product: productsProvider.products[index],
+                                    allProducts: productsProvider.products,
+                                  ),
+                                ));
+                              }
+                            },
                             child: Container(
                               width: 250,
                               height: 170,
@@ -619,6 +629,7 @@ class CategoryItemsViewer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    DateTime subEndTime = DateTime.parse(currentUser!.subscriptionEndTIme!);
     return Padding(
       padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
       child: InkWell(
@@ -633,8 +644,7 @@ class CategoryItemsViewer extends StatelessWidget {
             DocumentSnapshot asd = await userRef.doc(currentUser!.id).get();
             currentUser = AppUserModel.fromDocument(asd);
           }
-          DateTime subEndTime =
-              DateTime.parse(currentUser!.subscriptionEndTIme!);
+
           if (subEndTime.isBefore(DateTime.now())) {
             Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => PaymentScreen(

@@ -1,6 +1,4 @@
 import 'dart:ui';
-
-import 'package:bot_toast/bot_toast.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +6,7 @@ import 'package:meditation_alive/consts/collections.dart';
 import 'package:meditation_alive/consts/consants.dart';
 import 'package:meditation_alive/models/users.dart';
 import 'package:meditation_alive/services/notificationHandler.dart';
+import 'package:meditation_alive/widgets/custom_toast%20copy.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:uuid/uuid.dart';
 import 'package:glassmorphism_ui/glassmorphism_ui.dart';
@@ -188,7 +187,7 @@ class CommentsNChatState extends State<CommentsNChat> {
         isAdminChat: false,
       );
     } else {
-      BotToast.showText(text: "Comment shouldn't be left Empty");
+      CustomToast.errorToast(message: "Comment shouldn't be left Empty");
     }
     _commentNMessagesController.clear();
   }
@@ -266,8 +265,8 @@ class CommentsNChatState extends State<CommentsNChat> {
             context: context);
       }
     } else {
-      BotToast.showText(
-          text: widget.isPostComment! || widget.isProductComment!
+      CustomToast.errorToast(
+          message: widget.isPostComment! || widget.isProductComment!
               ? "Comment field shouldn't be left Empty"
               : "Message field shouldn't be left Empty");
     }
@@ -466,7 +465,8 @@ class _CommentsNMessagesState extends State<CommentsNMessages> {
                                     "likesMap": {currentUser!.id: false}
                                   });
 
-                                  BotToast.showText(text: "Like Removed");
+                                     CustomToast.errorToast(
+          message:  "Like Removed");
                                 } else {
                                   setState(() {
                                     commentLikes += 1;
@@ -500,7 +500,8 @@ class _CommentsNMessagesState extends State<CommentsNMessages> {
                                       title: "Comment Liked",
                                       context: context);
 
-                                  BotToast.showText(text: "Comment Liked");
+                                      CustomToast.errorToast(
+          message:  "Comment Liked");
                                 }
                               },
                               child: Padding(

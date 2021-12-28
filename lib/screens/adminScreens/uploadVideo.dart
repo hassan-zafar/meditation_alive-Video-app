@@ -595,7 +595,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
 
   Future selectFile() async {
     final result = await FilePicker.platform
-        .pickFiles(allowMultiple: false, type: FileType.audio);
+        .pickFiles(allowMultiple: false, type: FileType.video);
 
     if (result == null) return;
     final path = result.files.single.path!;

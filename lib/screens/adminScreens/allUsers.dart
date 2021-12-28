@@ -1,4 +1,3 @@
-import 'package:bot_toast/bot_toast.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:glassmorphism_ui/glassmorphism_ui.dart';
@@ -6,6 +5,7 @@ import 'package:meditation_alive/auth/landing_page.dart';
 import 'package:meditation_alive/consts/collections.dart';
 import 'package:meditation_alive/models/users.dart';
 import 'package:meditation_alive/services/authentication_service.dart';
+import 'package:meditation_alive/widgets/custom_toast%20copy.dart';
 import 'package:meditation_alive/widgets/loadingWidget.dart';
 
 class UserNSearch extends StatefulWidget {
@@ -335,7 +335,7 @@ class UserResult extends StatelessWidget {
     userRef.doc(user.id).update({"isAdmin": !user.isAdmin!});
     addToFeed(msg);
 
-    BotToast.showText(text: msg);
+    // CustomToast.successToast(message: msg);
   }
 
   addToFeed(String msg) {
@@ -353,6 +353,6 @@ class UserResult extends StatelessWidget {
   }
   void deleteUser(String email, String password) async {
     AuthenticationService().deleteUser(email, password);
-    BotToast.showText(text: 'User Deleted Refresh');
+    CustomToast.successToast(message: 'User Deleted Refresh');
   }
 }
