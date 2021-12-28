@@ -9,6 +9,7 @@ import 'package:meditation_alive/consts/my_icons.dart';
 import 'package:meditation_alive/provider/auto_play_provider.dart';
 import 'package:meditation_alive/provider/dark_theme_provider.dart';
 import 'package:meditation_alive/provider/notification_preferences.dart';
+import 'package:meditation_alive/screens/billingScreen.dart';
 import 'package:meditation_alive/widgets/loadingWidget.dart';
 import 'package:meditation_alive/wishlist/wishlist.dart';
 import 'package:provider/provider.dart';
@@ -299,7 +300,7 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
                               color: Colors.transparent,
                               child: InkWell(
                                 onTap: () => Navigator.of(context)
-                                    .pushNamed(WishlistScreen.routeName),
+                                    .pushNamed(BillingScreen.routeName),
                                 splashColor: Colors.red,
                                 child: ListTile(
                                   title: Text('Billing'),
