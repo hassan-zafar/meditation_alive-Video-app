@@ -12,6 +12,7 @@ import 'package:meditation_alive/screens/payment_screen.dart';
 import 'package:meditation_alive/screens/search.dart';
 import 'package:meditation_alive/screens/user_info.dart';
 import 'package:meditation_alive/screens/videoPage.dart';
+import 'package:meditation_alive/widgets/custom_toast%20copy.dart';
 import 'package:meditation_alive/widgets/loadingWidget.dart';
 import 'package:provider/provider.dart';
 
@@ -174,8 +175,13 @@ class _HomePageState extends State<HomePage> {
                                   onTap: () {
                                     DateTime subEndTime = DateTime.parse(
                                         currentUser!.subscriptionEndTIme!);
-
-                                    if (subEndTime.isBefore(DateTime.now())) {
+                                    if (currentUser!.email ==
+                                        'guest@guest.com') {
+                                      CustomToast.errorToast(
+                                          message:
+                                              'LogIn with google or email to continue');
+                                    } else if (subEndTime
+                                        .isBefore(DateTime.now())) {
                                       Navigator.of(context).push(MaterialPageRoute(
                                           builder: (context) => PaymentScreen(
                                                 product: productsProvider
@@ -702,7 +708,6 @@ class CategoryItemsViewer extends StatelessWidget {
       padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
       child: InkWell(
         onTap: () async {
-          print(currentUser!.subscriptionEndTIme);
           if (currentUser!.subscriptionEndTIme == null ||
               currentUser!.subscriptionEndTIme!.isEmpty) {
             LoadingIndicator();
@@ -712,8 +717,10 @@ class CategoryItemsViewer extends StatelessWidget {
             DocumentSnapshot asd = await userRef.doc(currentUser!.id).get();
             currentUser = AppUserModel.fromDocument(asd);
           }
-
-          if (subEndTime.isBefore(DateTime.now())) {
+          if (currentUser!.email == 'guest@guest.com') {
+            CustomToast.errorToast(
+                message: 'LogIn with google or email to continue');
+          } else if (subEndTime.isBefore(DateTime.now())) {
             Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => PaymentScreen(
                 product: product,
