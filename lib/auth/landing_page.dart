@@ -8,6 +8,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:meditation_alive/auth/sign_up.dart';
 import 'package:meditation_alive/consts/collections.dart';
 import 'package:meditation_alive/consts/colors.dart';
+import 'package:meditation_alive/database/database.dart';
 import 'package:meditation_alive/database/local_database.dart';
 import 'package:meditation_alive/main_screen.dart';
 import 'package:meditation_alive/models/users.dart';
@@ -121,12 +122,20 @@ class _LandingPageState extends State<LandingPage>
   // }
 
   void _loginAnonymosly() async {
-    setState(() {
+
+   setState(() {
       _isLoading = true;
     });
-
-    try {
-      await _auth.signInAnonymously();
+      
+ 
+    try {  final bool _login = await DatabaseMethods().loginAnonymosly();
+        if (_login) {
+          Navigator.of(context).pushNamedAndRemoveUntil(
+              MainScreens.routeName, (Route<dynamic> route) => false);
+        } else {
+          Navigator.of(context).pop();
+        }
+      // await _auth.signInAnonymously();
     } catch (error) {
       _globalMethods.authErrorHandle(error.toString(), context);
       print('error occured ${error.toString()}');
@@ -138,8 +147,7 @@ class _LandingPageState extends State<LandingPage>
       }
     }
   }
-
-  @override
+ @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Stack(children: [

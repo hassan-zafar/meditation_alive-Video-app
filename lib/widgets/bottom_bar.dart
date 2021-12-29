@@ -106,7 +106,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
             child: BottomNavigationBar(
               onTap: _selectPage,
               backgroundColor: Theme.of(context).primaryColor,
-              unselectedItemColor: Theme.of(context).textSelectionColor,
+              unselectedItemColor: Colors.white,
               selectedItemColor: Colors.deepOrange,
               currentIndex: _selectedPageIndex,
               // selectedLabelStyle: TextStyle(fontSize: 16),

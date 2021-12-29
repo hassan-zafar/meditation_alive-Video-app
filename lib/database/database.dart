@@ -20,6 +20,48 @@ class DatabaseMethods {
     return calenderMeetings;
   }
 
+  Future<bool> loginAnonymosly() async {
+    try {  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+      UserCredential auth = await _auth.signInAnonymously();
+      String date = DateTime.now().toString();
+
+      DateTime dateparse = DateTime.parse(date);
+      String formattedDate =
+          '${dateparse.day}-${dateparse.month}-${dateparse.year}';
+      final AppUserModel appUser = AppUserModel(
+        id: auth.user!.uid,
+        name: 'Guest User',
+        email: 'guest@guest.com',
+        androidNotificationToken: '',
+        password: '',
+        subscriptionEndTIme: DateTime.now().toIso8601String(),
+        phoneNo: '',
+        isAdmin: false,
+      );
+      currentUser = appUser;
+      final bool _isOkay = await DatabaseMethods().addUser(appUser);
+      if (_isOkay) {
+        UserLocalData().storeAppUserData(appUser: appUser);
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      CustomToast.errorToast(message: error.toString());
+    }
+    return false;
+  }
+
+  Future<bool> addUser(AppUserModel appUser) async {
+    await userRef.doc(appUser.id).set(appUser.toMap()).catchError((Object e) {
+      CustomToast.successToast(message: e.toString());
+      // ignore: invalid_return_type_for_catch_error
+      return false;
+    });
+    return true;
+  }
+
   Future<AppUserModel> fetchUserInfoFromFirebase({
     required String uid,
   }) async {

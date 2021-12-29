@@ -291,7 +291,7 @@ class CommentsNChatState extends State<CommentsNChat> {
               padding: const EdgeInsets.all(8.0),
               child: Text(
                 "Comments",
-                style: titleTextStyle(context: context,color: Theme.of(context).dividerColor),
+                style: titleTextStyle(context: context, color: Theme.of(context).dividerColor),
               ),
             ),
             Padding(

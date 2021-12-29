@@ -2,8 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 import 'package:meditation_alive/consts/collections.dart';
-import 'package:meditation_alive/widgets/commentsNChat.dart';
+import 'package:meditation_alive/screens/adminScreens/commentsNChatAdmin.dart';
 import 'package:meditation_alive/widgets/loadingWidget.dart';
+
 
 class ChatLists extends StatefulWidget {
   @override
@@ -16,6 +17,8 @@ class _ChatListsState extends State<ChatLists> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
+        elevation: 0,
+        // backgroundColor: Colors.transparent,
         title: Text("All Chats"),
       ),
       body: StreamBuilder<QuerySnapshot>(
@@ -26,20 +29,19 @@ class _ChatListsState extends State<ChatLists> {
               return LoadingIndicator();
             }
             List<CommentsNMessages> chatHeads = [];
-            print(snapshots.data);
+            print(snapshots.data!.docs.length);
             snapshots.data!.docs.forEach((e) {
               print("in snapshot");
-              // print(e.data()["userId"]);
-              setState(() {
-                chatHeads.add(CommentsNMessages.fromDocument(e));
-              });
+              print(e["userId"]);
+              chatHeads.add(CommentsNMessages.fromDocument(e));
               print(chatHeads);
             });
             if (snapshots.data == null || chatHeads.isEmpty) {
               return Center(
                 child: Text(
                   "No Active Chat Heads!!",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
+                  style:
+                      TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
                 ),
               );
             }
@@ -55,24 +57,16 @@ class _ChatListsState extends State<ChatLists> {
                     onTap: () => Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => CommentsNChat(
-                                  isPostComment: false,
-                                  isProductComment: false,
+                            builder: (context) => CommentsNChatAdmin(
                                   chatId: chatHeads[index].userId,
-                                  chatNotificationToken:
-                                      chatHeads[index].androidNotificationToken,
+                                  chatNotificationToken: chatHeads[index]
+                                      .androidNotificationToken,
                                   heroMsg: chatHeads[index].comment,
                                 ))),
                     child: GlassContainer(
-                      opacity: 0.6,
+                      opacity: 0.5,
                       child: ListTile(
-                        leading: Hero(
-                          tag: chatHeads[index].comment!,
-                          child: CircleAvatar(
-                            child: Icon(Icons.person),
-                          ),
-                        ),
-                        title: Text(chatHeads[index].name!),
+                        title: Text(chatHeads[index].userName!),
                         subtitle: Text(
                           chatHeads[index].comment!,
                           overflow: TextOverflow.ellipsis,

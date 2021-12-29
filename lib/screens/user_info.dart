@@ -7,10 +7,12 @@ import 'package:meditation_alive/consts/collections.dart';
 import 'package:meditation_alive/consts/colors.dart';
 import 'package:meditation_alive/consts/consants.dart';
 import 'package:meditation_alive/consts/my_icons.dart';
+import 'package:meditation_alive/database/database.dart';
 import 'package:meditation_alive/models/users.dart';
 import 'package:meditation_alive/provider/auto_play_provider.dart';
 import 'package:meditation_alive/provider/dark_theme_provider.dart';
 import 'package:meditation_alive/provider/notification_preferences.dart';
+import 'package:meditation_alive/screens/adminScreens/commentsNChatAdmin.dart';
 import 'package:meditation_alive/screens/billingScreen.dart';
 import 'package:meditation_alive/widgets/loadingWidget.dart';
 import 'package:meditation_alive/wishlist/wishlist.dart';
@@ -26,12 +28,12 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
   ScrollController? _scrollController;
   var top = 0.0;
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  String? _uid;
-  String? _name;
-  String? _email;
-  String? _joinedAt;
-  String? _userImageUrl;
-  int? _phoneNumber;
+  // String? _uid;
+  // String? _name;
+  // String? _email;
+  // String? _joinedAt;
+  // String? _userImageUrl;
+  // int? _phoneNumber;
   bool isLoading = false;
   @override
   void initState() {
@@ -40,44 +42,44 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
     _scrollController!.addListener(() {
       setState(() {});
     });
-    getData();
+    // getData();
   }
 
-  void getData() async {
-    setState(() {
-      isLoading = true;
-    });
-    User user = _auth.currentUser!;
-    _uid = user.uid;
+  // void getData() async {
+  //   setState(() {
+  //     isLoading = true;
+  //   });
+  //   User user = DatabaseMethods().fetchUserInfoFromFirebase(uid: uid);
+  //   _uid = user.uid;
 
-    print('user.displayName ${user.displayName}');
-    print('user.photoURL ${user.photoURL}');
-    DocumentSnapshot<Map<String, dynamic>>? userDoc = user.isAnonymous
-        ? null
-        : await FirebaseFirestore.instance.collection('users').doc(_uid).get();
-    // .then((value) {
-    // if (user.isAnonymous) {
-    //   userDoc = null;
-    // } else {
-    //   userDoc = value;
-    // }
-    // });
-    if (userDoc == null) {
-      return;
-    } else {
-      setState(() {
-        currentUser = AppUserModel.fromDocument(userDoc);
-        _name = userDoc.get('name');
-        _email = user.email!;
-        _joinedAt = userDoc.get('joinedAt');
-        _phoneNumber = userDoc.get('phoneNumber');
-        _userImageUrl = userDoc.get('imageUrl');
-        isLoading = false;
-      });
-    }
+  //   print('user.displayName ${user.displayName}');
+  //   print('user.photoURL ${user.photoURL}');
+  //   DocumentSnapshot<Map<String, dynamic>>? userDoc = user.isAnonymous
+  //       ? null
+  //       : await FirebaseFirestore.instance.collection('users').doc(_uid).get();
+  //   // .then((value) {
+  //   // if (user.isAnonymous) {
+  //   //   userDoc = null;
+  //   // } else {
+  //   //   userDoc = value;
+  //   // }
+  //   // });
+  //   if (userDoc == null) {
+  //     return;
+  //   } else {
+  //     setState(() {
+  //       currentUser = AppUserModel.fromDocument(userDoc);
+  //       _name = userDoc.get('name');
+  //       _email = user.email!;
+  //       _joinedAt = userDoc.get('joinedAt');
+  //       _phoneNumber = userDoc.get('phoneNumber');
+  //       _userImageUrl = userDoc.get('imageUrl');
+  //       isLoading = false;
+  //     });
+  //   }
 
-    // print("name $_name");
-  }
+  //   // print("name $_name");
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -139,7 +141,7 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
                                         shape: BoxShape.circle,
                                         image: DecorationImage(
                                           fit: BoxFit.fill,
-                                          image: NetworkImage(_userImageUrl ??
+                                          image: NetworkImage(
                                               'https://t3.ftcdn.net/jpg/01/83/55/76/240_F_183557656_DRcvOesmfDl5BIyhPKrcWANFKy2964i9.jpg'),
                                         ),
                                       ),
@@ -149,7 +151,7 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
                                     ),
                                     Text(
                                       // 'top.toString()',
-                                      _name == null ? 'Guest' : _name!,
+                                      currentUser!.name! == null ? 'Guest' : currentUser!.name!,
                                       style: TextStyle(
                                           fontSize: 20.0, color: Colors.white),
                                     ),
@@ -160,23 +162,26 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
                                 children: [
                                   Text(
                                     "Settings",
-                                    style: titleTextStyle(context: context,color: Colors.white),
+                                    style: titleTextStyle(
+                                        context: context, color: Colors.white),
                                   ),
                                   CircleAvatar(
                                     maxRadius: 50,
                                     minRadius: 30,
-                                    backgroundImage: NetworkImage(_userImageUrl ??
+                                    backgroundImage: NetworkImage(
                                         'https://t3.ftcdn.net/jpg/01/83/55/76/240_F_183557656_DRcvOesmfDl5BIyhPKrcWANFKy2964i9.jpg'),
                                   ),
                                   Text(
-                                    _name == null ? 'Guest' : _name!,
-                                    style: titleTextStyle(context: context,
+                                    currentUser!.name! == null ? 'Guest' : currentUser!.name!,
+                                    style: titleTextStyle(
+                                        context: context,
                                         fontSize: 20,
                                         color: Theme.of(context).dividerColor),
                                   ),
                                   Text(
-                                    _email == null ? 'Guest' : _email!,
-                                    style: titleTextStyle(context: context,
+                                    currentUser!.email! == null ? 'Guest' : currentUser!.email!,
+                                    style: titleTextStyle(
+                                        context: context,
                                         fontSize: 16,
                                         color: Theme.of(context).dividerColor),
                                   ),
@@ -312,19 +317,29 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
                                 ),
                               ),
                             ),
-                            Material(
-                              color: Colors.transparent,
-                              child: InkWell(
-                                onTap: () => Navigator.of(context)
-                                    .pushNamed(WishlistScreen.routeName),
-                                splashColor: Colors.red,
-                                child: ListTile(
-                                  title: Text('Report a Problem'),
-                                  trailing: Icon(Icons.chevron_right_rounded),
-                                  leading: Icon(Icons.flag),
-                                ),
-                              ),
-                            ),
+                            currentUser!.isAdmin!
+                                ? Container()
+                                : Material(
+                                    color: Colors.transparent,
+                                    child: InkWell(
+                                      onTap: () => Navigator.of(context)
+                                          .push(MaterialPageRoute(
+                                        builder: (context) =>
+                                            CommentsNChatAdmin(
+                                          chatId: currentUser!.id,
+                                          chatNotificationToken: currentUser!
+                                              .androidNotificationToken,
+                                        ),
+                                      )),
+                                      splashColor: Colors.red,
+                                      child: ListTile(
+                                        title: Text('Report a Problem'),
+                                        trailing:
+                                            Icon(Icons.chevron_right_rounded),
+                                        leading: Icon(Icons.flag),
+                                      ),
+                                    ),
+                                  ),
                             Material(
                               color: Colors.transparent,
                               child: InkWell(
