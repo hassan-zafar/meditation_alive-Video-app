@@ -174,7 +174,7 @@ class _LandingPageState extends State<LandingPage>
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30),
               child: Text(
-                'Welcome to Medication Alive',
+                'Welcome to Meditation Alive',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 26,

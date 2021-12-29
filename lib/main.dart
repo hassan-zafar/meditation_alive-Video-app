@@ -135,7 +135,7 @@ class _MyAppState extends State<MyApp> {
             child: Consumer<DarkThemeProvider>(
               builder: (context, themeChangeProvider, ch) {
                 return MaterialApp(
-                  title: 'Medication Alive',
+                  title: 'Meditation Alive',
                   theme:
                       Styles.themeData(themeChangeProvider.darkTheme, context),
                   home: UserState(),

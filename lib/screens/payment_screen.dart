@@ -46,7 +46,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 children: [
                   Icon(Icons.done),
                   Text(
-                    'Access to hundreds powerful guided medications',
+                    'Access to hundreds powerful guided meditations',
                     // style: titleTextStyle(color: Colors.white),
                   ),
                 ],
@@ -64,7 +64,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
               Row(mainAxisAlignment: MainAxisAlignment.start, children: [
                 Icon(Icons.done),
                 Text(
-                  'Medications for every mood and goal',
+                  'Meditations for every mood and goal',
                   // style: titleTextStyle(color: Colors.white),
                 ),
               ]),
@@ -73,7 +73,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 children: [
                   Icon(Icons.done),
                   Text(
-                    'Exclusive access to all Moving Medications',
+                    'Exclusive access to all Moving Meditations',
                   ),
                 ],
               ),
