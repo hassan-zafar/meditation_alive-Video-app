@@ -123,7 +123,7 @@ class _VideoWidgetState extends State<VideoWidget> with WidgetsBindingObserver {
           padding: const EdgeInsets.only(left: 8, right: 8, bottom: 16),
           child: Text(
             widget.product!.title!,
-            style: titleTextStyle(
+            style: titleTextStyle(context: context,
                 fontSize: 20, color: Theme.of(context).dividerColor),
           ),
         ),

@@ -33,7 +33,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 children: [
                   Text(
                     'Unlock ',
-                    style: titleTextStyle(color: Colors.white),
+                    style:
+                        titleTextStyle(context: context, color: Colors.white),
                   ),
                   Image.asset(
                     logo,
@@ -113,11 +114,15 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       children: [
                         Text(
                           'MONTHLY',
-                          style: titleTextStyle(),
+                          style: titleTextStyle(
+                            context: context,
+                          ),
                         ),
                         Text(
                           'Pay 9.99/Mo',
-                          style: titleTextStyle(),
+                          style: titleTextStyle(
+                            context: context,
+                          ),
                         ),
                       ],
                     ),
@@ -225,7 +230,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
     }
   }
 
-// 'Bearer sk_test_51JvN23LbLnT1uHuWUJahSXKDn2LO7cZG4cciGVCw1tUrvEQT6W2kNyOdEhFyCEiwDIwm3mnFMeTbT6hqVWkxcp8V00jAv01FBf'
   calculateAmount(String amount) {
     final a = (int.parse(amount)) * 100;
     return a.toString();

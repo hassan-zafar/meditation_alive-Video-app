@@ -31,7 +31,7 @@ class _BillingScreenState extends State<BillingScreen> {
                 Text(
                   'You Have not purchased any subscription yet',
                   textAlign: TextAlign.center,
-                  style: titleTextStyle(color: Theme.of(context).dividerColor),
+                  style: titleTextStyle(context: context, color: Theme.of(context).dividerColor),
                 )
               ],
             )
@@ -42,12 +42,12 @@ class _BillingScreenState extends State<BillingScreen> {
                 Text(
                   'Monthly Subscription',
                   textAlign: TextAlign.center,
-                  style: titleTextStyle(color: Theme.of(context).dividerColor),
+                  style: titleTextStyle(context: context,color: Theme.of(context).dividerColor),
                 ),
                 Text(
                   'Next billing date is $formattedtime',
                   textAlign: TextAlign.center,
-                  style: titleTextStyle(
+                  style: titleTextStyle(context: context,
                       color: Theme.of(context).dividerColor, fontSize: 22),
                 )
               ],

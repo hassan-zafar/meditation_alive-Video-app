@@ -119,7 +119,7 @@ class _HomePageState extends State<HomePage> {
     });
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: Color(0xFF1E2429),
+      // backgroundColor: Color(0xFF1E2429),
       appBar: AppBar(
         leading: InkWell(
           onTap: () => Navigator.of(context).push(MaterialPageRoute(
@@ -422,7 +422,9 @@ class _HomePageState extends State<HomePage> {
                             } else {
                               return Text(
                                 "Currently No Video Uploaded",
-                                style: titleTextStyle(),
+                                style: titleTextStyle(
+                                  context: context,
+                                ),
                               );
                             }
                           },
@@ -455,7 +457,9 @@ class _HomePageState extends State<HomePage> {
                             } else {
                               return Text(
                                 "Currently No Video Uploaded",
-                                style: titleTextStyle(),
+                                style: titleTextStyle(
+                                  context: context,
+                                ),
                               );
                             }
                           },
@@ -488,7 +492,9 @@ class _HomePageState extends State<HomePage> {
                             } else {
                               return Text(
                                 "Currently No Video Uploaded",
-                                style: titleTextStyle(),
+                                style: titleTextStyle(
+                                  context: context,
+                                ),
                               );
                             }
                           },
@@ -521,7 +527,9 @@ class _HomePageState extends State<HomePage> {
                             } else {
                               return Text(
                                 "Currently No Video Uploaded",
-                                style: titleTextStyle(),
+                                style: titleTextStyle(
+                                  context: context,
+                                ),
                               );
                             }
                           },
@@ -555,7 +563,9 @@ class _HomePageState extends State<HomePage> {
                             } else {
                               return Text(
                                 "Currently No Video Uploaded",
-                                style: titleTextStyle(),
+                                style: titleTextStyle(
+                                  context: context,
+                                ),
                               );
                             }
                           },
@@ -587,7 +597,9 @@ class _HomePageState extends State<HomePage> {
                             } else {
                               return Text(
                                 "Currently No Video Uploaded",
-                                style: titleTextStyle(),
+                                style: titleTextStyle(
+                                  context: context,
+                                ),
                               );
                             }
                           },
@@ -620,7 +632,9 @@ class _HomePageState extends State<HomePage> {
                             } else {
                               return Text(
                                 "Currently No Video Uploaded",
-                                style: titleTextStyle(),
+                                style: titleTextStyle(
+                                  context: context,
+                                ),
                               );
                             }
                           },
@@ -652,7 +666,6 @@ class CategoryHeading extends StatelessWidget {
           categoryName!,
           style: TextStyle(
             fontFamily: 'Lexend Deca',
-            color: Colors.white,
             fontSize: 16,
             fontWeight: FontWeight.w500,
           ),

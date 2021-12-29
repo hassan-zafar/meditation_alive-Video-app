@@ -5,8 +5,8 @@ class Styles {
     return ThemeData(
       scaffoldBackgroundColor: isDarkTheme ? Color(0xFF1E2429) : Colors.white,
       primarySwatch: Colors.purple,
-      primaryColor: isDarkTheme ? Colors.black : Colors.grey.shade300,
-      accentColor: Colors.deepPurple,
+      primaryColor: isDarkTheme ? Colors.black : Color(0xFF1E2429),
+      accentColor: Color(0xFF1E2429),
       backgroundColor: isDarkTheme ? Colors.grey.shade700 : Colors.white,
       indicatorColor: isDarkTheme ? Color(0xff0E1D36) : Color(0xffCBDCF8),
       buttonColor: isDarkTheme ? Color(0xff3B3B3B) : Color(0xffF1F5FB),
@@ -20,7 +20,9 @@ class Styles {
       canvasColor: isDarkTheme ? Colors.black : Colors.grey[50],
       brightness: isDarkTheme ? Brightness.dark : Brightness.light,
       dividerColor: isDarkTheme ? Colors.white : Colors.black,
-
+      textTheme: TextTheme(
+          bodyText1:
+              TextStyle(color: isDarkTheme ? Colors.white : Colors.black)),
       buttonTheme: Theme.of(context).buttonTheme.copyWith(
           colorScheme: isDarkTheme ? ColorScheme.dark() : ColorScheme.light()),
       appBarTheme: AppBarTheme(

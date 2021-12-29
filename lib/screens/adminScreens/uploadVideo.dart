@@ -294,7 +294,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
                         SizedBox(height: 10),
                         Text(
                           _isAudioSelected ? "Audio Selected" : "Select Audio",
-                          style: titleTextStyle(
+                          style: titleTextStyle(context: context,
                               color: Theme.of(context).dividerColor),
                         ),
                         ElevatedButton.icon(
@@ -312,7 +312,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
                         /* Image picker here ***********************************/
                         Text(
                           "Select Image",
-                          style: titleTextStyle(
+                          style: titleTextStyle(context: context,
                               color: Theme.of(context).dividerColor),
                         ),
                         Row(

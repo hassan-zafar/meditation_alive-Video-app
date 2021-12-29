@@ -19,10 +19,10 @@ String logo = "assets/images/logo.png";
 // String education1stVid = "$education/Letting_go_of_Negativity.mp4";
 // String daily1stVid = "$daily/Evening_mediation.mp4";
 
-TextStyle titleTextStyle({double fontSize = 25, Color color = Colors.black}) {
+TextStyle titleTextStyle({double fontSize = 25, Color color = Colors.black,required BuildContext context}) {
   return TextStyle(
       fontSize: fontSize,
       fontWeight: FontWeight.w600,
-      color: color,
+      color:Theme.of(context).textTheme.bodyText1!.color,
       letterSpacing: 1.8);
 }

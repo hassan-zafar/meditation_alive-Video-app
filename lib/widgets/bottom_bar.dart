@@ -27,7 +27,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
       HomePage(),
       // Search(),
       // WishlistScreen(),
-      // UserInfoScreen(),
+      UserInfoScreen(),
       // UserNSearch(),
       // ChatLists(),
       // UploadProductForm(),

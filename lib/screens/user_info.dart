@@ -160,7 +160,7 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
                                 children: [
                                   Text(
                                     "Settings",
-                                    style: titleTextStyle(color: Colors.white),
+                                    style: titleTextStyle(context: context,color: Colors.white),
                                   ),
                                   CircleAvatar(
                                     maxRadius: 50,
@@ -170,13 +170,13 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
                                   ),
                                   Text(
                                     _name == null ? 'Guest' : _name!,
-                                    style: titleTextStyle(
+                                    style: titleTextStyle(context: context,
                                         fontSize: 20,
                                         color: Theme.of(context).dividerColor),
                                   ),
                                   Text(
                                     _email == null ? 'Guest' : _email!,
-                                    style: titleTextStyle(
+                                    style: titleTextStyle(context: context,
                                         fontSize: 16,
                                         color: Theme.of(context).dividerColor),
                                   ),
