@@ -20,11 +20,13 @@ class UserState extends StatelessWidget {
             );
           } else if (userSnapshot.connectionState == ConnectionState.active) {
             if (userSnapshot.hasData) {
+              print('userSnapshot.hasData ${userSnapshot.hasData}');
+              uid = userSnapshot.data!.uid;
               DatabaseMethods()
-                  .fetchUserInfoFromFirebase(uid: userSnapshot.data!.uid);
-              print(currentUser);
-
-              print('The user is already logged in');
+                  .fetchUserInfoFromFirebase(uid: userSnapshot.data!.uid)
+                  .then((value) {
+                print('The user is already logged in');
+              });
               return
                   // HomePage();
 

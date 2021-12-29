@@ -42,7 +42,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   void _submitForm() async {
     final isValid = _formKey.currentState!.validate();
     FocusScope.of(context).unfocus();
-    var date = DateTime.now().toString();
+    var date = DateTime.now().toIso8601String();
     var dateparse = DateTime.parse(date);
     var formattedDate = "${dateparse.day}-${dateparse.month}-${dateparse.year}";
     if (isValid) {

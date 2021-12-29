@@ -9,7 +9,9 @@ import 'package:meditation_alive/auth/sign_up.dart';
 import 'package:meditation_alive/consts/collections.dart';
 import 'package:meditation_alive/consts/colors.dart';
 import 'package:meditation_alive/database/local_database.dart';
+import 'package:meditation_alive/main_screen.dart';
 import 'package:meditation_alive/models/users.dart';
+import 'package:meditation_alive/services/authentication_service.dart';
 import 'package:meditation_alive/services/global_method.dart';
 
 import 'login.dart';
@@ -58,63 +60,65 @@ class _LandingPageState extends State<LandingPage>
     super.dispose();
   }
 
-  Future<void> _googleSignIn() async {
-    final googleSignIn = GoogleSignIn();
-    final googleAccount = await googleSignIn.signIn();
-    if (googleAccount != null) {
-      final googleAuth = await googleAccount.authentication;
-      if (googleAuth.accessToken != null && googleAuth.idToken != null) {
-        try {
-          String date = DateTime.now().toString();
-          DateTime dateparse = DateTime.parse(date);
-          String formattedDate =
-              '${dateparse.day}-${dateparse.month}-${dateparse.year}';
-          final UserCredential authResult = await _auth.signInWithCredential(
-              GoogleAuthProvider.credential(
-                  idToken: googleAuth.idToken,
-                  accessToken: googleAuth.accessToken));
-          DocumentSnapshot doc = await userRef.doc(authResult.user!.uid).get();
-          print(doc.exists);
-          if (doc.exists) {
-            currentUser = AppUserModel.fromDocument(doc);
-            // final bool _isOkay = await UserAPI().addUser(currentUser!);
+  // Future<void> _googleSignIn() async {
+  //   final googleSignIn = GoogleSignIn();
+  //   final googleAccount = await googleSignIn.signIn();
+  //   if (googleAccount != null) {
+  //     final googleAuth = await googleAccount.authentication;
+  //     if (googleAuth.accessToken != null && googleAuth.idToken != null) {
+  //       try {
+  //         String date = DateTime.now().toIso8601String();
+  //         DateTime dateparse = DateTime.parse(date);
+  //         String formattedDate =
+  //             '${dateparse.day}-${dateparse.month}-${dateparse.year}';
+  //         final UserCredential authResult = await _auth.signInWithCredential(
+  //             GoogleAuthProvider.credential(
+  //                 idToken: googleAuth.idToken,
+  //                 accessToken: googleAuth.accessToken));
+  //         DocumentSnapshot doc = await userRef.doc(authResult.user!.uid).get();
+  //         print(doc.exists);
+  //         if (doc.exists) {
+  //           currentUser = AppUserModel.fromDocument(doc);
+  //           print(currentUser);
+  //           // final bool _isOkay = await UserAPI().addUser(currentUser!);
 
-            // return true;
-          } else {
-            await FirebaseFirestore.instance
-                .collection('users')
-                .doc(authResult.user!.uid)
-                .set({
-              'id': authResult.user!.uid,
-              'name': authResult.user!.displayName,
-              'email': authResult.user!.email,
-              'phoneNumber': authResult.user!.phoneNumber,
-              'imageUrl': authResult.user!.photoURL,
-              'joinedAt': formattedDate,
-              'createdAt': Timestamp.now(),
-              "isAdmin": false,
-            }).then((value) {
-              final AppUserModel _appUser = AppUserModel(
-                  id: authResult.user!.uid,
-                  name: authResult.user!.displayName,
-                  email: authResult.user!.email,
-                  phoneNo: "",
-                  androidNotificationToken: "",
-                  password: "",
-                  isAdmin: false,
-                  subscriptionEndTIme: DateTime.now().toIso8601String(),
-                  timestamp: formattedDate);
-              currentUser = _appUser;
+  //           // return true;
+  //         } else {
+  //           await FirebaseFirestore.instance
+  //               .collection('users')
+  //               .doc(authResult.user!.uid)
+  //               .set({
+  //             'id': authResult.user!.uid,
+  //             'name': authResult.user!.displayName,
+  //             'email': authResult.user!.email,
+  //             'phoneNumber': authResult.user!.phoneNumber,
+  //             'imageUrl': authResult.user!.photoURL,
+  //             'joinedAt': formattedDate,
+  //             'createdAt': Timestamp.now(),
+  //             "isAdmin": false,
+  //             'subscriptionEndTIme': DateTime.now().toIso8601String()
+  //           }).then((value) {
+  //             final AppUserModel _appUser = AppUserModel(
+  //                 id: authResult.user!.uid,
+  //                 name: authResult.user!.displayName,
+  //                 email: authResult.user!.email,
+  //                 phoneNo: "",
+  //                 androidNotificationToken: "",
+  //                 password: "",
+  //                 isAdmin: false,
+  //                 subscriptionEndTIme: DateTime.now().toIso8601String(),
+  //                 timestamp: formattedDate);
+  //             currentUser = _appUser;
 
-              UserLocalData().storeAppUserData(appUser: _appUser);
-            });
-          }
-        } catch (error) {
-          _globalMethods.authErrorHandle(error.toString(), context);
-        }
-      }
-    }
-  }
+  //             UserLocalData().storeAppUserData(appUser: _appUser);
+  //           });
+  //         }
+  //       } catch (error) {
+  //         _globalMethods.authErrorHandle(error.toString(), context);
+  //       }
+  //     }
+  //   }
+  // }
 
   void _loginAnonymosly() async {
     setState(() {
@@ -292,7 +296,18 @@ class _LandingPageState extends State<LandingPage>
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               OutlineButton(
-                onPressed: _googleSignIn,
+                onPressed: () async {
+                  final bool _login =
+                      await AuthenticationService().signinWithGoogle();
+                  if (_login) {
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                      MainScreens.routeName,
+                      (Route<dynamic> route) => false,
+                    );
+                  } else {
+                    Navigator.of(context).pop();
+                  }
+                },
                 shape: StadiumBorder(),
                 highlightedBorderColor: Colors.red.shade200,
                 borderSide: BorderSide(width: 2, color: Colors.red),

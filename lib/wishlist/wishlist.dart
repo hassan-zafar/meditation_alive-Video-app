@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:meditation_alive/consts/my_icons.dart';
+import 'package:meditation_alive/models/product.dart';
 import 'package:meditation_alive/provider/favs_provider.dart';
+import 'package:meditation_alive/provider/products.dart';
 import 'package:meditation_alive/services/global_method.dart';
 import 'package:provider/provider.dart';
 import 'wishlist_empty.dart';
@@ -8,10 +10,15 @@ import 'wishlist_full.dart';
 
 class WishlistScreen extends StatelessWidget {
   static const routeName = '/WishlistScreen';
+  List<Product>? products;
   @override
   Widget build(BuildContext context) {
     GlobalMethods globalMethods = GlobalMethods();
     final favsProvider = Provider.of<FavsProvider>(context);
+    final Products productsProvider = Provider.of<Products>(context);
+    // favsProvider.getFavsItems.forEach((key, value) {
+    //   products!.add(productsProvider.findById(value.id!));
+    // });
     return favsProvider.getFavsItems.isEmpty
         ? Scaffold(body: WishlistEmpty())
         : Scaffold(
@@ -37,6 +44,7 @@ class WishlistScreen extends StatelessWidget {
                 return ChangeNotifierProvider.value(
                     value: favsProvider.getFavsItems.values.toList()[index],
                     child: WishlistFull(
+                      products: products!,
                       productId: favsProvider.getFavsItems.keys.toList()[index],
                     ));
               },

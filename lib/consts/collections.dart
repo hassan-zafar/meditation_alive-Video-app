@@ -9,6 +9,7 @@ final calenderRef = FirebaseFirestore.instance.collection('calenderMeetings');
 final activityFeedRef = FirebaseFirestore.instance.collection('activityFeed');
 
 AppUserModel? currentUser;
+String ?uid;
 bool? isAdmin;
 bool? isNotificationSetGlobal;
 bool? isAutoPlayGlobal;

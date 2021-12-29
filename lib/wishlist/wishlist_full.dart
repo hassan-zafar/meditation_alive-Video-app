@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:meditation_alive/consts/colors.dart';
 import 'package:meditation_alive/models/favs_attr.dart';
+import 'package:meditation_alive/models/product.dart';
 import 'package:meditation_alive/provider/favs_provider.dart';
+import 'package:meditation_alive/provider/products.dart';
+import 'package:meditation_alive/screens/videoPage.dart';
 import 'package:meditation_alive/services/global_method.dart';
 import 'package:provider/provider.dart';
 
 class WishlistFull extends StatefulWidget {
   final String productId;
-
-  const WishlistFull({required this.productId});
+  final List<Product> products;
+  const WishlistFull({required this.productId,required this.products});
   @override
   _WishlistFullState createState() => _WishlistFullState();
 }
@@ -17,6 +20,9 @@ class _WishlistFullState extends State<WishlistFull> {
   @override
   Widget build(BuildContext context) {
     final favsAttr = Provider.of<FavsAttr>(context);
+    final Products productsProvider = Provider.of<Products>(context);
+
+    final favsProvider = Provider.of<FavsProvider>(context);
     return Stack(
       children: <Widget>[
         Container(
@@ -27,7 +33,15 @@ class _WishlistFullState extends State<WishlistFull> {
             borderRadius: BorderRadius.circular(5.0),
             elevation: 3.0,
             child: InkWell(
-              onTap: () {},
+              onTap: () {
+                Product product = productsProvider.findById(widget.productId);
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => VideoPage(
+                    product: product,
+                    allProducts: widget.products,
+                  ),
+                ));
+              },
               child: Container(
                 decoration:
                     BoxDecoration(borderRadius: BorderRadius.circular(15)),

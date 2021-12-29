@@ -3,8 +3,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:list_tile_switch/list_tile_switch.dart';
+import 'package:meditation_alive/auth/landing_page.dart';
 import 'package:meditation_alive/consts/colors.dart';
 import 'package:meditation_alive/consts/my_icons.dart';
+import 'package:meditation_alive/services/authentication_service.dart';
 import 'package:meditation_alive/wishlist/wishlist.dart';
 import 'package:provider/provider.dart';
 import 'package:share/share.dart';
@@ -256,9 +258,15 @@ class _UserInfoState extends State<UserInfo> {
                                           child: Text('Cancel')),
                                       TextButton(
                                           onPressed: () async {
-                                            await _auth.signOut().then(
-                                                (value) =>
-                                                    Navigator.pop(context));
+                                            await AuthenticationService()
+                                                .signOut();
+
+                                            Navigator.pushReplacement(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      LandingPage(),
+                                                ));
                                           },
                                           child: Text(
                                             'Ok',

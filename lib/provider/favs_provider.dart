@@ -16,7 +16,7 @@ class FavsProvider with ChangeNotifier {
       _favsItems.putIfAbsent(
           productId,
           () => FavsAttr(
-              id: DateTime.now().toString(),
+              id: productId,
               title: title,
               videoUrl: videoUrl,
               category: category,

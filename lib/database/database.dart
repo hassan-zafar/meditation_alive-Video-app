@@ -1,7 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:meditation_alive/consts/collections.dart';
 import 'package:meditation_alive/models/users.dart';
+import 'package:meditation_alive/widgets/custom_toast%20copy.dart';
 import 'package:meditation_alive/widgets/custom_toast.dart';
 
 import 'local_database.dart';
@@ -17,12 +20,15 @@ class DatabaseMethods {
     return calenderMeetings;
   }
 
-  Future fetchUserInfoFromFirebase({
+  Future<AppUserModel> fetchUserInfoFromFirebase({
     required String uid,
   }) async {
+    print(uid);
     final DocumentSnapshot _user = await userRef.doc(uid).get();
+    print(_user);
     currentUser = AppUserModel.fromDocument(_user);
     createToken(uid);
+    print(currentUser);
     UserLocalData().setIsAdmin(currentUser!.isAdmin);
     // Map userData = json.decode(currentUser!.toJson());
     // UserLocalData().setUserModel(json.encode(userData));
@@ -30,11 +36,14 @@ class DatabaseMethods {
     print(user);
     isAdmin = currentUser!.isAdmin;
     print(currentUser!.email);
+    return currentUser!;
   }
 
   createToken(String uid) {
     FirebaseMessaging.instance.getToken().then((token) {
-      userRef.doc(uid).update({"androidNotificationToken": token});
+      userRef.doc(uid).update({
+        "androidNotificationToken": token,
+      });
       // UserLocalData().setToken(token!);
     });
   }

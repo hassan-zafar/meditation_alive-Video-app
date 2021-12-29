@@ -1,10 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:meditation_alive/auth/landing_page.dart';
 import 'package:meditation_alive/consts/collections.dart';
 import 'package:meditation_alive/database/database.dart';
 import 'package:meditation_alive/database/local_database.dart';
+import 'package:meditation_alive/models/users.dart';
+import 'package:meditation_alive/widgets/custom_toast%20copy.dart';
 import 'package:meditation_alive/widgets/custom_toast.dart';
 
 class AuthenticationService {
@@ -65,6 +68,61 @@ class AuthenticationService {
       print(e.toString());
       return null;
     }
+  }
+
+  Future<bool> signinWithGoogle() async {
+    final GoogleSignIn googleSignIn = GoogleSignIn();
+    final GoogleSignInAccount? googleAccount = await googleSignIn.signIn();
+    final FirebaseAuth _auth = FirebaseAuth.instance;
+
+    if (googleAccount != null) {
+      print('here');
+      final GoogleSignInAuthentication googleAuth =
+          await googleAccount.authentication;
+
+      if (googleAuth.accessToken != null && googleAuth.idToken != null) {
+        try {
+          String date = DateTime.now().toString();
+          DateTime dateparse = DateTime.parse(date);
+          String formattedDate =
+              '${dateparse.day}-${dateparse.month}-${dateparse.year}';
+          final UserCredential authResult = await _auth.signInWithCredential(
+              GoogleAuthProvider.credential(
+                  idToken: googleAuth.idToken,
+                  accessToken: googleAuth.accessToken));
+          DocumentSnapshot doc = await userRef.doc(authResult.user!.uid).get();
+          print(doc.exists);
+          if (doc.exists) {
+            currentUser = AppUserModel.fromDocument(doc);
+            // final bool _isOkay = await UserAPI().addUser(currentUser!);
+
+            return true;
+          } else {
+            final AppUserModel _appUser = AppUserModel(
+              id: authResult.user!.uid,
+              name: authResult.user!.displayName,
+              email: authResult.user!.email,
+              phoneNo: "",
+              androidNotificationToken: "",
+              password: "",
+              subscriptionEndTIme: DateTime.now().toIso8601String(),
+              isAdmin: false,
+            );
+            currentUser = _appUser;
+            // final bool _isOkay = await UserAPI().addUser(_appUser);
+            // if (_isOkay) {
+            //   UserLocalData().storeAppUserData(appUser: _appUser);
+            // } else {
+            //   return false;
+            // }
+          }
+          return true;
+        } catch (error) {
+          CustomToast.errorToast(message: error.toString());
+        }
+      }
+    }
+    return false;
   }
 
   Future<UserCredential?> signUp({

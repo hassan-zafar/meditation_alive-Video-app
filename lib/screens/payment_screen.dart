@@ -85,6 +85,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     if (subEndTime.isBefore(DateTime.now())) {
                       await makePayment(widget.product!, widget.allProducts!);
                     } else {
+                      Navigator.pop(context);
                       Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => VideoPage(
                           product: widget.product,
