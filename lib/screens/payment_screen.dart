@@ -6,6 +6,7 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:meditation_alive/consts/collections.dart';
 import 'package:meditation_alive/consts/consants.dart';
 import 'package:meditation_alive/models/product.dart';
+import 'package:meditation_alive/models/users.dart';
 import 'package:meditation_alive/screens/videoPage.dart';
 
 class PaymentScreen extends StatefulWidget {
@@ -170,7 +171,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
         clientSecret: paymentIntentData!['client_secret'],
         confirmPayment: true,
       ))
-          .then((newValue) {
+          .then((newValue) async {
         print('payment intent' + paymentIntentData!['id'].toString());
         print(
             'payment intent' + paymentIntentData!['client_secret'].toString());
@@ -181,6 +182,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
           'subscriptionEndTIme':
               DateTime.now().add(Duration(days: 30)).toIso8601String()
         });
+        var doc = await userRef.doc(currentUser!.id).get();
+        currentUser = AppUserModel.fromDocument(doc);
         ScaffoldMessenger.of(context)
             .showSnackBar(SnackBar(content: Text("paid successfully")));
         Navigator.of(context).push(MaterialPageRoute(
