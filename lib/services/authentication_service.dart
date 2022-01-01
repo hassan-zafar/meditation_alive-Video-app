@@ -104,17 +104,18 @@ class AuthenticationService {
               email: authResult.user!.email,
               phoneNo: "",
               androidNotificationToken: "",
+              imageUrl: authResult.user!.photoURL,
               password: "",
               subscriptionEndTIme: DateTime.now().toIso8601String(),
               isAdmin: false,
             );
-            currentUser = _appUser;
-            // final bool _isOkay = await UserAPI().addUser(_appUser);
-            // if (_isOkay) {
-            //   UserLocalData().storeAppUserData(appUser: _appUser);
-            // } else {
-            //   return false;
-            // }
+            final bool _isOkay = await DatabaseMethods().addUser(_appUser);
+            if (_isOkay) {
+              currentUser = _appUser;
+              // UserLocalData().storeAppUserData(appUser: _appUser);
+            } else {
+              return false;
+            }
           }
           return true;
         } catch (error) {

@@ -21,7 +21,8 @@ class DatabaseMethods {
   }
 
   Future<bool> loginAnonymosly() async {
-    try {  final FirebaseAuth _auth = FirebaseAuth.instance;
+    try {
+      final FirebaseAuth _auth = FirebaseAuth.instance;
 
       UserCredential auth = await _auth.signInAnonymously();
       String date = DateTime.now().toString();
@@ -34,13 +35,15 @@ class DatabaseMethods {
         name: 'Guest User',
         email: 'guest@guest.com',
         androidNotificationToken: '',
+        imageUrl: '',
         password: '',
         subscriptionEndTIme: DateTime.now().toIso8601String(),
         phoneNo: '',
         isAdmin: false,
       );
       final bool _isOkay = await DatabaseMethods().addUser(appUser);
-      if (_isOkay) {      currentUser = appUser;
+      if (_isOkay) {
+        currentUser = appUser;
 
         // UserLocalData().storeAppUserData(appUser: appUser);
         return true;

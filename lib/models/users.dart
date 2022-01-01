@@ -6,6 +6,7 @@ class AppUserModel {
   final String? phoneNo;
   final String? password;
   final String? timestamp;
+  final String? imageUrl;
   final bool? isAdmin;
   final String? email;
   final String? androidNotificationToken;
@@ -17,6 +18,7 @@ class AppUserModel {
       this.name,
       this.phoneNo,
       this.password,
+      this.imageUrl,
       this.timestamp,
       this.isAdmin,
       this.subscriptionEndTIme,
@@ -29,6 +31,7 @@ class AppUserModel {
       'name': name,
       'phoneNo': phoneNo,
       'password': password,
+      'imageUrl': imageUrl,
       'timestamp': timestamp,
       'subscriptionEndTIme': subscriptionEndTIme,
       'isAdmin': isAdmin,
@@ -44,6 +47,7 @@ class AppUserModel {
         phoneNo: map['phoneNo'],
         password: map['password'],
         timestamp: map['timestamp'],
+        imageUrl: map['imageUrl'],
         isAdmin: map['isAdmin'],
         subscriptionEndTIme: map['subscriptionEndTIme'],
         email: map['email'],
@@ -56,6 +60,7 @@ class AppUserModel {
       password: doc.data()["password"],
       name: doc.data()["name"],
       timestamp: doc.data()["timestamp"],
+      imageUrl: doc.data()["imageUrl"],
       email: doc.data()["email"],
       isAdmin: doc.data()["isAdmin"],
       subscriptionEndTIme: doc.data()["subscriptionEndTIme"],
