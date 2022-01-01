@@ -151,7 +151,9 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
                                     ),
                                     Text(
                                       // 'top.toString()',
-                                      currentUser!.name! == null ? 'Guest' : currentUser!.name!,
+                                      currentUser!.name! == null
+                                          ? 'Guest'
+                                          : currentUser!.name!,
                                       style: TextStyle(
                                           fontSize: 20.0, color: Colors.white),
                                     ),
@@ -172,28 +174,32 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
                                         'https://t3.ftcdn.net/jpg/01/83/55/76/240_F_183557656_DRcvOesmfDl5BIyhPKrcWANFKy2964i9.jpg'),
                                   ),
                                   Text(
-                                    currentUser!.name! == null ? 'Guest' : currentUser!.name!,
+                                    currentUser!.name! == null
+                                        ? 'Guest'
+                                        : currentUser!.name!,
                                     style: titleTextStyle(
                                         context: context,
                                         fontSize: 20,
                                         color: Theme.of(context).dividerColor),
                                   ),
                                   Text(
-                                    currentUser!.email! == null ? 'Guest' : currentUser!.email!,
+                                    currentUser!.email! == null
+                                        ? 'Guest'
+                                        : currentUser!.email!,
                                     style: titleTextStyle(
                                         context: context,
                                         fontSize: 16,
                                         color: Theme.of(context).dividerColor),
                                   ),
-                                  Container(
-                                    margin: EdgeInsets.only(top: 8),
-                                    padding: EdgeInsets.all(8),
-                                    decoration: BoxDecoration(
-                                        color: Colors.teal,
-                                        borderRadius:
-                                            BorderRadius.circular(20)),
-                                    child: Text("Edit Profile"),
-                                  ),
+                                  // Container(
+                                  //   margin: EdgeInsets.only(top: 8),
+                                  //   padding: EdgeInsets.all(8),
+                                  //   decoration: BoxDecoration(
+                                  //       color: Colors.teal,
+                                  //       borderRadius:
+                                  //           BorderRadius.circular(20)),
+                                  //   child: Text("Edit Profile"),
+                                  // ),
                                 ],
                               ),
                             ),

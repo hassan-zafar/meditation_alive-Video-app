@@ -6,6 +6,7 @@ import 'package:meditation_alive/models/product.dart';
 import 'package:meditation_alive/provider/favs_provider.dart';
 import 'package:meditation_alive/provider/products.dart';
 import 'package:provider/provider.dart';
+import 'package:share/share.dart';
 
 class VideoWidget extends StatefulWidget {
   final String? path;
@@ -45,16 +46,16 @@ class _VideoWidgetState extends State<VideoWidget> with WidgetsBindingObserver {
       BetterPlayerDataSourceType.network,
       widget.path!,
     );
-    // _betterPlayerController = BetterPlayerController(
-    //   _betterPlayerConfiguration!,
-    //   betterPlayerDataSource: betterPlayerDataSource,
-    // );
+    _betterPlayerController = BetterPlayerController(
+      _betterPlayerConfiguration!,
+      betterPlayerDataSource: betterPlayerDataSource,
+    );
   }
 
   @override
   void dispose() {
     WidgetsBinding.instance!.removeObserver(this);
-    // _betterPlayerController!.dispose();
+    _betterPlayerController!.dispose();
 
     super.dispose();
   }
@@ -103,7 +104,8 @@ class _VideoWidgetState extends State<VideoWidget> with WidgetsBindingObserver {
                 betterPlayerConfiguration: BetterPlayerConfiguration(),
                 betterPlayerPlaylistConfiguration:
                     BetterPlayerPlaylistConfiguration(
-                        nextVideoDelay: Duration(seconds: 1),))
+                  nextVideoDelay: Duration(seconds: 1),
+                ))
             //  VideoPlayerWidget(controller: _betterPlayerController!)
             ),
         // const SizedBox(height: 32),
@@ -123,8 +125,10 @@ class _VideoWidgetState extends State<VideoWidget> with WidgetsBindingObserver {
           padding: const EdgeInsets.only(left: 8, right: 8, bottom: 16),
           child: Text(
             widget.product!.title!,
-            style: titleTextStyle(context: context,
-                fontSize: 20, color: Theme.of(context).dividerColor),
+            style: titleTextStyle(
+                context: context,
+                fontSize: 20,
+                color: Theme.of(context).dividerColor),
           ),
         ),
 
@@ -158,12 +162,21 @@ class _VideoWidgetState extends State<VideoWidget> with WidgetsBindingObserver {
               //       },
               //       child: Icon(Icons.download_for_offline_outlined)),
               // ),
+
               InkWell(
                   onTap: () => _betterPlayerController!
                       .enablePictureInPicture(_betterPlayerKey),
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
                     child: Icon(Icons.picture_in_picture_alt_rounded),
+                  )),
+              InkWell(
+                  onTap: () => Share.share(
+                      'check out this app https://play.google.com/store/apps/details?id=com.whatsapp',
+                      subject: 'Look at this app!'),
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
+                    child: Icon(Icons.share),
                   ))
             ],
           ),

@@ -122,19 +122,18 @@ class _LandingPageState extends State<LandingPage>
   // }
 
   void _loginAnonymosly() async {
-
-   setState(() {
+    setState(() {
       _isLoading = true;
     });
-      
- 
-    try {  final bool _login = await DatabaseMethods().loginAnonymosly();
-        if (_login) {
-          Navigator.of(context).pushNamedAndRemoveUntil(
-              MainScreens.routeName, (Route<dynamic> route) => false);
-        } else {
-          Navigator.of(context).pop();
-        }
+
+    try {
+      final bool _login = await DatabaseMethods().loginAnonymosly();
+      if (_login) {
+        Navigator.of(context).pushNamedAndRemoveUntil(
+            MainScreens.routeName, (Route<dynamic> route) => false);
+      } else {
+        Navigator.of(context).pop();
+      }
       // await _auth.signInAnonymously();
     } catch (error) {
       _globalMethods.authErrorHandle(error.toString(), context);
@@ -147,7 +146,8 @@ class _LandingPageState extends State<LandingPage>
       }
     }
   }
- @override
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Stack(children: [
@@ -305,13 +305,12 @@ class _LandingPageState extends State<LandingPage>
             children: [
               OutlineButton(
                 onPressed: () async {
-                  final bool _login =
+                  final bool? _login =
                       await AuthenticationService().signinWithGoogle();
-                  if (_login) {
-                    Navigator.of(context).pushNamedAndRemoveUntil(
-                      MainScreens.routeName,
-                      (Route<dynamic> route) => false,
-                    );
+                  if (_login!) {
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      builder: (context) => MainScreens(),
+                    ));
                   } else {
                     Navigator.of(context).pop();
                   }

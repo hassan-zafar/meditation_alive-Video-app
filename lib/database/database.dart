@@ -39,10 +39,10 @@ class DatabaseMethods {
         phoneNo: '',
         isAdmin: false,
       );
-      currentUser = appUser;
       final bool _isOkay = await DatabaseMethods().addUser(appUser);
-      if (_isOkay) {
-        UserLocalData().storeAppUserData(appUser: appUser);
+      if (_isOkay) {      currentUser = appUser;
+
+        // UserLocalData().storeAppUserData(appUser: appUser);
         return true;
       } else {
         return false;
@@ -71,11 +71,11 @@ class DatabaseMethods {
     currentUser = AppUserModel.fromDocument(_user);
     createToken(uid);
     print(currentUser);
-    UserLocalData().setIsAdmin(currentUser!.isAdmin);
+    // UserLocalData().setIsAdmin(currentUser!.isAdmin);
     // Map userData = json.decode(currentUser!.toJson());
     // UserLocalData().setUserModel(json.encode(userData));
-    var user = UserLocalData().getUserData();
-    print(user);
+    // var user = UserLocalData().getUserData();
+    // print(user);
     isAdmin = currentUser!.isAdmin;
     print(currentUser!.email);
     return currentUser!;

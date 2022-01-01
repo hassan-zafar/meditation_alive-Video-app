@@ -18,7 +18,7 @@ class AuthenticationService {
 
   Future<void> signOut() async {
     await _firebaseAuth.signOut();
-    UserLocalData().logOut();
+    // UserLocalData().logOut();
   }
 
   Future logIn({
