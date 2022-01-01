@@ -49,15 +49,15 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     textController = TextEditingController();
     _getProductsOnRefresh();
-    getCurrrentUser();
+    // getCurrrentUser();
   }
 
   getCurrrentUser() async {
     setState(() {
       isLoading = true;
     });
-    AppUserModel currentUserTemp =
-        await DatabaseMethods().fetchUserInfoFromFirebase(uid: uid!);
+    AppUserModel currentUserTemp = await DatabaseMethods()
+        .fetchUserInfoFromFirebase(uid: currentUser!.id!);
     setState(() {
       isLoading = false;
       currentUser = currentUserTemp;

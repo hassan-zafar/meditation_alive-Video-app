@@ -111,13 +111,13 @@ class AuthenticationService {
             );
             final bool _isOkay = await DatabaseMethods().addUser(_appUser);
             if (_isOkay) {
-              currentUser = _appUser;
+              currentUser = _appUser;          return true;
+
               // UserLocalData().storeAppUserData(appUser: _appUser);
             } else {
               return false;
             }
           }
-          return true;
         } catch (error) {
           CustomToast.errorToast(message: error.toString());
         }

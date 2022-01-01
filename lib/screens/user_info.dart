@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -170,8 +171,13 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
                                   CircleAvatar(
                                     maxRadius: 50,
                                     minRadius: 30,
-                                    backgroundImage: NetworkImage(
-                                        'https://t3.ftcdn.net/jpg/01/83/55/76/240_F_183557656_DRcvOesmfDl5BIyhPKrcWANFKy2964i9.jpg'),
+                                    backgroundImage: currentUser!.imageUrl! ==
+                                                null ||
+                                            currentUser!.imageUrl == ''
+                                        ? CachedNetworkImageProvider(
+                                            'https://t3.ftcdn.net/jpg/01/83/55/76/240_F_183557656_DRcvOesmfDl5BIyhPKrcWANFKy2964i9.jpg')
+                                        : CachedNetworkImageProvider(
+                                            currentUser!.imageUrl!),
                                   ),
                                   Text(
                                     currentUser!.name! == null
