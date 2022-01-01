@@ -128,6 +128,7 @@ class _HomePageState extends State<HomePage> {
           )),
           child: CircleAvatar(
             radius: 30,
+            backgroundColor: Colors.transparent,
             child: Icon(
               Icons.person,
             ),
@@ -139,6 +140,7 @@ class _HomePageState extends State<HomePage> {
               builder: (context) => Search(),
             )),
             child: CircleAvatar(
+              backgroundColor: Colors.transparent,
               radius: 30,
               child: Icon(Icons.search),
             ),

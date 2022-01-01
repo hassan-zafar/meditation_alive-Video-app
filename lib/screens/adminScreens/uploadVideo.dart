@@ -31,6 +31,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
   var _categoryDescription = '';
   var _productDescription = '';
   var _videoLength = '';
+  String fullPath = '';
   final TextEditingController _categoryController = TextEditingController();
   final TextEditingController _categoryDescriptionController =
       TextEditingController();
@@ -108,6 +109,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
             'productTitle': _productTitle,
             'videoUrl': _productAudioUrl,
             'productImage': url,
+            'path': fullPath,
             'productCategory': _productCategory,
             'categoryDescription': _categoryDescription,
             'productDescription': _productDescription,
@@ -294,11 +296,16 @@ class _UploadProductFormState extends State<UploadProductForm> {
                         SizedBox(height: 10),
                         Text(
                           _isAudioSelected ? "Audio Selected" : "Select Audio",
-                          style: titleTextStyle(context: context,
+                          style: titleTextStyle(
+                              context: context,
                               color: Theme.of(context).dividerColor),
                         ),
                         ElevatedButton.icon(
                             onPressed: selectFile,
+                            style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        Color(0xffC28A6C))),
                             icon: Icon(Icons.select_all_rounded),
                             label: Text("Select Audio")),
 
@@ -312,7 +319,8 @@ class _UploadProductFormState extends State<UploadProductForm> {
                         /* Image picker here ***********************************/
                         Text(
                           "Select Image",
-                          style: titleTextStyle(context: context,
+                          style: titleTextStyle(
+                              context: context,
                               color: Theme.of(context).dividerColor),
                         ),
                         Row(
@@ -622,6 +630,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
 
     final snapshot = await task!.whenComplete(() {});
     final urlDownload = await snapshot.ref.getDownloadURL();
+    fullPath = snapshot.ref.fullPath;
     setState(() {
       _productAudioUrl = urlDownload;
     });

@@ -186,6 +186,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
         currentUser = AppUserModel.fromDocument(doc);
         ScaffoldMessenger.of(context)
             .showSnackBar(SnackBar(content: Text("paid successfully")));
+        Navigator.pop(context);
         Navigator.of(context).push(MaterialPageRoute(
           builder: (context) => VideoPage(
             product: product,

@@ -7,6 +7,7 @@ class Product with ChangeNotifier {
   final String? videoUrl;
   final String? imageUrl;
   final bool? isIndividual;
+  final String? path;
   final bool? isFavorite;
   final bool? isPopular;
   final String? productCategoryName;
@@ -21,6 +22,7 @@ class Product with ChangeNotifier {
     this.isIndividual,
     this.isFavorite,
     this.videoLength,
+    this.path,
     this.isPopular,
     this.productCategoryName,
   });
@@ -30,6 +32,7 @@ class Product with ChangeNotifier {
         title: doc.data()["productTitle"],
         description: doc.data()["productDescription"],
         videoUrl: doc.data()["videoUrl"],
+        path: doc.data()["path"],
         imageUrl: doc.data()["productImage"],
         videoLength: doc.data()["videoLength"],
         isFavorite: doc.data()["isFavorite"],

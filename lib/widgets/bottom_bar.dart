@@ -107,7 +107,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
               onTap: _selectPage,
               backgroundColor: Theme.of(context).primaryColor,
               unselectedItemColor: Colors.white,
-              selectedItemColor: Colors.deepOrange,
+              selectedItemColor: Color(0xff805130),
               currentIndex: _selectedPageIndex,
               // selectedLabelStyle: TextStyle(fontSize: 16),
               items: [

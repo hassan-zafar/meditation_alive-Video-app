@@ -3,7 +3,7 @@ import 'package:meditation_alive/models/preferencesFile.dart';
 
 class DarkThemeProvider with ChangeNotifier {
   DarkThemePreferences darkThemePreferences = DarkThemePreferences();
-  bool _darkTheme = true;
+  bool _darkTheme = false;
   bool get darkTheme => _darkTheme;
 
   set darkTheme(bool value) {
