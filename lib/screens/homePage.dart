@@ -12,6 +12,7 @@ import 'package:meditation_alive/screens/payment_screen.dart';
 import 'package:meditation_alive/screens/search.dart';
 import 'package:meditation_alive/screens/user_info.dart';
 import 'package:meditation_alive/screens/videoPage.dart';
+import 'package:meditation_alive/services/firebase_api.dart';
 import 'package:meditation_alive/widgets/custom_toast%20copy.dart';
 import 'package:meditation_alive/widgets/loadingWidget.dart';
 import 'package:provider/provider.dart';
@@ -136,7 +137,9 @@ class _HomePageState extends State<HomePage> {
         ),
         actions: [
           InkWell(
-            onTap: () => Navigator.of(context).push(MaterialPageRoute(
+            onTap: () =>
+                // FirebaseApi.downloadFile(fileName: 'asd'),
+                Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => Search(),
             )),
             child: CircleAvatar(
@@ -276,6 +279,7 @@ class _HomePageState extends State<HomePage> {
                                               ),
                                               InkWell(
                                                 onTap: () {
+                                                  
                                                   favsProvider
                                                       .addAndRemoveFromFav(
                                                     productsProvider

@@ -37,13 +37,20 @@ class FirebaseApi {
   }
 
   static Future downloadFile(
-      {required String fileName, required String path}) async {
+      {required String fileName,
+      // required
+      String? path}) async {
     Directory appDocDir = await getApplicationDocumentsDirectory();
+    print(appDocDir.path);
     File downloadToFile = File('${appDocDir.path}/$fileName.mp4');
-    path = 'videos/Education/Courage';
+    path = 'videos/Movement/tesitng 1';
     try {
-      await FirebaseStorage.instance.ref(path).writeToFile(downloadToFile);
+      TaskSnapshot downloadTask =
+          await FirebaseStorage.instance.ref(path).writeToFile(downloadToFile);
+      print(downloadTask.state);
+      print(downloadToFile.path);
     } on FirebaseException catch (e) {
+      print(e);
       // e.g, e.code == 'canceled'
     }
     //   final dir = await getApplicationDocumentsDirectory();

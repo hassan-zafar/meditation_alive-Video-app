@@ -1,16 +1,22 @@
+import 'dart:io';
+import 'package:dio/dio.dart';
 import 'package:better_player/better_player.dart';
 import 'package:flutter/material.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:meditation_alive/consts/consants.dart';
 import 'package:meditation_alive/models/firebase_file.dart';
 import 'package:meditation_alive/models/product.dart';
 import 'package:meditation_alive/provider/favs_provider.dart';
 import 'package:meditation_alive/provider/products.dart';
 import 'package:meditation_alive/services/firebase_api.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:share/share.dart';
 
 class VideoWidget extends StatefulWidget {
   final String? path;
+
   final List<FirebaseFile>? allFile;
   final Product? product;
   VideoWidget({this.path, this.allFile, required this.product});
@@ -20,10 +26,89 @@ class VideoWidget extends StatefulWidget {
 
 class _VideoWidgetState extends State<VideoWidget> with WidgetsBindingObserver {
   final asset = 'assets/video.mp4';
+  double progress = 0;
+  final Dio dio = Dio();
   BetterPlayerController? _betterPlayerController;
   BetterPlayerConfiguration? _betterPlayerConfiguration;
   GlobalKey _betterPlayerKey = GlobalKey();
   List<BetterPlayerDataSource> dataSourceList = [];
+  bool showProgress = false;
+  Future<bool> _requestPermission() async {
+    Permission permission = Permission.storage;
+    var asd = Permission.accessMediaLocation;
+    var zxc = Permission.manageExternalStorage;
+
+    var result = await permission.request();
+    if (result.isGranted) {
+      return true;
+    } else {
+      var result = await permission.request();
+      if (result == PermissionStatus.granted) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  Future<bool> saveVideo(String url, String fileName) async {
+    Directory? directory;
+    try {
+      if (Platform.isAndroid) {
+        if (await _requestPermission()) {
+          directory = await getExternalStorageDirectory();
+          String newPath = "";
+          print(directory);
+          List<String> paths = directory!.path.split("/");
+          for (int x = 1; x < paths.length; x++) {
+            String folder = paths[x];
+            if (folder != "Android") {
+              newPath += "/" + folder;
+            } else {
+              break;
+            }
+          }
+          newPath = newPath + "/Meditation Alive";
+          directory = Directory(newPath);
+        } else {
+          return false;
+        }
+      } else {
+        //Permission.photos
+        await _requestPermission();
+        if (await _requestPermission()) {
+          directory = await getTemporaryDirectory();
+        } else {
+          return false;
+        }
+      }
+
+      if (!await directory.exists()) {
+        await directory.create(recursive: true);
+      }
+      if (await directory.exists()) {
+        File saveFile = File(directory.path + "/$fileName.mp4");
+        print(saveFile.path);
+        await dio.download(url, saveFile.path,
+            onReceiveProgress: (value1, value2) {
+          setState(() {
+            showProgress = true;
+            progress = value1 / value2;
+            progress = progress * 100;
+            print(progress);
+          });
+        });
+        if (Platform.isIOS) {
+          await ImageGallerySaver.saveFile(saveFile.path,
+              isReturnPathOfIOS: true);
+        }
+        return true;
+      }
+    } catch (e) {
+      print(e);
+    }
+    return false;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -165,13 +250,18 @@ class _VideoWidgetState extends State<VideoWidget> with WidgetsBindingObserver {
               // ),
               InkWell(
                   onTap: () async {
-                    await FirebaseApi.downloadFile(
-                        fileName: widget.product!.title!,
-                        path: widget.product!.path!);
+                    saveVideo(
+                        widget.product!.videoUrl!, widget.product!.title!);
+                    // await FirebaseApi.downloadFile(
+                    //   fileName: widget.product!.title!,
+                    //   // path: widget.product!.path!
+                    // );
                   },
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
-                    child: Icon(Icons.download_for_offline_outlined),
+                    child: showProgress
+                        ? Text('${progress.toInt()}')
+                        : Icon(Icons.download_for_offline_outlined),
                   )),
               InkWell(
                   onTap: () => _betterPlayerController!
