@@ -5,6 +5,7 @@ import 'package:meditation_alive/models/firebase_file.dart';
 import 'package:meditation_alive/models/product.dart';
 import 'package:meditation_alive/provider/favs_provider.dart';
 import 'package:meditation_alive/provider/products.dart';
+import 'package:meditation_alive/services/firebase_api.dart';
 import 'package:provider/provider.dart';
 import 'package:share/share.dart';
 
@@ -162,7 +163,16 @@ class _VideoWidgetState extends State<VideoWidget> with WidgetsBindingObserver {
               //       },
               //       child: Icon(Icons.download_for_offline_outlined)),
               // ),
-
+              InkWell(
+                  onTap: () async {
+                    await FirebaseApi.downloadFile(
+                        fileName: widget.product!.title!,
+                        path: widget.product!.path!);
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
+                    child: Icon(Icons.download_for_offline_outlined),
+                  )),
               InkWell(
                   onTap: () => _betterPlayerController!
                       .enablePictureInPicture(_betterPlayerKey),

@@ -36,14 +36,24 @@ class FirebaseApi {
         .toList();
   }
 
-  static Future downloadFile(Reference ref) async {
-    final dir = await getApplicationDocumentsDirectory();
-    final file = File('${dir.path}/${ref.name}');
-    print(file.path);
-    await ref.writeToFile(file).then((p0) {
-      print(p0.totalBytes);
-      print(p0.state);
-      print(p0.bytesTransferred);
-    });
+  static Future downloadFile(
+      {required String fileName, required String path}) async {
+    Directory appDocDir = await getApplicationDocumentsDirectory();
+    File downloadToFile = File('${appDocDir.path}/$fileName.mp4');
+    path = 'videos/Education/Courage';
+    try {
+      await FirebaseStorage.instance.ref(path).writeToFile(downloadToFile);
+    } on FirebaseException catch (e) {
+      // e.g, e.code == 'canceled'
+    }
+    //   final dir = await getApplicationDocumentsDirectory();
+    //   final file = File('${dir.path}/${ref.name}');
+    //   print(file.path);
+    //   await ref.writeToFile(file).then((p0) {
+    //     print(p0.totalBytes);
+    //     print(p0.state);
+    //     print(p0.bytesTransferred);
+    //   });
+    // }
   }
 }

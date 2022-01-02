@@ -630,7 +630,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
 
     final snapshot = await task!.whenComplete(() {});
     final urlDownload = await snapshot.ref.getDownloadURL();
-    fullPath = snapshot.ref.fullPath;
+    fullPath = destination;
     setState(() {
       _productAudioUrl = urlDownload;
     });
