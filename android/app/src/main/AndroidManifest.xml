@@ -9,7 +9,7 @@
     <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACTION_MANAGE_WRITE_SETTINGS" />
    <application
-        android:label="Meditation Alive Admin"
+        android:label="Meditation Alive"
         android:requestLegacyExternalStorage="true"
         android:icon="@mipmap/ic_launcher">
         <activity

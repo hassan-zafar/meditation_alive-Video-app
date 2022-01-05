@@ -128,11 +128,9 @@ class _HomePageState extends State<HomePage> {
             builder: (context) => UserInfoScreen(),
           )),
           child: CircleAvatar(
-            radius: 30,
+            radius: 20,
             backgroundColor: Colors.transparent,
-            child: Icon(
-              Icons.person,
-            ),
+            child: Icon(Icons.person, size: 20, color: Colors.white),
           ),
         ),
         actions: [
@@ -144,8 +142,12 @@ class _HomePageState extends State<HomePage> {
             )),
             child: CircleAvatar(
               backgroundColor: Colors.transparent,
-              radius: 30,
-              child: Icon(Icons.search),
+              radius: 20,
+              child: Icon(
+                Icons.search,
+                color: Colors.white,
+                size: 20,
+              ),
             ),
           ),
         ],
@@ -279,7 +281,6 @@ class _HomePageState extends State<HomePage> {
                                               ),
                                               InkWell(
                                                 onTap: () {
-                                                  
                                                   favsProvider
                                                       .addAndRemoveFromFav(
                                                     productsProvider
