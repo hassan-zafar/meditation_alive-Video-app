@@ -15,6 +15,7 @@ import 'package:meditation_alive/provider/favs_provider.dart';
 import 'package:meditation_alive/provider/notification_preferences.dart';
 import 'package:meditation_alive/provider/products.dart';
 import 'package:meditation_alive/screens/billingScreen.dart';
+import 'package:meditation_alive/screens/downloadedPage/downloaded_page.dart';
 import 'package:meditation_alive/services/user_state.dart';
 import 'package:meditation_alive/widgets/bottom_bar.dart';
 import 'package:meditation_alive/wishlist/wishlist.dart';
@@ -161,6 +162,7 @@ class _MyAppState extends State<MyApp> {
                     BottomBarScreen.routeName: (ctx) => BottomBarScreen(),
                     BillingScreen.routeName: (ctx) => BillingScreen(),
                     ForgetPassword.routeName: (ctx) => ForgetPassword(),
+                    DownloadScreen.routeName: (ctx) => DownloadScreen(),
                   },
                 );
               },

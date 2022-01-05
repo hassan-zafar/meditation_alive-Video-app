@@ -16,6 +16,7 @@ import 'package:meditation_alive/provider/dark_theme_provider.dart';
 import 'package:meditation_alive/provider/notification_preferences.dart';
 import 'package:meditation_alive/screens/adminScreens/commentsNChatAdmin.dart';
 import 'package:meditation_alive/screens/billingScreen.dart';
+import 'package:meditation_alive/screens/downloadedPage/downloaded_page.dart';
 import 'package:meditation_alive/widgets/loadingWidget.dart';
 import 'package:meditation_alive/wishlist/wishlist.dart';
 import 'package:provider/provider.dart';
@@ -232,6 +233,20 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
                                   title: Text('Favourite'),
                                   trailing: Icon(Icons.chevron_right_rounded),
                                   leading: Icon(MyAppIcons.wishlist),
+                                ),
+                              ),
+                            ),
+                            Material(
+                              color: Colors.transparent,
+                              child: InkWell(
+                                onTap: () => Navigator.of(context)
+                                    .pushNamed(DownloadScreen.routeName),
+                                splashColor: Colors.red,
+                                child: ListTile(
+                                  title: Text('Downloads'),
+                                  trailing: Icon(Icons.chevron_right_rounded),
+                                  leading:
+                                      Icon(Icons.download_for_offline_rounded),
                                 ),
                               ),
                             ),

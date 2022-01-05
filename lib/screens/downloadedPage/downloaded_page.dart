@@ -1,54 +1,75 @@
-import 'package:flutter/material.dart';
-import 'package:meditation_alive/consts/my_icons.dart';
-import 'package:meditation_alive/models/product.dart';
-import 'package:meditation_alive/provider/favs_provider.dart';
-import 'package:meditation_alive/provider/products.dart';
-import 'package:meditation_alive/services/global_method.dart';
-import 'package:provider/provider.dart';
-import 'downloaded_empty.dart';
-import 'downloaded_full.dart';
+import 'dart:io';
 
-class DownloadScreen extends StatelessWidget {
-  static const routeName = '/WishlistScreen';
-  List<Product>? products;
+import 'package:flutter/material.dart';
+import 'package:flutter_file_extention/flutter_file_utils.dart';
+import 'package:meditation_alive/services/global_method.dart';
+import 'package:path_provider/path_provider.dart';
+
+class DownloadScreen extends StatefulWidget {
+  static const routeName = '/DownloadScreen';
+
+  @override
+  State<DownloadScreen> createState() => _DownloadScreenState();
+}
+
+class _DownloadScreenState extends State<DownloadScreen> {
   @override
   Widget build(BuildContext context) {
     GlobalMethods globalMethods = GlobalMethods();
-    final favsProvider = Provider.of<FavsProvider>(context);
-    final Products productsProvider = Provider.of<Products>(context);
-    // favsProvider.getFavsItems.forEach((key, value) {
-    //   products!.add(productsProvider.findById(value.id!));
-    // });
-    return favsProvider.getFavsItems.isEmpty
-        ? Scaffold(body: DownloadedEmpty())
-        : Scaffold(
-            appBar: AppBar(
-              title: Text('Favourites (${favsProvider.getFavsItems.length})'),
-              actions: [
-                IconButton(
-                  onPressed: () {
-                    globalMethods.showDialogg(
-                        'Clear favourites!',
-                        'Your favourites will be cleared!',
-                        () => favsProvider.clearFavs(),
-                        context);
-                    // cartProvider.clearCart();
+    var files;
+
+    // void getFiles() async {
+    //   //asyn function to get list of files
+    //   List<StorageInfo> storageInfo = await PathProviderEx.getStorageInfo();
+    //   var root = storageInfo[0]
+    //       .rootDir; //storageInfo[1] for SD card, geting the root directory
+    //   var fm = FileManager(root: Directory(root)); //
+    //   files = await fm.filesTree(
+    //       //set fm.dirsTree() for directory/folder tree list
+    //       excludedPaths: [
+    //         "/storage/emulated/0/Meditation Alive"
+    //       ], extensions: [
+    //     "mp4",
+    //     "pdf"
+    //   ] //optional, to filter files, remove to list all,
+    //       //remove this if your are grabbing folder list
+    //       );
+    //   setState(() {}); //update the UI
+    // }
+
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text("Downloads"),
+        ),
+        body: FutureBuilder(
+            future: _files(),
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                print(snapshot.data);
+                return ListView.builder(
+                  itemCount: snapshot.data?.length ?? 0,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      title: Text(snapshot.data[index].path.split('/').last),
+                    );
                   },
-                  icon: Icon(MyAppIcons.trash),
-                )
-              ],
-            ),
-            body: ListView.builder(
-              itemCount: favsProvider.getFavsItems.length,
-              itemBuilder: (BuildContext ctx, int index) {
-                return ChangeNotifierProvider.value(
-                    value: favsProvider.getFavsItems.values.toList()[index],
-                    child: DownloadedFull(
-                      products: products!,
-                      productId: favsProvider.getFavsItems.keys.toList()[index],
-                    ));
-              },
-            ),
-          );
+                );
+              } else
+              // if (snapshot.connectionState == ConnectionState.waiting)
+              {
+                return Center(child: Text("Loading"));
+              }
+            }),
+      ),
+    );
+  }
+
+  Future<List<FileSystemEntity>> _files() async {
+    Directory? root = await getExternalStorageDirectory();
+    List<FileSystemEntity>? files =
+        await FileManager(root: root!).walk().toList();
+
+    return files;
   }
 }
