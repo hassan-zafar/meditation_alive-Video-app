@@ -9,6 +9,7 @@ import 'package:meditation_alive/auth/login.dart';
 import 'package:meditation_alive/auth/sign_up.dart';
 import 'package:meditation_alive/main_screen.dart';
 import 'package:meditation_alive/provider/auto_play_provider.dart';
+import 'package:meditation_alive/provider/connectivity.dart';
 import 'package:meditation_alive/provider/dark_theme_provider.dart';
 import 'package:meditation_alive/provider/favs_provider.dart';
 import 'package:meditation_alive/provider/notification_preferences.dart';
@@ -130,6 +131,9 @@ class _MyAppState extends State<MyApp> {
               ),
               ChangeNotifierProvider(
                 create: (_) => FavsProvider(),
+              ),
+              ChangeNotifierProvider(
+                create: (_) => ConnectivityService(),
               ),
             ],
             child: Consumer<DarkThemeProvider>(
