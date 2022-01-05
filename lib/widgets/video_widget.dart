@@ -7,6 +7,7 @@ import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:meditation_alive/consts/consants.dart';
 import 'package:meditation_alive/models/firebase_file.dart';
 import 'package:meditation_alive/models/product.dart';
+import 'package:meditation_alive/provider/background_play_provider.dart';
 import 'package:meditation_alive/provider/favs_provider.dart';
 import 'package:meditation_alive/provider/products.dart';
 import 'package:meditation_alive/widgets/custom_toast%20copy.dart';
@@ -178,9 +179,10 @@ class _VideoWidgetState extends State<VideoWidget> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     // final isMuted = _betterPlayerController.value.volume == 0;
     final productsData = Provider.of<Products>(context, listen: false);
-  
+
     final favsProvider = Provider.of<FavsProvider>(context);
     final prodAttr = productsData.findById(widget.product!.productId!);
+    final backgroundPlayChanges = Provider.of<BackgroundPlayProvider>(context);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -251,14 +253,15 @@ class _VideoWidgetState extends State<VideoWidget> with WidgetsBindingObserver {
               // ),
               InkWell(
                   onTap: () async {
-                    var connectivityResult = await (Connectivity().checkConnectivity());
-if (connectivityResult == ConnectivityResult.mobile) {
+                    var connectivityResult =
+                        await (Connectivity().checkConnectivity());
+                    if (connectivityResult == ConnectivityResult.mobile) {
                       CustomToast.errorToast(message: 'Not Connected To Wifi');
-} else if (connectivityResult == ConnectivityResult.wifi) {
-    saveVideo(
+                    } else if (connectivityResult == ConnectivityResult.wifi) {
+                      saveVideo(
                           widget.product!.videoUrl!, widget.product!.title!);
-}
-                  
+                    }
+
                     // await FirebaseApi.downloadFile(
                     //   fileName: widget.product!.title!,
                     //   // path: widget.product!.path!
@@ -270,15 +273,16 @@ if (connectivityResult == ConnectivityResult.mobile) {
                         ? Text('${progress.toInt()}')
                         : Icon(Icons.download_for_offline_outlined),
                   )),
-              playInBackground
-                  ? InkWell(
-                      onTap: () => _betterPlayerController!
-                          .enablePictureInPicture(_betterPlayerKey),
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
-                        child: Icon(Icons.picture_in_picture_alt_rounded),
-                      ))
-                  : SizedBox(),
+              // backgroundPlayChanges.backgroundPlaySet
+              //     ?
+             playInBackground? InkWell(
+                  onTap: () => _betterPlayerController!
+                      .enablePictureInPicture(_betterPlayerKey),
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
+                    child: Icon(Icons.picture_in_picture_alt_rounded),
+                  ))
+              : Container(),
               InkWell(
                   onTap: () => Share.share(
                       'check out this app https://play.google.com/store/apps/details?id=com.whatsapp',

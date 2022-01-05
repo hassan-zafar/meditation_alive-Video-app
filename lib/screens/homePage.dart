@@ -207,6 +207,8 @@ class _HomePageState extends State<HomePage> {
                                         builder: (context) => VideoPage(
                                           product:
                                               productsProvider.products[index],
+                                          notPaid: subEndTime
+                                              .isBefore(DateTime.now()),
                                           allProducts:
                                               productsProvider.products,
                                         ),
@@ -727,17 +729,20 @@ class CategoryItemsViewer extends StatelessWidget {
           if (currentUser!.email == 'guest@guest.com') {
             CustomToast.errorToast(
                 message: 'LogIn with google or email to continue');
-          } else if (subEndTime.isBefore(DateTime.now())) {
-            Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => PaymentScreen(
-                product: product,
-                allProducts: allProducts,
-              ),
-            ));
-          } else {
+          }
+          //  else if (subEndTime.isBefore(DateTime.now())) {
+          //   Navigator.of(context).push(MaterialPageRoute(
+          //     builder: (context) => PaymentScreen(
+          //       product: product,
+          //       allProducts: allProducts,
+          //     ),
+          //   ));
+          // }
+          else {
             Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => VideoPage(
                 product: product,
+                notPaid: subEndTime.isBefore(DateTime.now()),
                 allProducts: allProducts,
               ),
             ));

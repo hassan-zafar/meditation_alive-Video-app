@@ -293,14 +293,15 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
                               ),
                             ),
                             ListTileSwitch(
-                              value: backgroundPlayChanges.backgroundPlaySet,
+                              value: playInBackground,
+                              // backgroundPlayChanges.backgroundPlaySet,
                               leading: Icon(Icons.picture_in_picture_rounded),
                               onChanged: (value) {
                                 print(value);
 
                                 setState(() {
-                                  backgroundPlayChanges.backgroundPlaySet =
-                                      value;
+                                  // backgroundPlayChanges.backgroundPlaySet
+                                  playInBackground = value;
                                 });
                               },
                               visualDensity: VisualDensity.comfortable,

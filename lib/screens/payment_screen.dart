@@ -91,6 +91,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => VideoPage(
                           product: widget.product,
+                          notPaid: subEndTime.isBefore(DateTime.now()),
                           allProducts: widget.allProducts,
                         ),
                       ));
@@ -186,10 +187,12 @@ class _PaymentScreenState extends State<PaymentScreen> {
         currentUser = AppUserModel.fromDocument(doc);
         ScaffoldMessenger.of(context)
             .showSnackBar(SnackBar(content: Text("paid successfully")));
+        DateTime subEndTime = DateTime.parse(currentUser!.subscriptionEndTIme!);
         Navigator.pop(context);
         Navigator.of(context).push(MaterialPageRoute(
           builder: (context) => VideoPage(
             product: product,
+            notPaid: subEndTime.isBefore(DateTime.now()),
             allProducts: allProducts,
           ),
         ));

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meditation_alive/consts/collections.dart';
 import 'package:meditation_alive/consts/colors.dart';
 import 'package:meditation_alive/models/favs_attr.dart';
 import 'package:meditation_alive/models/product.dart';
@@ -11,7 +12,7 @@ import 'package:provider/provider.dart';
 class WishlistFull extends StatefulWidget {
   final String productId;
   final List<Product> products;
-  const WishlistFull({required this.productId,required this.products});
+  const WishlistFull({required this.productId, required this.products});
   @override
   _WishlistFullState createState() => _WishlistFullState();
 }
@@ -34,10 +35,13 @@ class _WishlistFullState extends State<WishlistFull> {
             elevation: 3.0,
             child: InkWell(
               onTap: () {
+                DateTime subEndTime =
+                    DateTime.parse(currentUser!.subscriptionEndTIme!);
                 Product product = productsProvider.findById(widget.productId);
                 Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => VideoPage(
                     product: product,
+                    notPaid: subEndTime.isBefore(DateTime.now()),
                     allProducts: widget.products,
                   ),
                 ));
