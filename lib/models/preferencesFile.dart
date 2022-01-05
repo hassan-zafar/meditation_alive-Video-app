@@ -50,3 +50,20 @@ class AutoPlayPreferences {
         true;
   }
 }
+
+class BackgroundPlayPreferences {
+  static const BACKGROUND_PLAY = "BACKGROUND_PLAY";
+
+  setBackgroundPlay(bool value) async {
+    GetStorage prefs = GetStorage();
+    prefs.write(BACKGROUND_PLAY, value);
+  }
+
+  Future<bool> getBackgroundPlay() async {
+    GetStorage prefs = GetStorage();
+    return prefs.read(
+          BACKGROUND_PLAY,
+        ) ??
+        true;
+  }
+}

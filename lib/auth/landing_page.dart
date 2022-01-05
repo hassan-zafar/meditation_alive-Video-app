@@ -1,17 +1,12 @@
 // ignore_for_file: deprecated_member_use
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:meditation_alive/auth/sign_up.dart';
-import 'package:meditation_alive/consts/collections.dart';
 import 'package:meditation_alive/consts/colors.dart';
 import 'package:meditation_alive/database/database.dart';
-import 'package:meditation_alive/database/local_database.dart';
 import 'package:meditation_alive/main_screen.dart';
-import 'package:meditation_alive/models/users.dart';
 import 'package:meditation_alive/services/authentication_service.dart';
 import 'package:meditation_alive/services/global_method.dart';
 

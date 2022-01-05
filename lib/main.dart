@@ -9,7 +9,7 @@ import 'package:meditation_alive/auth/login.dart';
 import 'package:meditation_alive/auth/sign_up.dart';
 import 'package:meditation_alive/main_screen.dart';
 import 'package:meditation_alive/provider/auto_play_provider.dart';
-import 'package:meditation_alive/provider/connectivity.dart';
+import 'package:meditation_alive/provider/background_play_provider.dart';
 import 'package:meditation_alive/provider/dark_theme_provider.dart';
 import 'package:meditation_alive/provider/favs_provider.dart';
 import 'package:meditation_alive/provider/notification_preferences.dart';
@@ -67,6 +67,8 @@ class _MyAppState extends State<MyApp> {
   DarkThemeProvider themeChangeProvider = DarkThemeProvider();
   AutoPlayProvider autoPlayChangeProvider = AutoPlayProvider();
   NotificationSetProvider notificationSetProvider = NotificationSetProvider();
+  BackgroundPlayProvider backgroundPlayProvider = BackgroundPlayProvider();
+
   void getCurrentAppTheme() async {
     themeChangeProvider.darkTheme =
         await themeChangeProvider.darkThemePreferences.getTheme();
@@ -126,14 +128,18 @@ class _MyAppState extends State<MyApp> {
               ChangeNotifierProvider(create: (_) {
                 return notificationSetProvider;
               }),
+              ChangeNotifierProvider(create: (_) {
+                return backgroundPlayProvider;
+              }),
+              // StreamProvider(
+              //     create: (context) =>
+              //         ConnectivityService().connectionController.stream,
+              //     initialData: ConnectivityStatus.Online),
               ChangeNotifierProvider(
                 create: (_) => Products(),
               ),
               ChangeNotifierProvider(
                 create: (_) => FavsProvider(),
-              ),
-              ChangeNotifierProvider(
-                create: (_) => ConnectivityService(),
               ),
             ],
             child: Consumer<DarkThemeProvider>(

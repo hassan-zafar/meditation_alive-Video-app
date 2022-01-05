@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:connectivity/connectivity.dart';
 import 'package:dio/dio.dart';
 import 'package:better_player/better_player.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +9,7 @@ import 'package:meditation_alive/models/firebase_file.dart';
 import 'package:meditation_alive/models/product.dart';
 import 'package:meditation_alive/provider/favs_provider.dart';
 import 'package:meditation_alive/provider/products.dart';
-import 'package:meditation_alive/services/firebase_api.dart';
+import 'package:meditation_alive/widgets/custom_toast%20copy.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
@@ -177,7 +178,7 @@ class _VideoWidgetState extends State<VideoWidget> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     // final isMuted = _betterPlayerController.value.volume == 0;
     final productsData = Provider.of<Products>(context, listen: false);
-
+  
     final favsProvider = Provider.of<FavsProvider>(context);
     final prodAttr = productsData.findById(widget.product!.productId!);
 
@@ -250,9 +251,14 @@ class _VideoWidgetState extends State<VideoWidget> with WidgetsBindingObserver {
               // ),
               InkWell(
                   onTap: () async {
-                    
-                    saveVideo(
-                        widget.product!.videoUrl!, widget.product!.title!);
+                    var connectivityResult = await (Connectivity().checkConnectivity());
+if (connectivityResult == ConnectivityResult.mobile) {
+                      CustomToast.errorToast(message: 'Not Connected To Wifi');
+} else if (connectivityResult == ConnectivityResult.wifi) {
+    saveVideo(
+                          widget.product!.videoUrl!, widget.product!.title!);
+}
+                  
                     // await FirebaseApi.downloadFile(
                     //   fileName: widget.product!.title!,
                     //   // path: widget.product!.path!

@@ -11,6 +11,7 @@ import 'package:meditation_alive/consts/my_icons.dart';
 import 'package:meditation_alive/database/database.dart';
 import 'package:meditation_alive/models/users.dart';
 import 'package:meditation_alive/provider/auto_play_provider.dart';
+import 'package:meditation_alive/provider/background_play_provider.dart';
 import 'package:meditation_alive/provider/dark_theme_provider.dart';
 import 'package:meditation_alive/provider/notification_preferences.dart';
 import 'package:meditation_alive/screens/adminScreens/commentsNChatAdmin.dart';
@@ -87,6 +88,8 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
     final themeChange = Provider.of<DarkThemeProvider>(context);
     final autoPlayChange = Provider.of<AutoPlayProvider>(context);
     final notificationChange = Provider.of<NotificationSetProvider>(context);
+    final backgroundPlayChanges = Provider.of<BackgroundPlayProvider>(context);
+
     return SafeArea(
       child: Scaffold(
         body: isLoading
@@ -275,13 +278,14 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
                               ),
                             ),
                             ListTileSwitch(
-                              value: playInBackground,
+                              value: backgroundPlayChanges.backgroundPlaySet,
                               leading: Icon(Icons.picture_in_picture_rounded),
                               onChanged: (value) {
                                 print(value);
 
                                 setState(() {
-                                  playInBackground = value;
+                                  backgroundPlayChanges.backgroundPlaySet =
+                                      value;
                                 });
                               },
                               visualDensity: VisualDensity.comfortable,
