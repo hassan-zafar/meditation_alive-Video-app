@@ -275,6 +275,21 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
                               ),
                             ),
                             ListTileSwitch(
+                              value: playInBackground,
+                              leading: Icon(Icons.picture_in_picture_rounded),
+                              onChanged: (value) {
+                                print(value);
+
+                                setState(() {
+                                  playInBackground = value;
+                                });
+                              },
+                              visualDensity: VisualDensity.comfortable,
+                              switchType: SwitchType.cupertino,
+                              switchActiveColor: Colors.indigo,
+                              title: Text('Play in Background'),
+                            ),
+                            ListTileSwitch(
                               value: autoPlayChange.autoPlay,
                               leading: Icon(Icons.refresh),
                               onChanged: (value) {
@@ -486,12 +501,14 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
   Widget userTitle({required String title}) {
     return Container(
       width: double.maxFinite,
-      color: Colors.teal,
+      color: Theme.of(context).primaryColor,
       padding: const EdgeInsets.all(8.0),
       child: Text(
         title,
         style: TextStyle(
-            fontWeight: FontWeight.bold, fontSize: 23, color: Colors.black),
+          fontWeight: FontWeight.bold,
+          fontSize: 23,
+        ),
       ),
     );
   }

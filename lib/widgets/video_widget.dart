@@ -263,13 +263,15 @@ class _VideoWidgetState extends State<VideoWidget> with WidgetsBindingObserver {
                         ? Text('${progress.toInt()}')
                         : Icon(Icons.download_for_offline_outlined),
                   )),
-              InkWell(
-                  onTap: () => _betterPlayerController!
-                      .enablePictureInPicture(_betterPlayerKey),
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
-                    child: Icon(Icons.picture_in_picture_alt_rounded),
-                  )),
+              playInBackground
+                  ? InkWell(
+                      onTap: () => _betterPlayerController!
+                          .enablePictureInPicture(_betterPlayerKey),
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
+                        child: Icon(Icons.picture_in_picture_alt_rounded),
+                      ))
+                  : SizedBox(),
               InkWell(
                   onTap: () => Share.share(
                       'check out this app https://play.google.com/store/apps/details?id=com.whatsapp',

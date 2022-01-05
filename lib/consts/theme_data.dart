@@ -4,7 +4,8 @@ class Styles {
   static ThemeData themeData(bool isDarkTheme, BuildContext context) {
     return ThemeData(
       scaffoldBackgroundColor: isDarkTheme ? Color(0xFF1E2429) : Colors.white,
-      primaryColor: isDarkTheme ? Colors.black : Color(0xffC28A6C),
+      primaryColor: isDarkTheme ? Colors.black
+       : Color(0xffC28A6C),
       accentColor: Color(0xffC28A6C),
       backgroundColor: isDarkTheme ? Colors.grey.shade700 : Colors.white,
       indicatorColor: isDarkTheme ? Color(0xff0E1D36) : Color(0xffCBDCF8),
