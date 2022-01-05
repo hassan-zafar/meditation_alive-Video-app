@@ -49,6 +49,7 @@ dependencies:
   flutter_stripe:
   bot_toast:
 
+  connectivity:
   dio:
   permission_handler:
   image_gallery_saver:

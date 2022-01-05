@@ -31,3 +31,4 @@ TextStyle titleTextStyle(
 }
 
 bool playInBackground = true;
+bool downloadOnlyOverWifi = false;

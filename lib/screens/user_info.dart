@@ -290,6 +290,21 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
                               title: Text('Play in Background'),
                             ),
                             ListTileSwitch(
+                              value: downloadOnlyOverWifi,
+                              leading: Icon(Icons.wifi),
+                              onChanged: (value) {
+                                print(value);
+
+                                setState(() {
+                                  downloadOnlyOverWifi = value;
+                                });
+                              },
+                              visualDensity: VisualDensity.comfortable,
+                              switchType: SwitchType.cupertino,
+                              switchActiveColor: Colors.indigo,
+                              title: Text('Download only over wifi'),
+                            ),
+                            ListTileSwitch(
                               value: autoPlayChange.autoPlay,
                               leading: Icon(Icons.refresh),
                               onChanged: (value) {
