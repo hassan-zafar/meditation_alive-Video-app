@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:better_player/better_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_file_extention/flutter_file_utils.dart';
 import 'package:meditation_alive/services/global_method.dart';
@@ -37,31 +38,58 @@ class _DownloadScreenState extends State<DownloadScreen> {
     //   setState(() {}); //update the UI
     // }
 
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("Downloads"),
-        ),
-        body: FutureBuilder(
-            future: _files(),
-            builder: (BuildContext context, AsyncSnapshot snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-                print(snapshot.data);
-                return ListView.builder(
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Downloads"),
+      ),
+      body: FutureBuilder(
+          future: _files(),
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              print(snapshot.data);
+              return Container(
+                height: double.maxFinite,
+                child: ListView.builder(
                   itemCount: snapshot.data?.length ?? 0,
                   itemBuilder: (context, index) {
-                    return ListTile(
-                      title: Text(snapshot.data[index].path.split('/').last),
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        AspectRatio(
+                            aspectRatio: 16 / 9,
+                            child: BetterPlayerListVideoPlayer(
+                              BetterPlayerDataSource(
+                                  BetterPlayerDataSourceType.file,
+                                  snapshot.data[index].path),
+                              // key: Key(videoListData.hashCode.toString()),
+                              playFraction: 0.8,
+                            )),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            snapshot.data[index].path.split('/').last,
+                            style: TextStyle(fontSize: 20),
+                          ),
+                        ),
+                      ],
                     );
+                    // return ListTile(
+                    //     leading: BetterPlayer.file(
+                    //   snapshot.data[index].path,
+                    //   betterPlayerConfiguration: BetterPlayerConfiguration(
+                    //     aspectRatio: 16 / 9,
+                    //   ),
+                    //   // title: Text(snapshot.data[index].path.split('/').last),
+                    // ));
                   },
-                );
-              } else
-              // if (snapshot.connectionState == ConnectionState.waiting)
-              {
-                return Center(child: Text("Loading"));
-              }
-            }),
-      ),
+                ),
+              );
+            } else
+            // if (snapshot.connectionState == ConnectionState.waiting)
+            {
+              return Center(child: Text("Loading"));
+            }
+          }),
     );
   }
 

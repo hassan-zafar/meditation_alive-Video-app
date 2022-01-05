@@ -246,7 +246,7 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
                                   title: Text('Downloads'),
                                   trailing: Icon(Icons.chevron_right_rounded),
                                   leading:
-                                      Icon(Icons.download_for_offline_rounded),
+                                      Icon(Icons.download_for_offline_outlined),
                                 ),
                               ),
                             ),
