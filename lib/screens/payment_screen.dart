@@ -227,7 +227,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
           body: body,
           headers: {
             'Authorization':
-                'Bearer sk_test_51JvN23LbLnT1uHuWUJahSXKDn2LO7cZG4cciGVCw1tUrvEQT6W2kNyOdEhFyCEiwDIwm3mnFMeTbT6hqVWkxcp8V00jAv01FBf',
+            'Bearer sk_test_51JvN23LbLnT1uHuWUJahSXKDn2LO7cZG4cciGVCw1tUrvEQT6W2kNyOdEhFyCEiwDIwm3mnFMeTbT6hqVWkxcp8V00jAv01FBf',
             'Content-Type': 'application/x-www-form-urlencoded'
           });
       print('Create Intent reponse ===> ${response.body.toString()}');

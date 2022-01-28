@@ -41,7 +41,6 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Stripe.publishableKey =
       'pk_test_51JvN23LbLnT1uHuWgwACQH9Gm250Q9FG4q8dZG5EmNR5Brlhysq3DEAiwZLDICwGiotd5Ux1wmJ12zGv4l0xVwtz00tY9V2jDN';
-
   await Stripe.instance.applySettings();
   await Firebase.initializeApp();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
