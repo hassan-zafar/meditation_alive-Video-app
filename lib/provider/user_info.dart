@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:list_tile_switch/list_tile_switch.dart';
-import 'package:meditation_alive/auth/landing_page.dart';
 import 'package:meditation_alive/consts/colors.dart';
 import 'package:meditation_alive/consts/my_icons.dart';
 import 'package:meditation_alive/services/authentication_service.dart';
@@ -11,6 +10,7 @@ import 'package:meditation_alive/wishlist/wishlist.dart';
 import 'package:provider/provider.dart';
 import 'package:share/share.dart';
 
+import '../screens/auth/landing_page.dart';
 import 'dark_theme_provider.dart';
 
 class UserInfo extends StatefulWidget {

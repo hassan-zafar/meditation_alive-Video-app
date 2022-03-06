@@ -1,11 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:meditation_alive/auth/landing_page.dart';
 import 'package:meditation_alive/consts/collections.dart';
 import 'package:meditation_alive/database/database.dart';
+import 'package:meditation_alive/screens/auth/landing_page.dart';
 import 'package:meditation_alive/screens/homePage.dart';
-
-import '../main_screen.dart';
 
 class UserState extends StatelessWidget {
   @override

@@ -1,15 +1,13 @@
 // ignore_for_file: deprecated_member_use
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:meditation_alive/auth/sign_up.dart';
 import 'package:meditation_alive/consts/colors.dart';
 import 'package:meditation_alive/database/database.dart';
 import 'package:meditation_alive/main_screen.dart';
+import 'package:meditation_alive/screens/auth/sign_up.dart';
 import 'package:meditation_alive/services/authentication_service.dart';
 import 'package:meditation_alive/services/global_method.dart';
-
 import 'login.dart';
 
 class LandingPage extends StatefulWidget {

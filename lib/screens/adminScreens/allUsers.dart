@@ -1,12 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:glassmorphism_ui/glassmorphism_ui.dart';
-import 'package:meditation_alive/auth/landing_page.dart';
 import 'package:meditation_alive/consts/collections.dart';
 import 'package:meditation_alive/models/users.dart';
 import 'package:meditation_alive/services/authentication_service.dart';
 import 'package:meditation_alive/widgets/custom_toast%20copy.dart';
 import 'package:meditation_alive/widgets/loadingWidget.dart';
+
+import '../auth/landing_page.dart';
 
 class UserNSearch extends StatefulWidget {
   // final UserModel currentUser;
