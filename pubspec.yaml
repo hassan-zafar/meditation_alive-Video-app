@@ -61,6 +61,9 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  mockito:
+  build_runner:
+  build_test:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

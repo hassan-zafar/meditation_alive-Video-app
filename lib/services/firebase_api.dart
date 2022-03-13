@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:meditation_alive/models/firebase_file.dart';
 import 'package:path_provider/path_provider.dart';
