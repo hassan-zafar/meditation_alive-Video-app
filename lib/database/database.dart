@@ -72,17 +72,9 @@ class DatabaseMethods {
   Future<AppUserModel> fetchUserInfoFromFirebase({
     required String uid,
   }) async {
-    print(uid);
     final DocumentSnapshot _user = await userRef.doc(uid).get();
-    print(_user);
     currentUser = AppUserModel.fromDocument(_user);
     createToken(uid);
-    print(currentUser);
-    // UserLocalData().setIsAdmin(currentUser!.isAdmin);
-    // Map userData = json.decode(currentUser!.toJson());
-    // UserLocalData().setUserModel(json.encode(userData));
-    // var user = UserLocalData().getUserData();
-    // print(user);
     isAdmin = currentUser!.isAdmin;
     print(currentUser!.email);
     return currentUser!;
@@ -93,7 +85,6 @@ class DatabaseMethods {
       userRef.doc(uid).update({
         "androidNotificationToken": token,
       });
-      // UserLocalData().setToken(token!);
     });
   }
 
