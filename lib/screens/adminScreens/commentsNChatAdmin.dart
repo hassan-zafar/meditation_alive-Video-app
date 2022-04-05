@@ -7,7 +7,6 @@ import 'package:meditation_alive/consts/consants.dart';
 import 'package:meditation_alive/models/users.dart';
 import 'package:meditation_alive/services/notificationHandler.dart';
 import 'package:meditation_alive/widgets/loadingWidget.dart';
-// import 'package:timeago/timeago.dart' as timeago;
 import 'package:uuid/uuid.dart';
 
 class CommentsNChatAdmin extends StatefulWidget {
