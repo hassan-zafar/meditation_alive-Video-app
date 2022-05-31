@@ -14,11 +14,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "186591266492-t4m73r8jo96apvgoe6rni3k7f63vo0f6.apps.googleusercontent.com",
+          "client_id": "186591266492-hlt74k79rjb6plufj68i7avuoujrg8ab.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.hassan.meditation_alive",
-            "certificate_hash": "387accc7b18bc054a3d2c235d89180c8014d7a46"
+            "certificate_hash": "d3984de38e8552e8a961dbb0688d5693105fc273"
           }
         },
         {

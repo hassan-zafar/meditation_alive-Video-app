@@ -46,7 +46,6 @@ dependencies:
   path_provider:
   file_picker:
   video_player:
-  flutter_stripe:
   bot_toast:
 
   connectivity:

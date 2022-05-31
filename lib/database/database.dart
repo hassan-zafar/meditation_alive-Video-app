@@ -1,17 +1,13 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:meditation_alive/consts/collections.dart';
 import 'package:meditation_alive/models/users.dart';
 import 'package:meditation_alive/widgets/custom_toast%20copy.dart';
 import 'package:meditation_alive/widgets/custom_toast.dart';
 import 'package:path_provider/path_provider.dart';
-
-import 'local_database.dart';
 
 class DatabaseMethods {
   // Future<Stream<QuerySnapshot>> getproductData() async {

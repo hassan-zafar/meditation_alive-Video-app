@@ -296,7 +296,7 @@ class _LandingPageState extends State<LandingPage>
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              OutlineButton(
+              OutlinedButton(
                 onPressed: () async {
                   final bool? _login =
                       await AuthenticationService().signinWithGoogle();
@@ -308,22 +308,22 @@ class _LandingPageState extends State<LandingPage>
                     Navigator.of(context).pop();
                   }
                 },
-                shape: StadiumBorder(),
-                highlightedBorderColor: Colors.red.shade200,
-                borderSide: BorderSide(width: 2, color: Colors.red),
+                // shape: StadiumBorder(),
+                // highlightedBorderColor: Colors.red.shade200,
+                // borderSide: BorderSide(width: 2, color: Colors.red),
                 child: Text('Google +'),
               ),
               _isLoading
                   ? CircularProgressIndicator()
-                  : OutlineButton(
+                  : OutlinedButton(
                       onPressed: () {
                         _loginAnonymosly();
                         // Navigator.pushNamed(context, BottomBarScreen.routeName);
                       },
-                      shape: StadiumBorder(),
-                      highlightedBorderColor: Colors.deepPurple.shade200,
-                      borderSide:
-                          BorderSide(width: 2, color: Colors.deepPurple),
+                      // shape: StadiumBorder(),
+                      // highlightedBorderColor: Colors.deepPurple.shade200,
+                      // borderSide:
+                      //     BorderSide(width: 2, color: Colors.deepPurple),
                       child: Text('Sign in as a guest'),
                     ),
             ],

@@ -142,7 +142,7 @@ class _VideoWidgetState extends State<VideoWidget> with WidgetsBindingObserver {
 
   @override
   void dispose() {
-    WidgetsBinding.instance!.removeObserver(this);
+    WidgetsBinding.instance.removeObserver(this);
     _betterPlayerController!.dispose();
 
     super.dispose();
