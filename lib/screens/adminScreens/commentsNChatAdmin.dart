@@ -35,16 +35,6 @@ class CommentsNChatAdmin extends StatefulWidget {
 TextEditingController _commentNMessagesController = TextEditingController();
 
 class CommentsNChatAdminState extends State<CommentsNChatAdmin> {
-  // final String? postId;
-  // final String? postOwnerId;
-  // final bool? isComment;
-//  final String userName;
-  // CommentsNChatState({
-  // required this.postId,
-  // required this.postOwnerId,
-  // required this.isComment,
-
-  // });
   List<AppUserModel> allAdmins = [];
   String? chatHeadId;
   List<CommentsNMessages> commentsListGlobal = [];

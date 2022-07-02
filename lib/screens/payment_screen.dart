@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:http/http.dart' as http;
 import 'package:meditation_alive/consts/collections.dart';
 import 'package:meditation_alive/consts/consants.dart';
@@ -81,11 +82,12 @@ class _PaymentScreenState extends State<PaymentScreen> {
               Center(
                 child: InkWell(
                   onTap: () async {
-                    // DateTime subEndTime =
-                    //     DateTime.parse(currentUser!.subscriptionEndTIme!);
-                    // if (subEndTime.isBefore(DateTime.now())) {
-                    //   await makePayment(widget.product!, widget.allProducts!);
-                    // } else {
+                    DateTime subEndTime =
+                        DateTime.parse(currentUser!.subscriptionEndTIme!);
+                    if (subEndTime.isBefore(DateTime.now())) {
+
+                      await makePayment(widget.product!, widget.allProducts!);
+                    } else {
 
                       Navigator.pop(context);
                       Navigator.of(context).push(MaterialPageRoute(
@@ -96,7 +98,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                           allProducts: widget.allProducts,
                         ),
                       ));
-                    // }
+                    }
                   },
                   child: Container(
                     // height: 50,
@@ -145,18 +147,18 @@ class _PaymentScreenState extends State<PaymentScreen> {
       //json.decode(response.body);
       print(paymentIntentData!['amount']);
       // print('Response body==>${response.body.toString()}');
-      // await Stripe.instance
-      //     .initPaymentSheet(
-      //         paymentSheetParameters: SetupPaymentSheetParameters(
-      //             paymentIntentClientSecret:
-      //                 paymentIntentData!['client_secret'],
-      //             applePay: true,
-      //             googlePay: true,
-      //             testEnv: true,
-      //             style: ThemeMode.dark,
-      //             merchantCountryCode: 'US',
-      //             merchantDisplayName: 'ANNIE'))
-      //     .then((value) {});
+      await Stripe.instance
+          .initPaymentSheet(
+              paymentSheetParameters: SetupPaymentSheetParameters(
+                  paymentIntentClientSecret:
+                      paymentIntentData!['client_secret'],
+                  applePay: true,
+                  googlePay: true,
+                  testEnv: true,
+                  style: ThemeMode.dark,
+                  merchantCountryCode: 'US',
+                  merchantDisplayName: 'ANNIE'))
+          .then((value) {});
 
       ///now finally display payment sheeet
       displayPaymentSheet(product, allProducts);
@@ -166,52 +168,52 @@ class _PaymentScreenState extends State<PaymentScreen> {
   }
 
   displayPaymentSheet(Product product, List<Product> allProducts) async {
-    // try {
-    //   await Stripe.instance
-    //       .presentPaymentSheet(
-    //           parameters: PresentPaymentSheetParameters(
-    //     clientSecret: paymentIntentData!['client_secret'],
-    //     confirmPayment: true,
-    //   ))
-    //       .then((newValue) async {
-    //     print('payment intent' + paymentIntentData!['id'].toString());
-    //     print(
-    //         'payment intent' + paymentIntentData!['client_secret'].toString());
-    //     print('payment intent' + paymentIntentData!['amount'].toString());
-    //     print('payment intent' + paymentIntentData.toString());
-    //     //orderPlaceApi(paymentIntentData!['id'].toString());
-    //     userRef.doc(currentUser!.id).update({
-    //       'subscriptionEndTIme':
-    //           DateTime.now().add(Duration(days: 30)).toIso8601String()
-    //     });
-    //     var doc = await userRef.doc(currentUser!.id).get();
-    //     currentUser = AppUserModel.fromDocument(doc);
-    //     ScaffoldMessenger.of(context)
-    //         .showSnackBar(SnackBar(content: Text("paid successfully")));
-    //     DateTime subEndTime = DateTime.parse(currentUser!.subscriptionEndTIme!);
-    //     Navigator.pop(context);
-    //     Navigator.of(context).push(MaterialPageRoute(
-    //       builder: (context) => VideoPage(
-    //         product: product,
-    //         notPaid: subEndTime.isBefore(DateTime.now()),
-    //         allProducts: allProducts,
-    //       ),
-    //     ));
+    try {
+      await Stripe.instance
+          .presentPaymentSheet(
+              parameters: PresentPaymentSheetParameters(
+        clientSecret: paymentIntentData!['client_secret'],
+        confirmPayment: true,
+      ))
+          .then((newValue) async {
+        print('payment intent' + paymentIntentData!['id'].toString());
+        print(
+            'payment intent' + paymentIntentData!['client_secret'].toString());
+        print('payment intent' + paymentIntentData!['amount'].toString());
+        print('payment intent' + paymentIntentData.toString());
+        //orderPlaceApi(paymentIntentData!['id'].toString());
+        userRef.doc(currentUser!.id).update({
+          'subscriptionEndTIme':
+              DateTime.now().add(Duration(days: 30)).toIso8601String()
+        });
+        var doc = await userRef.doc(currentUser!.id).get();
+        currentUser = AppUserModel.fromDocument(doc);
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text("paid successfully")));
+        DateTime subEndTime = DateTime.parse(currentUser!.subscriptionEndTIme!);
+        Navigator.pop(context);
+        Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => VideoPage(
+            product: product,
+            notPaid: subEndTime.isBefore(DateTime.now()),
+            allProducts: allProducts,
+          ),
+        ));
 
-    //     paymentIntentData = null;
-    //   }).onError((error, stackTrace) {
-    //     print('Exception/DISPLAYPAYMENTSHEET==> $error $stackTrace');
-    //   });
-    // } on StripeException catch (e) {
-    //   print('Exception/DISPLAYPAYMENTSHEET==> $e');
-    //   showDialog(
-    //       context: context,
-    //       builder: (_) => AlertDialog(
-    //             content: Text("Cancelled "),
-    //           ));
-    // } catch (e) {
-    //   print('$e');
-    // }
+        paymentIntentData = null;
+      }).onError((error, stackTrace) {
+        print('Exception/DISPLAYPAYMENTSHEET==> $error $stackTrace');
+      });
+    } on StripeException catch (e) {
+      print('Exception/DISPLAYPAYMENTSHEET==> $e');
+      showDialog(
+          context: context,
+          builder: (_) => AlertDialog(
+                content: Text("Cancelled "),
+              ));
+    } catch (e) {
+      print('$e');
+    }
   }
 
   //  Future<Map<String, dynamic>>
@@ -242,4 +244,5 @@ class _PaymentScreenState extends State<PaymentScreen> {
     final a = (int.parse(amount)) * 100;
     return a.toString();
   }
+
 }
