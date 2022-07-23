@@ -10,15 +10,15 @@ import 'wishlist_full.dart';
 
 class WishlistScreen extends StatelessWidget {
   static const routeName = '/WishlistScreen';
-  List<Product>? products;
+  List<Product>? products =[];
   @override
   Widget build(BuildContext context) {
     GlobalMethods globalMethods = GlobalMethods();
     final favsProvider = Provider.of<FavsProvider>(context);
     final Products productsProvider = Provider.of<Products>(context);
-    // favsProvider.getFavsItems.forEach((key, value) {
-    //   products!.add(productsProvider.findById(value.id!));
-    // });
+    favsProvider.getFavsItems.forEach((key, value) {
+      products!.add(productsProvider.findById(value.id!));
+    });
     return favsProvider.getFavsItems.isEmpty
         ? Scaffold(body: WishlistEmpty())
         : Scaffold(

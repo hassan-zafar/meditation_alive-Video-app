@@ -27,7 +27,6 @@ class VideoWidget extends StatefulWidget {
 }
 
 class _VideoWidgetState extends State<VideoWidget> with WidgetsBindingObserver {
-  final asset = 'assets/video.mp4';
   double progress = 0;
   final Dio dio = Dio();
   BetterPlayerController? _betterPlayerController;
@@ -60,17 +59,18 @@ class _VideoWidgetState extends State<VideoWidget> with WidgetsBindingObserver {
           directory = await getExternalStorageDirectory();
           String newPath = "";
           print(directory);
-          List<String> paths = directory!.path.split("/");
-          for (int x = 1; x < paths.length; x++) {
-            String folder = paths[x];
-            if (folder != "Android") {
-              newPath += "/" + folder;
-            } else {
-              break;
-            }
-          }
-          newPath = newPath + "/Meditation Alive";
-          directory = Directory(newPath);
+          // List<String> paths = directory!.path.split("/");
+          // for (int x = 1; x < paths.length; x++) {
+          //   String folder = paths[x];
+          //   print(folder);
+          //   if (folder != "Android") {
+          //     newPath += "/" + folder;
+          //   } else {
+          //     break;
+          //   }
+          // }
+          // newPath = newPath + "/Meditation Alive";
+          // directory = Directory(newPath);
         } else {
           return false;
         }
@@ -84,7 +84,7 @@ class _VideoWidgetState extends State<VideoWidget> with WidgetsBindingObserver {
         }
       }
 
-      if (!await directory.exists()) {
+      if (!await directory!.exists()) {
         await directory.create(recursive: true);
       }
       if (await directory.exists()) {
@@ -275,14 +275,15 @@ class _VideoWidgetState extends State<VideoWidget> with WidgetsBindingObserver {
                   )),
               // backgroundPlayChanges.backgroundPlaySet
               //     ?
-             playInBackground? InkWell(
-                  onTap: () => _betterPlayerController!
-                      .enablePictureInPicture(_betterPlayerKey),
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
-                    child: Icon(Icons.picture_in_picture_alt_rounded),
-                  ))
-              : Container(),
+              playInBackground
+                  ? InkWell(
+                      onTap: () => _betterPlayerController!
+                          .enablePictureInPicture(_betterPlayerKey),
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
+                        child: Icon(Icons.picture_in_picture_alt_rounded),
+                      ))
+                  : Container(),
               InkWell(
                   onTap: () => Share.share(
                       'check out this app https://play.google.com/store/apps/details?id=com.whatsapp',

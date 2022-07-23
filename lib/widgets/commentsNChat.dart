@@ -8,7 +8,6 @@ import 'package:meditation_alive/services/notificationHandler.dart';
 import 'package:meditation_alive/widgets/custom_toast%20copy.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:uuid/uuid.dart';
-import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 import 'loadingWidget.dart';
 
 class CommentsNChat extends StatefulWidget {
@@ -399,134 +398,131 @@ class _CommentsNMessagesState extends State<CommentsNMessages> {
   buildCommentBubble() {
     commentLikes = widget.likes;
     _isLiked = widget.likesMap![currentUser!.id] == true;
-    return GlassContainer(
-      opacity: 0.6,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            Row(
-              children: [
-                // CircleAvatar(
-                //   backgroundImage: CachedNetworkImageProvider(widget.avatarUrl!),
-                // ),
-                SizedBox(
-                  width: 8,
-                ),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Row(
-                        children: [
-                          Text("${widget.name} : ",
-                              style: TextStyle(
-                                  fontSize: 14.0,
-                                  color: Theme.of(context).dividerColor)),
-                          Flexible(
-                            child: Text(
-                              "${widget.comment}",
-                              style: TextStyle(
-                                  fontSize: 14.0,
-                                  color: Theme.of(context).dividerColor),
-                            ),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: <Widget>[
+          Row(
+            children: [
+              // CircleAvatar(
+              //   backgroundImage: CachedNetworkImageProvider(widget.avatarUrl!),
+              // ),
+              SizedBox(
+                width: 8,
+              ),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Row(
+                      children: [
+                        Text("${widget.name} : ",
+                            style: TextStyle(
+                                fontSize: 14.0,
+                                color: Theme.of(context).dividerColor)),
+                        Flexible(
+                          child: Text(
+                            "${widget.comment}",
+                            style: TextStyle(
+                                fontSize: 14.0,
+                                color: Theme.of(context).dividerColor),
                           ),
-                        ],
-                      ),
-                      Text(
-                        timeago.format(widget.timestamp!.toDate()),
-                        style: TextStyle(
-                            color: Theme.of(context).dividerColor,
-                            fontSize: 12),
-                      ),
-                      SizedBox(
-                        height: 8,
-                      ),
-                      Row(
-                        children: [
-                          GestureDetector(
-                              onTap: () async {
-                                if (_isLiked) {
-                                  setState(() {
-                                    commentLikes -= 1;
-                                    _isLiked = false;
-                                  });
-                                  await commentsRef
-                                      .doc(widget.postId)
-                                      .collection("comments")
-                                      .doc(widget.commentId)
-                                      .update({
-                                    "likes": commentLikes,
-                                    "likesMap": {currentUser!.id: false}
-                                  });
+                        ),
+                      ],
+                    ),
+                    Text(
+                      timeago.format(widget.timestamp!.toDate()),
+                      style: TextStyle(
+                          color: Theme.of(context).dividerColor,
+                          fontSize: 12),
+                    ),
+                    SizedBox(
+                      height: 8,
+                    ),
+                    Row(
+                      children: [
+                        GestureDetector(
+                            onTap: () async {
+                              if (_isLiked) {
+                                setState(() {
+                                  commentLikes -= 1;
+                                  _isLiked = false;
+                                });
+                                await commentsRef
+                                    .doc(widget.postId)
+                                    .collection("comments")
+                                    .doc(widget.commentId)
+                                    .update({
+                                  "likes": commentLikes,
+                                  "likesMap": {currentUser!.id: false}
+                                });
 
-                                     CustomToast.errorToast(
-          message:  "Like Removed");
-                                } else {
-                                  setState(() {
-                                    commentLikes += 1;
-                                    _isLiked = true;
-                                  });
-                                  await commentsRef
-                                      .doc(widget.postId)
-                                      .collection("comments")
-                                      .doc(widget.commentId)
-                                      .update({
-                                    "likes": commentLikes,
-                                    "likesMap": {currentUser!.id: true}
-                                  });
-                                  // activityFeedRef
-                                  //     .doc(widget.postId)
-                                  //     .collection('feedItems')
-                                  //     .add({
-                                  //   "type": "comment",
-                                  //   "commentData":
-                                  //       _commentNMessagesController.text,
-                                  //   "name": currentUser.name,
-                                  //   "userId": currentUser.id,
-                                  //   "userProfileImg": currentUser.photoUrl,
-                                  //   "postId": widget.postId,
-                                  //   "mediaUrl": widget.avatarUrl,
-                                  //   "timestamp": timestamp,
-                                  // });
-                                  sendAndRetrieveMessage(
-                                      token: widget.androidNotificationToken!,
-                                      message: _commentNMessagesController.text,
-                                      title: "Comment Liked",
-                                      context: context);
+                                   CustomToast.errorToast(
+        message:  "Like Removed");
+                              } else {
+                                setState(() {
+                                  commentLikes += 1;
+                                  _isLiked = true;
+                                });
+                                await commentsRef
+                                    .doc(widget.postId)
+                                    .collection("comments")
+                                    .doc(widget.commentId)
+                                    .update({
+                                  "likes": commentLikes,
+                                  "likesMap": {currentUser!.id: true}
+                                });
+                                // activityFeedRef
+                                //     .doc(widget.postId)
+                                //     .collection('feedItems')
+                                //     .add({
+                                //   "type": "comment",
+                                //   "commentData":
+                                //       _commentNMessagesController.text,
+                                //   "name": currentUser.name,
+                                //   "userId": currentUser.id,
+                                //   "userProfileImg": currentUser.photoUrl,
+                                //   "postId": widget.postId,
+                                //   "mediaUrl": widget.avatarUrl,
+                                //   "timestamp": timestamp,
+                                // });
+                                sendAndRetrieveMessage(
+                                    token: widget.androidNotificationToken!,
+                                    message: _commentNMessagesController.text,
+                                    title: "Comment Liked",
+                                    context: context);
 
-                                      CustomToast.errorToast(
-          message:  "Comment Liked");
-                                }
-                              },
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 8, right: 8),
-                                child: Text("$commentLikes  Like"),
-                              )),
-                          GestureDetector(
-                              onTap: () {
-                                _commentNMessagesController.text =
-                                    "@${widget.name} ";
-                              },
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 8, right: 8),
-                                child: Text("Reply"),
-                              ))
-                        ],
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ],
-        ),
+                                    CustomToast.errorToast(
+        message:  "Comment Liked");
+                              }
+                            },
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 8, right: 8),
+                              child: Text("$commentLikes  Like"),
+                            )),
+                        GestureDetector(
+                            onTap: () {
+                              _commentNMessagesController.text =
+                                  "@${widget.name} ";
+                            },
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 8, right: 8),
+                              child: Text("Reply"),
+                            ))
+                      ],
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+        ],
       ),
     );
   }

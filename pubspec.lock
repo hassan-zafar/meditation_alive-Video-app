@@ -541,13 +541,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.3"
-  glassmorphism_ui:
-    dependency: "direct main"
-    description:
-      name: glassmorphism_ui
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.3.0"
   glob:
     dependency: transitive
     description:

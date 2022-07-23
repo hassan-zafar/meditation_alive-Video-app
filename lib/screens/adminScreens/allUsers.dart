@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 import 'package:meditation_alive/consts/collections.dart';
 import 'package:meditation_alive/models/users.dart';
 import 'package:meditation_alive/services/authentication_service.dart';
@@ -130,98 +129,88 @@ class _UserNSearchState extends State<UserNSearch>
                   userResults.add(userResult);
                 }
               });
-              return GlassContainer(
-                child: ListView(
-                  physics: BouncingScrollPhysics(),
-                  children: <Widget>[
-                    currentUser!.isAdmin!
-                        ? Container(
-                            height: 100,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: ListView(
-                                scrollDirection: Axis.horizontal,
-                                shrinkWrap: true,
-                                children: [
-                                  Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsets.all(8),
-                                        child: GestureDetector(
-                                          onTap: () {
-                                            setState(() {
-                                              typeSelected = "users";
-                                            });
-                                          },
-                                          child: GlassContainer(
-                                            opacity: 0.7,
-                                            shadowStrength: 8,
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Text(
-                                                "All Users ${userResults.length}",
-                                                style:
-                                                    TextStyle(fontSize: 20.0),
-                                              ),
-                                            ),
+              return ListView(
+                physics: BouncingScrollPhysics(),
+                children: <Widget>[
+                  currentUser!.isAdmin!
+                      ? Container(
+                          height: 100,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: ListView(
+                              scrollDirection: Axis.horizontal,
+                              shrinkWrap: true,
+                              children: [
+                                Row(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.center,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.all(8),
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            typeSelected = "users";
+                                          });
+                                        },
+                                        child: Padding(
+                                          padding:
+                                              const EdgeInsets.all(8.0),
+                                          child: Text(
+                                            "All Users ${userResults.length}",
+                                            style:
+                                                TextStyle(fontSize: 20.0),
                                           ),
                                         ),
                                       ),
-                                    ],
-                                  ),
-                                  Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsets.all(8),
-                                        child: GestureDetector(
-                                          onTap: () {
-                                            setState(() {
-                                              typeSelected = "admin";
-                                            });
-                                          },
-                                          child: GlassContainer(
-                                            opacity: 0.7,
-                                            shadowStrength: 8,
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Text(
-                                                "All Admins ${allAdmins.length}",
-                                                style:
-                                                    TextStyle(fontSize: 20.0),
-                                              ),
-                                            ),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.center,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.all(8),
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            typeSelected = "admin";
+                                          });
+                                        },
+                                        child: Padding(
+                                          padding:
+                                              const EdgeInsets.all(8.0),
+                                          child: Text(
+                                            "All Admins ${allAdmins.length}",
+                                            style:
+                                                TextStyle(fontSize: 20.0),
                                           ),
                                         ),
                                       ),
-                                    ],
-                                  ),
-                                ],
-                              ),
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
-                          )
-                        : Container(),
-                    typeSelected == 'admin'
-                        ? Column(
-                            children: allAdmins,
-                          )
-                        : Text(""),
-                    typeSelected == 'users'
-                        ? Column(
-                            children: userResults,
-                          )
-                        : Text(''),
-                  ],
-                ),
+                          ),
+                        )
+                      : Container(),
+                  typeSelected == 'admin'
+                      ? Column(
+                          children: allAdmins,
+                        )
+                      : Text(""),
+                  typeSelected == 'users'
+                      ? Column(
+                          children: userResults,
+                        )
+                      : Text(''),
+                ],
               );
             }),
         Positioned(
@@ -261,25 +250,21 @@ class UserResult extends StatelessWidget {
             onTap: () => makeAdmin(context),
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: GlassContainer(
-                opacity: 0.6,
-                shadowStrength: 8,
-                child: ListTile(
-                  leading: CircleAvatar(
-                    backgroundColor: Colors.grey,
-                    child: Icon(Icons.person),
-                  ),
-                  title: Text(
-                    user.name.toString(),
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  subtitle: Text(
-                    user.name.toString(),
-                  ),
-                  trailing: Text(user.isAdmin != null && user.isAdmin == true
-                      ? "Admin"
-                      : "User"),
+              child: ListTile(
+                leading: CircleAvatar(
+                  backgroundColor: Colors.grey,
+                  child: Icon(Icons.person),
                 ),
+                title: Text(
+                  user.name.toString(),
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                subtitle: Text(
+                  user.name.toString(),
+                ),
+                trailing: Text(user.isAdmin != null && user.isAdmin == true
+                    ? "Admin"
+                    : "User"),
               ),
             ),
           ),

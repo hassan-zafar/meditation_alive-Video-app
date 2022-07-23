@@ -42,7 +42,6 @@ dependencies:
   better_player: ^0.0.77
   flutter_local_notifications:
   timeago:
-  glassmorphism_ui:
   path_provider:
   file_picker:
   video_player:

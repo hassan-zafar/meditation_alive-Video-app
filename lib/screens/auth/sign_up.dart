@@ -366,7 +366,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           },
                           obscureText: _obscureText,
                           onEditingComplete: () => FocusScope.of(context)
-                              .requestFocus(_phoneNumberFocusNode),
+                              .requestFocus(_passwordFocusNode),
                         ),
                       ),
                       Padding(
@@ -380,9 +380,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             }
                             return null;
                           },
-                          inputFormatters: [
-                            FilteringTextInputFormatter.digitsOnly
-                          ],
                           textInputAction: TextInputAction.next,
                           onEditingComplete: _submitForm,
                           keyboardType: TextInputType.phone,

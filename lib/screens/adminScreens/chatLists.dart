@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 import 'package:meditation_alive/consts/collections.dart';
 import 'package:meditation_alive/screens/adminScreens/commentsNChatAdmin.dart';
 import 'package:meditation_alive/widgets/loadingWidget.dart';
@@ -63,14 +62,11 @@ class _ChatListsState extends State<ChatLists> {
                                       .androidNotificationToken,
                                   heroMsg: chatHeads[index].comment,
                                 ))),
-                    child: GlassContainer(
-                      opacity: 0.5,
-                      child: ListTile(
-                        title: Text(chatHeads[index].userName!),
-                        subtitle: Text(
-                          chatHeads[index].comment!,
-                          overflow: TextOverflow.ellipsis,
-                        ),
+                    child: ListTile(
+                      title: Text(chatHeads[index].userName!),
+                      subtitle: Text(
+                        chatHeads[index].comment!,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
                   ),
