@@ -11,6 +11,7 @@ import 'package:meditation_alive/provider/background_play_provider.dart';
 import 'package:meditation_alive/provider/dark_theme_provider.dart';
 import 'package:meditation_alive/provider/notification_preferences.dart';
 import 'package:meditation_alive/screens/adminScreens/commentsNChatAdmin.dart';
+import 'package:meditation_alive/screens/auth/edit_profile.dart';
 import 'package:meditation_alive/screens/billingScreen.dart';
 import 'package:meditation_alive/screens/downloadedPage/downloaded_page.dart';
 import 'package:meditation_alive/widgets/loadingWidget.dart';
@@ -197,6 +198,7 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
                                         fontSize: 16,
                                         color: Theme.of(context).dividerColor),
                                   ),
+
                                   // Container(
                                   //   margin: EdgeInsets.only(top: 8),
                                   //   padding: EdgeInsets.all(8),
@@ -218,6 +220,21 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             userTitle(title: 'Content'),
+
+                            Material(
+                              color: Colors.transparent,
+                              child: InkWell(
+                                onTap: () => Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                        builder: (context) => EditProfile())),
+                                splashColor: Colors.red,
+                                child: ListTile(
+                                  title: Text('Edit Profile'),
+                                  trailing: Icon(Icons.chevron_right_rounded),
+                                  leading: Icon(Icons.edit),
+                                ),
+                              ),
+                            ),
 
                             Material(
                               color: Colors.transparent,
@@ -296,7 +313,8 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
                                 print(value);
 
                                 setState(() {
-                                  // backgroundPlayChanges.backgroundPlaySet
+                                  backgroundPlayChanges.backgroundPlaySet =
+                                      value;
                                   playInBackground = value;
                                 });
                               },

@@ -311,7 +311,7 @@ class _LandingPageState extends State<LandingPage>
                 // shape: StadiumBorder(),
                 // highlightedBorderColor: Colors.red.shade200,
                 // borderSide: BorderSide(width: 2, color: Colors.red),
-                child: Text('Google +'),
+                child: Text('Google '),
               ),
               _isLoading
                   ? CircularProgressIndicator()
