@@ -4,6 +4,7 @@ import 'package:meditation_alive/consts/collections.dart';
 import 'package:meditation_alive/database/database.dart';
 import 'package:meditation_alive/screens/auth/landing_page.dart';
 import 'package:meditation_alive/screens/homePage.dart';
+import 'package:meditation_alive/widgets/bottom_bar.dart';
 
 class UserState extends StatelessWidget {
   @override
@@ -25,7 +26,8 @@ class UserState extends StatelessWidget {
                   .then((value) {
                 print('The user is already logged in');
               });
-              return HomePage();
+              // return HomePage();
+              return BottomBarScreen();
 
               // MainScreens();
             } else {
