@@ -61,6 +61,7 @@ class _VideoPageState extends State<VideoPage> {
                           path: widget.product!.videoUrl,
                           product: widget.product,
                           allFile: allFiles,
+                          index: allFiles.indexWhere((element) => element.name == firstFile.name),
                         ),
                 ),
           Container(

@@ -18,10 +18,11 @@ import 'package:share/share.dart';
 
 class VideoWidget extends StatefulWidget {
   final String? path;
-
+  final int index;
   final List<FirebaseFile>? allFile;
   final Product? product;
-  VideoWidget({this.path, this.allFile, required this.product});
+  VideoWidget(
+      {this.path, this.allFile, required this.product, required this.index});
   @override
   _VideoWidgetState createState() => _VideoWidgetState();
 }
@@ -29,11 +30,12 @@ class VideoWidget extends StatefulWidget {
 class _VideoWidgetState extends State<VideoWidget> with WidgetsBindingObserver {
   double progress = 0;
   final Dio dio = Dio();
-  BetterPlayerController? _betterPlayerController;
-  BetterPlayerConfiguration? _betterPlayerConfiguration;
+  late BetterPlayerController? _betterPlayerController;
+  late BetterPlayerConfiguration _betterPlayerConfiguration;
   GlobalKey _betterPlayerKey = GlobalKey();
   List<BetterPlayerDataSource> dataSourceList = [];
   bool showProgress = false;
+  final SimpleProvider simpleProvider = SimpleProvider();
   Future<bool> _requestPermission() async {
     Permission permission = Permission.storage;
     var asd = Permission.accessMediaLocation;
@@ -49,6 +51,35 @@ class _VideoWidgetState extends State<VideoWidget> with WidgetsBindingObserver {
       }
     }
     return false;
+  }
+
+  void onVisibilityChanged(double fraction) {
+    print("Fraction is : $fraction");
+    if (fraction == 0) {
+      if (_betterPlayerController != null) {
+        _betterPlayerController!.dispose();
+        _betterPlayerController = null;
+        simpleProvider.notify();
+        print("_betterPlayerControlleris disposed.");
+      }
+    } else {
+      if (_betterPlayerController == null) {
+        initializeController();
+        print("_betterPlayerControlleris a new one.");
+        simpleProvider.notify();
+      }
+      /*
+      if (fraction >= 0.8 && controller!.isVideoInitialized() != null && controller!.isVideoInitialized()!) {
+        if (controller!.isPlaying() != null && controller!.isPlaying()!) {
+          controller!.pause();
+        }
+        else {
+          controller!.play();
+        }
+      }
+
+       */
+    }
   }
 
   Future<bool> saveVideo(String url, String fileName) async {
@@ -115,6 +146,10 @@ class _VideoWidgetState extends State<VideoWidget> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     createDataSet();
+    initializeController();
+  }
+
+  initializeController() async {
     _betterPlayerConfiguration = BetterPlayerConfiguration(
         allowedScreenSleep: true,
         autoPlay: true,
@@ -130,12 +165,13 @@ class _VideoWidgetState extends State<VideoWidget> with WidgetsBindingObserver {
             // },
             pipMenuIcon: Icons.picture_in_picture_rounded,
             iconsColor: Colors.white));
+
     BetterPlayerDataSource betterPlayerDataSource = BetterPlayerDataSource(
       BetterPlayerDataSourceType.network,
       widget.path!,
     );
     _betterPlayerController = BetterPlayerController(
-      _betterPlayerConfiguration!,
+      _betterPlayerConfiguration,
       betterPlayerDataSource: betterPlayerDataSource,
     );
   }
@@ -144,7 +180,7 @@ class _VideoWidgetState extends State<VideoWidget> with WidgetsBindingObserver {
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
     _betterPlayerController!.dispose();
-
+    _betterPlayerController = null;
     super.dispose();
   }
 
@@ -188,13 +224,17 @@ class _VideoWidgetState extends State<VideoWidget> with WidgetsBindingObserver {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Expanded(
-            child: BetterPlayerPlaylist(
-                betterPlayerDataSourceList: dataSourceList,
-                betterPlayerConfiguration: BetterPlayerConfiguration(),
-                betterPlayerPlaylistConfiguration:
-                    BetterPlayerPlaylistConfiguration(
-                  nextVideoDelay: Duration(seconds: 1),
-                ))
+            child: BetterPlayer(
+          controller: _betterPlayerController!,
+        )
+            //  BetterPlayerPlaylist(
+            //     betterPlayerDataSourceList: dataSourceList,
+            //     betterPlayerConfiguration: BetterPlayerConfiguration(),
+            //     betterPlayerPlaylistConfiguration:
+            //         BetterPlayerPlaylistConfiguration(
+            //       nextVideoDelay: Duration(seconds: 1),
+            //       initialStartIndex: widget.index,
+            //     ))
             //  VideoPlayerWidget(controller: _betterPlayerController!)
             ),
         // const SizedBox(height: 32),
@@ -297,5 +337,11 @@ class _VideoWidgetState extends State<VideoWidget> with WidgetsBindingObserver {
         ),
       ],
     );
+  }
+}
+
+class SimpleProvider extends ChangeNotifier {
+  void notify() {
+    notifyListeners();
   }
 }

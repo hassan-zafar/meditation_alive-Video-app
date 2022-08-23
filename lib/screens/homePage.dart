@@ -8,6 +8,7 @@ import 'package:meditation_alive/models/product.dart';
 import 'package:meditation_alive/models/users.dart';
 import 'package:meditation_alive/provider/favs_provider.dart';
 import 'package:meditation_alive/provider/products.dart';
+import 'package:meditation_alive/screens/adminScreens/uploadVideo.dart';
 import 'package:meditation_alive/screens/payment_screen.dart';
 import 'package:meditation_alive/screens/search.dart';
 import 'package:meditation_alive/screens/user_info.dart';
@@ -178,6 +179,7 @@ class _HomePageState extends State<HomePage> {
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(16, 8, 0, 8),
                                 child: InkWell(
+                                  onLongPress: () => currentUser!.isAdmin! ? Navigator.of(context).push(MaterialPageRoute(builder: (context) => UploadProductForm(isEditable: true,details:productsProvider.products[index]),)) :null,
                                   onTap: () {
                                     DateTime subEndTime = DateTime.parse(
                                         currentUser!.subscriptionEndTIme!);

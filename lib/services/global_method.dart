@@ -11,10 +11,8 @@ class GlobalMethods {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(right: 6.0),
-                  child: Image.network(
-                    'https://image.flaticon.com/icons/png/128/564/564619.png',
-                    height: 20,
-                    width: 20,
+                  child: Icon(Icons.error
+                    ,size: 20,
                   ),
                 ),
                 Padding(
@@ -46,12 +44,10 @@ class GlobalMethods {
           return AlertDialog(
             title: Row(
               children: [
-                Padding(
+                 Padding(
                   padding: const EdgeInsets.only(right: 6.0),
-                  child: Image.network(
-                    'https://image.flaticon.com/icons/png/128/564/564619.png',
-                    height: 20,
-                    width: 20,
+                  child: Icon(Icons.error
+                    ,size: 20,
                   ),
                 ),
                 Padding(
@@ -72,4 +68,36 @@ class GlobalMethods {
           );
         });
   }
+  Future<void> authSuccessHandle(String subtitle, BuildContext context) async {
+    showDialog(
+        context: context,
+        builder: (BuildContext ctx) {
+          return AlertDialog(
+            title: Row(
+              children: [
+                 Padding(
+                  padding: const EdgeInsets.only(right: 6.0),
+                  child: Icon(Icons.done
+                    ,size: 20,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text('Error occured'),
+                ),
+              ],
+            ),
+            content: Text(subtitle),
+            actions: [
+            
+              TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text('Ok'))
+            ],
+          );
+        });
+  }
+
 }

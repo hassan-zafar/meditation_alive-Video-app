@@ -433,11 +433,7 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
                                                   padding:
                                                       const EdgeInsets.only(
                                                           right: 6.0),
-                                                  child: Image.network(
-                                                    'https://image.flaticon.com/icons/png/128/1828/1828304.png',
-                                                    height: 20,
-                                                    width: 20,
-                                                  ),
+                                                  child: Icon(Icons.logout),
                                                 ),
                                                 Padding(
                                                   padding:
