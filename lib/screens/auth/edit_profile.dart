@@ -168,7 +168,7 @@ class _EditProfileState extends State<EditProfile> {
                               },
                               child: Text("Change Password"),
                             ),
-                            RaisedButton(
+                            ElevatedButton(
                               onPressed: logout,
                               child: Text("Logout"),
                             ),
@@ -177,16 +177,21 @@ class _EditProfileState extends State<EditProfile> {
                       ),
                       Padding(
                         padding: EdgeInsets.all(25.0),
-                        child: FlatButton.icon(
+                        child: ElevatedButton(
                           onPressed: () => logout(),
-                          icon: Icon(
-                            Icons.cancel,
-                            color: Colors.red,
-                            size: 40,
-                          ),
-                          label: Text(
-                            "Log Out",
-                            style: TextStyle(color: Colors.red, fontSize: 20.0),
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.cancel,
+                                color: Colors.red,
+                                size: 40,
+                              ),
+                              Text(
+                                "Log Out",
+                                style: TextStyle(
+                                    color: Colors.red, fontSize: 20.0),
+                              ),
+                            ],
                           ),
                         ),
                       ),

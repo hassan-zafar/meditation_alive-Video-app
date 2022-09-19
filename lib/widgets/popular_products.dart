@@ -82,7 +82,9 @@ class PopularProducts extends StatelessWidget {
                         child: Text(
                           '\$ ${productsAttributes.videoUrl}',
                           style: TextStyle(
-                            color: Theme.of(context).textSelectionColor,
+                            color: 
+                            Colors.black
+                            // Theme.of(context).secondaryHeaderColor,
                           ),
                         ),
                       ),

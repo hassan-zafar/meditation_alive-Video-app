@@ -49,7 +49,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     textController = TextEditingController();
-    _getProductsOnRefresh();
+    getProductsOnRefresh();
     // getCurrrentUser();
   }
 
@@ -66,7 +66,7 @@ class _HomePageState extends State<HomePage> {
     print(currentUser);
   }
 
-  Future<void> _getProductsOnRefresh() async {
+  Future<void> getProductsOnRefresh() async {
     await Provider.of<Products>(context, listen: false).fetchProducts();
     // final Products _productsProvider = Provider.of<Products>(context);
 
@@ -153,7 +153,7 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       body: RefreshIndicator(
-        onRefresh: _getProductsOnRefresh,
+        onRefresh: getProductsOnRefresh,
         child: isLoading
             ? Center(
                 child: CircularProgressIndicator(),
@@ -179,7 +179,73 @@ class _HomePageState extends State<HomePage> {
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(16, 8, 0, 8),
                                 child: InkWell(
-                                  onLongPress: () => currentUser!.isAdmin! ? Navigator.of(context).push(MaterialPageRoute(builder: (context) => UploadProductForm(isEditable: true,details:productsProvider.products[index]),)) :null,
+                                  onLongPress: () {
+                                    currentUser!.isAdmin!
+                                        ? showDialog(
+                                                context: context,
+                                                builder: (context) {
+                                                  return SimpleDialog(
+                                                    children: <Widget>[
+                                                      SimpleDialogOption(
+                                                        onPressed: () {
+                                                          Navigator.of(context)
+                                                              .push(
+                                                                  MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                UploadProductForm(
+                                                                    isEditable:
+                                                                        true,
+                                                                    details: productsProvider
+                                                                            .products[
+                                                                        index]),
+                                                          ));
+                                                        },
+                                                        child: Text(
+                                                          'Edit Video',
+                                                        ),
+                                                      ),
+                                                      SimpleDialogOption(
+                                                        onPressed: () {
+                                                          setState(() {
+                                                            isLoading = true;
+                                                          });
+
+                                                          FirebaseFirestore
+                                                              .instance
+                                                              .collection(
+                                                                  'products')
+                                                              .doc(prodAttr
+                                                                  .productId)
+                                                              .delete()
+                                                              .then((value) =>
+                                                                  getProductsOnRefresh);
+
+                                                          setState(() {
+                                                            isLoading = false;
+                                                          });
+                                                          Navigator.pop(
+                                                              context);
+                                                        },
+                                                        child: Text(
+                                                          'Delete Video',
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.red),
+                                                        ),
+                                                      ),
+                                                      SimpleDialogOption(
+                                                        onPressed: () =>
+                                                            Navigator.pop(
+                                                                context),
+                                                        child: Text('Cancel'),
+                                                      )
+                                                    ],
+                                                  );
+                                                })
+                                            .then(
+                                                (value) => getProductsOnRefresh)
+                                        : null;
+                                  },
                                   onTap: () {
                                     DateTime subEndTime = DateTime.parse(
                                         currentUser!.subscriptionEndTIme!);

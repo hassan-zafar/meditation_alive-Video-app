@@ -152,11 +152,12 @@ class _PaymentScreenState extends State<PaymentScreen> {
               paymentSheetParameters: SetupPaymentSheetParameters(
                   paymentIntentClientSecret:
                       paymentIntentData!['client_secret'],
-                  applePay: true,
-                  googlePay: true,
-                  testEnv: true,
+                  // applePay: ,
+                  // googlePay: true,
+                  // testEnv: true,
+                  
                   style: ThemeMode.dark,
-                  merchantCountryCode: 'US',
+                  // merchantCountryCode: 'US',
                   merchantDisplayName: 'ANNIE'))
           .then((value) {});
 

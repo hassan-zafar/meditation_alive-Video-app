@@ -15,10 +15,10 @@ class PaymentController extends ChangeNotifier {
       if (paymentIntentData != null) {
         await Stripe.instance.initPaymentSheet(
             paymentSheetParameters: SetupPaymentSheetParameters(
-          applePay: true,
-          googlePay: true,
-          testEnv: true,
-          merchantCountryCode: 'US',
+          // applePay: true,
+          // googlePay: true,
+          // testEnv: true,
+          // merchantCountryCode: 'US',
           merchantDisplayName: 'Prospects',
           customerId: paymentIntentData!['customer'],
           paymentIntentClientSecret: paymentIntentData!['client_secret'],

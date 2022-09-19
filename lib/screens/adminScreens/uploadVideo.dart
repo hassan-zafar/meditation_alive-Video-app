@@ -79,7 +79,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
           title: Text(title),
           content: Text(body),
           actions: [
-            FlatButton(
+            ElevatedButton(
               child: Text("OK"),
               onPressed: () {
                 Navigator.of(context).pop();
@@ -437,52 +437,54 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                             MainAxisAlignment.center,
                                         children: [
                                           FittedBox(
-                                            child: FlatButton.icon(
-                                              textColor: Colors.white,
+                                            
+                                            child:IconButton(
+                                              // textColor: Colors.white,
                                               onPressed: _pickImageCamera,
                                               icon: Icon(Icons.camera,
                                                   color: Colors.purpleAccent),
-                                              label: Text(
-                                                'Camera',
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.w500,
-                                                  color: Theme.of(context)
-                                                      .textSelectionColor,
-                                                ),
-                                              ),
+                                                  tooltip: 'Pick Image from camera',
+                                              // label: Text(
+                                              //   'Camera',
+                                              //   style: TextStyle(
+                                              //     fontWeight: FontWeight.w500,
+                                              //     color: Theme.of(context)
+                                              //         .textSelectionColor,
+                                              //   ),
+                                              // ),
                                             ),
                                           ),
                                           FittedBox(
-                                            child: FlatButton.icon(
-                                              textColor: Colors.white,
+                                            child: IconButton(
+                                              // textColor: Colors.white,
                                               onPressed: _pickImageGallery,
                                               icon: Icon(Icons.image,
-                                                  color: Colors.purpleAccent),
-                                              label: Text(
-                                                'Gallery',
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.w500,
-                                                  color: Theme.of(context)
-                                                      .textSelectionColor,
-                                                ),
-                                              ),
+                                                  color: Colors.purpleAccent),tooltip: 'Pick Image from gallery',
+                                              // label: Text(
+                                              //   'Gallery',
+                                              //   style: TextStyle(
+                                              //     fontWeight: FontWeight.w500,
+                                              //     color: Theme.of(context)
+                                              //         .textSelectionColor,
+                                              //   ),
+                                              // ),
                                             ),
                                           ),
                                           FittedBox(
-                                            child: FlatButton.icon(
-                                              textColor: Colors.white,
+                                            child: IconButton(
+                                              // textColor: Colors.white,
                                               onPressed: _removeImage,
                                               icon: Icon(
                                                 Icons.remove_circle_rounded,
                                                 color: Colors.red,
-                                              ),
-                                              label: Text(
-                                                'Remove',
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.w500,
-                                                  color: Colors.redAccent,
-                                                ),
-                                              ),
+                                              ),tooltip: 'Remove Image',
+                                              // label: Text(
+                                              //   'Remove',
+                                              //   style: TextStyle(
+                                              //     fontWeight: FontWeight.w500,
+                                              //     color: Colors.redAccent,
+                                              //   ),
+                                              // ),
                                             ),
                                           ),
                                         ],

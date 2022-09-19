@@ -49,7 +49,7 @@ dependencies:
 
   connectivity:
   dio:
-  permission_handler: ^9.2.0
+  permission_handler: ^10.0.0
   flutter_file_extention:
   image_gallery_saver:
   flutter_stripe:
