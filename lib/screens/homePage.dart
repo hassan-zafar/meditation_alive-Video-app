@@ -114,8 +114,9 @@ class _HomePageState extends State<HomePage> {
           !taskVideos.contains(element)) {
         taskVideos.add(element);
       }
-      if (element.productCategoryName == "Relaxing" &&
-          !relaxingVideos.contains(element)) {
+      if (element.productCategoryName == "Relaxing" ||
+          element.productCategoryName == "Relaxation" &&
+              !relaxingVideos.contains(element)) {
         relaxingVideos.add(element);
       }
     });
@@ -174,7 +175,7 @@ class _HomePageState extends State<HomePage> {
                             itemBuilder: (context, index) {
                               final prodAttr = productsProvider.findById(
                                   productsProvider.products[index].productId!);
-
+                              print('prodAttr ${prodAttr.productId}');
                               return Padding(
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(16, 8, 0, 8),
@@ -188,6 +189,8 @@ class _HomePageState extends State<HomePage> {
                                                     children: <Widget>[
                                                       SimpleDialogOption(
                                                         onPressed: () {
+                                                          Navigator.pop(
+                                                              context);
                                                           Navigator.of(context)
                                                               .push(
                                                                   MaterialPageRoute(
@@ -195,9 +198,8 @@ class _HomePageState extends State<HomePage> {
                                                                 UploadProductForm(
                                                                     isEditable:
                                                                         true,
-                                                                    details: productsProvider
-                                                                            .products[
-                                                                        index]),
+                                                                    details:
+                                                                        prodAttr),
                                                           ));
                                                         },
                                                         child: Text(

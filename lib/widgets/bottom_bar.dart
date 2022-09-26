@@ -28,9 +28,9 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
       // Search(),
       // WishlistScreen(),
       UserInfoScreen(),
-      UserNSearch(),
-      ChatLists(),
-      UploadProductForm(),
+      // UserNSearch(),
+      // ChatLists(),
+      // UploadProductForm(),
     ];
     //
     super.initState();
@@ -128,18 +128,18 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
                       MyAppIcons.user,
                     ),
                     label: 'My Profile'),
-                BottomNavigationBarItem(
-                    icon: Icon(
-                      Icons.people,
-                    ),
-                    label: 'All Users'),
-                BottomNavigationBarItem(
-                    icon: Icon(
-                      Icons.chat_bubble,
-                    ),
-                    label: 'Admin Chats'),
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.upload_file), label: 'Upload Post'),
+                // BottomNavigationBarItem(
+                //     icon: Icon(
+                //       Icons.people,
+                //     ),
+                //     label: 'All Users'),
+                // BottomNavigationBarItem(
+                //     icon: Icon(
+                //       Icons.chat_bubble,
+                //     ),
+                //     label: 'Admin Chats'),
+                // BottomNavigationBarItem(
+                //     icon: Icon(Icons.upload_file), label: 'Upload Post'),
               ],
             ),
           ),

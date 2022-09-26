@@ -118,25 +118,24 @@ class _UploadProductFormState extends State<UploadProductForm> {
           setState(() {
             _isLoading = true;
           });
-          print(_isLoading);
-          final ref = FirebaseStorage.instance
-              .ref()
-              .child('productsImages')
-              .child(_productTitle + '.jpg');
-          await ref.putFile(_pickedImage!);
-          url = await ref.getDownloadURL();
-          await uploadFile();
+          if (!widget.isEditable) {
+            final ref = FirebaseStorage.instance
+                .ref()
+                .child('productsImages')
+                .child(_productTitle + '.jpg');
+            await ref.putFile(_pickedImage!);
+            url = await ref.getDownloadURL();
+            await uploadFile();
+          }
           final User? user = _auth.currentUser;
           final _uid = user!.uid;
-          final String productId=uuid.v4();
-          Product product= widget.details!;
-          print('before firebase');
           if (widget.isEditable) {
+          Product product = widget.details!;
             await FirebaseFirestore.instance
                 .collection('products')
-                .doc(product.id!)
+                .doc(product.productId!)
                 .update({
-              'productId': product.id,
+              'productId': product.productId,
               'productTitle': _productTitle,
               'productCategory': _productCategory,
               'categoryDescription': _categoryDescription,
@@ -149,10 +148,12 @@ class _UploadProductFormState extends State<UploadProductForm> {
                         _isLoading = false;
                       }),
                       _globalMethods.authSuccessHandle(
-                          'Product Uploaded Successfully', context),
+                          'Audio Updated Successfully', context),
                     });
             Navigator.canPop(context) ? Navigator.pop(context) : null;
-          } else
+          } else {
+            final String productId = uuid.v4();
+            print('productId $productId');
             await FirebaseFirestore.instance
                 .collection('products')
                 .doc(productId)
@@ -174,8 +175,9 @@ class _UploadProductFormState extends State<UploadProductForm> {
                         _isLoading = false;
                       }),
                       _globalMethods.authSuccessHandle(
-                          'Product Uploaded Successfully', context),
+                          'Audio Uploaded Successfully', context),
                     });
+          }
           Navigator.canPop(context) ? Navigator.pop(context) : null;
         }
       } catch (error) {
@@ -437,13 +439,12 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                             MainAxisAlignment.center,
                                         children: [
                                           FittedBox(
-                                            
-                                            child:IconButton(
+                                            child: IconButton(
                                               // textColor: Colors.white,
                                               onPressed: _pickImageCamera,
                                               icon: Icon(Icons.camera,
                                                   color: Colors.purpleAccent),
-                                                  tooltip: 'Pick Image from camera',
+                                              tooltip: 'Pick Image from camera',
                                               // label: Text(
                                               //   'Camera',
                                               //   style: TextStyle(
@@ -459,7 +460,9 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                               // textColor: Colors.white,
                                               onPressed: _pickImageGallery,
                                               icon: Icon(Icons.image,
-                                                  color: Colors.purpleAccent),tooltip: 'Pick Image from gallery',
+                                                  color: Colors.purpleAccent),
+                                              tooltip:
+                                                  'Pick Image from gallery',
                                               // label: Text(
                                               //   'Gallery',
                                               //   style: TextStyle(
@@ -477,7 +480,8 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                               icon: Icon(
                                                 Icons.remove_circle_rounded,
                                                 color: Colors.red,
-                                              ),tooltip: 'Remove Image',
+                                              ),
+                                              tooltip: 'Remove Image',
                                               // label: Text(
                                               //   'Remove',
                                               //   style: TextStyle(
@@ -556,8 +560,8 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                   value: 'Task',
                                 ),
                                 DropdownMenuItem<String>(
-                                  child: Text('Relaxation'),
-                                  value: 'Relaxation',
+                                  child: Text('Relaxing'),
+                                  value: 'Relaxing',
                                 ),
                               ],
                               onChanged: (String? value) {

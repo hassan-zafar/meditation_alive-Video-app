@@ -39,7 +39,10 @@ dependencies:
   share:
   google_fonts:
   firebase_messaging:
-  better_player: ^0.0.77
+  better_player:
+    git:
+      url: https://github.com/matthewrice345/betterplayer.git
+      ref: Issue1057
   flutter_local_notifications:
   timeago:
   path_provider:
