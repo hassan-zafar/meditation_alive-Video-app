@@ -249,6 +249,7 @@ class _HomePageState extends State<HomePage> {
                                         : null;
                                   },
                                   onTap: () {
+                                    print(index);
                                     DateTime subEndTime = DateTime.parse(
                                         currentUser!.subscriptionEndTIme!);
                                     if (currentUser!.email ==
@@ -257,7 +258,8 @@ class _HomePageState extends State<HomePage> {
                                           message:
                                               'LogIn with google or email to continue');
                                     } else if (subEndTime
-                                        .isBefore(DateTime.now())) {
+                                            .isBefore(DateTime.now()) ||
+                                        index > 1) {
                                       Navigator.of(context).push(MaterialPageRoute(
                                           builder: (context) => PaymentScreen(
                                                 product: productsProvider
@@ -495,6 +497,7 @@ class _HomePageState extends State<HomePage> {
                               return CategoryItemsViewer(
                                 path: dailyVideos[index].videoUrl,
                                 allProducts: dailyVideos,
+                                index: index,
                                 product: dailyVideos[index],
                                 imageUrl: dailyVideos[index].imageUrl,
                                 postId: dailyVideos[index].productId,
@@ -529,6 +532,7 @@ class _HomePageState extends State<HomePage> {
                             if (movementVideos.length > 0) {
                               return CategoryItemsViewer(
                                 path: movementVideos[index].videoUrl,
+                                index: index,
                                 allProducts: movementVideos,
                                 product: movementVideos[index],
                                 imageUrl: movementVideos[index].imageUrl,
@@ -566,6 +570,7 @@ class _HomePageState extends State<HomePage> {
                                 path: seatedVideos[index].videoUrl,
                                 allProducts: seatedVideos,
                                 product: seatedVideos[index],
+                                index: index,
                                 imageUrl: seatedVideos[index].imageUrl,
                                 postId: seatedVideos[index].productId,
                                 category:
@@ -601,6 +606,7 @@ class _HomePageState extends State<HomePage> {
                                 path: thinkingVideos[index].videoUrl,
                                 allProducts: thinkingVideos,
                                 product: thinkingVideos[index],
+                                index: index,
                                 imageUrl: thinkingVideos[index].imageUrl,
                                 postId: thinkingVideos[index].productId,
                                 category:
@@ -636,6 +642,7 @@ class _HomePageState extends State<HomePage> {
                                 path: educationalVideos[index].videoUrl,
                                 allProducts: educationalVideos,
                                 product: educationalVideos[index],
+                                index: index,
                                 imageUrl: educationalVideos[index].imageUrl,
                                 postId: educationalVideos[index].productId,
                                 category: educationalVideos[index]
@@ -671,6 +678,7 @@ class _HomePageState extends State<HomePage> {
                               return CategoryItemsViewer(
                                 path: taskVideos[index].videoUrl,
                                 allProducts: taskVideos,
+                                index: index,
                                 product: taskVideos[index],
                                 imageUrl: taskVideos[index].imageUrl,
                                 postId: taskVideos[index].productId,
@@ -705,6 +713,7 @@ class _HomePageState extends State<HomePage> {
                               return CategoryItemsViewer(
                                 path: relaxingVideos[index].videoUrl,
                                 allProducts: relaxingVideos,
+                                index: index,
                                 product: relaxingVideos[index],
                                 imageUrl: relaxingVideos[index].imageUrl,
                                 postId: relaxingVideos[index].productId,
@@ -768,6 +777,7 @@ class CategoryItemsViewer extends StatelessWidget {
   final String? category;
   final String? imageUrl;
   final Product? product;
+  final int index;
   final List<Product>? allProducts;
   const CategoryItemsViewer(
       {this.path,
@@ -775,6 +785,7 @@ class CategoryItemsViewer extends StatelessWidget {
       this.videoLength,
       this.imageUrl,
       this.category,
+      required this.index,
       required this.allProducts,
       required this.product,
       this.videoText});
@@ -787,7 +798,7 @@ class CategoryItemsViewer extends StatelessWidget {
       child: InkWell(
         onTap: () async {
           if (currentUser!.subscriptionEndTIme == null ||
-              currentUser!.subscriptionEndTIme!.isEmpty) {
+              currentUser!.subscriptionEndTIme!.isEmpty || index > 1) {
             LoadingIndicator();
             await userRef.doc(currentUser!.id).update({
               'subscriptionEndTIme': DateTime.now().toIso8601String(),
@@ -798,16 +809,14 @@ class CategoryItemsViewer extends StatelessWidget {
           if (currentUser!.email == 'guest@guest.com') {
             CustomToast.errorToast(
                 message: 'LogIn with google or email to continue');
-          }
-          //  else if (subEndTime.isBefore(DateTime.now())) {
-          //   Navigator.of(context).push(MaterialPageRoute(
-          //     builder: (context) => PaymentScreen(
-          //       product: product,
-          //       allProducts: allProducts,
-          //     ),
-          //   ));
-          // }
-          else {
+          } else if (subEndTime.isBefore(DateTime.now())) {
+            Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => PaymentScreen(
+                product: product,
+                allProducts: allProducts,
+              ),
+            ));
+          } else {
             Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => VideoPage(
                 product: product,
