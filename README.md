@@ -1,4 +1,5 @@
 # meditation_alive
+Subscription based audio video sharing platform
 
 [![wakatime](https://wakatime.com/badge/user/95cc268b-6e4f-469d-8aee-c933dee3f3be/project/44875a19-1172-465a-85e7-4c17da0d7106.svg)](https://wakatime.com/badge/user/95cc268b-6e4f-469d-8aee-c933dee3f3be/project/44875a19-1172-465a-85e7-4c17da0d7106)
 
